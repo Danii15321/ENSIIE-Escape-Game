@@ -24,7 +24,7 @@ Node 22 recommandé. Dans ce workspace WSL, exécuter ces commandes dans Ubuntu,
 
 **Phase 2 livrée :** Conseil facultatif à trois questions et quatre fins, engagements, frise sourcée, contribution privée locale et export du souvenir. Voir le [guide des fins](game/endings/README.md).
 
-**À poursuivre :** photos et recette terrain, chronomètre et préparation hors ligne. Les fiches indiquent précisément les dépendances communes de chaque niveau.
+**À poursuivre :** photos et recette terrain, chronomètre et validation hors ligne sur l’hébergement HTTPS. La préparation explicite du cache est intégrée via le chantier 07. Les fiches indiquent précisément les dépendances communes de chaque niveau.
 
 Le [bilan de la phase 1 — contenu et interface](docs/implementation/PHASE-1-TEAMMATE.md) décrit les adaptations du prototype : code postal seul pour EXT-EST, nom d’équipe conservé et directions réelles désormais intégrées. Le [relevé Évry 2026](game/sites/evry-2026/README.md) documente O1 = 2 baby-foot dans le foyer et O2 = 3 salles de TP au premier étage, d’après les informations du porteur du projet. Les photos seront ajoutées plus tard.
 

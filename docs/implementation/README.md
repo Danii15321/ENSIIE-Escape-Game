@@ -83,9 +83,10 @@ Prendre une fiche entière ou ses sous-tâches. Les propriétaires ci-dessous so
 - Fusionnés : acte II et ses briques, SYN-03, contrat narratif et calcul de fin ; EXT-EST, dialogues de l’acte I et cartes communes.
 - Évry 2026 activé : O1 = 2 / O2 = 3, trajets, secours textuel persisté, César +2 et mur impair ; photos à ajouter plus tard.
 - Phase 2 Teammate livrée : FUT-C et END, contribution privée et export local.
-- Suite : photos et recette sur place, chronomètre et cache hors ligne (colonne noyau).
+- Mode hors ligne fusionné : préparation explicite, reprise et mise à jour à la demande.
+- Suite : photos, recette sur place, chronomètre et essai hors ligne sur l’hébergement HTTPS.
 
 L’atelier permet de développer chaque dossier indépendamment.
 
 
-Voir le [bilan détaillé de phase 2](PHASE-2-TEAMMATE.md) pour la contribution locale, les fichiers de données, les 107 tests et les limites de la recette.
+Voir le [bilan détaillé de phase 2](PHASE-2-TEAMMATE.md) pour la contribution locale, les fichiers de données et les limites de la recette. Après fusion du mode hors ligne, 125 tests et le build passent.

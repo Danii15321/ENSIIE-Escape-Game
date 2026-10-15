@@ -25,6 +25,9 @@ class ErrorBoundary extends React.Component<
     );
   }
 }
+if (import.meta.env.PROD && 'serviceWorker' in navigator)
+  navigator.serviceWorker.register('./sw.js').catch(() => undefined);
+
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 import('./app/App')
   .then(({ App }) => {

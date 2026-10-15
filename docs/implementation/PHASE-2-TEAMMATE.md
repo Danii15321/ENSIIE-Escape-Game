@@ -45,3 +45,9 @@ L’export « souvenir » est un fichier texte local. Il comprend l’équipe, l
 La durée active n’est pas encore mesurée ; le bilan l’indique. Les photos de terrain, la recette humaine indépendante et le cache hors ligne restent dans les chantiers prévus. Tous les niveaux sont désormais exécutables en prototype, ce qui ne remplace pas leur recette humaine.
 
 Pour retravailler le Conseil : `/?level=fut-c`. Pour voir une fin en campagne : terminer SYN-03 ; deux réponses d’un même thème donnent sa variante, trois thèmes différents ou aucune réponse donnent Horizon commun. Le [guide des fins](../../game/endings/README.md) décrit les modifications éditoriales.
+
+## Synchronisation avec la colonne noyau
+
+Le commit `c2df892` du mode hors ligne est fusionné avec le lot Teammate. Les imports d’App et le tableau de suivi ont été réunis en conservant les deux fonctions. Le panneau hors ligne reste indépendant de la contribution privée et de la progression. Les résultats des 107 tests ci-dessus décrivent le lot Teammate avant cette fusion ; la recette intégrée est relancée après fusion.
+
+Recette après fusion : **125 tests passent sur 19 fichiers**, contenu, frontières, build avec manifeste hors ligne, formatage et diff contrôlés. La concurrence Vitest est limitée à quatre processus pour éviter la saturation pendant les parcours UI complets ; aucune assertion métier n’est retirée. La validation en HTTPS final reste celle du chantier 07.

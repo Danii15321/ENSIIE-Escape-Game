@@ -24,7 +24,7 @@ Ne pas inventer les observations du bâtiment. O1 doit donner un entier de 1 à 
 - [x] Changer de profil ou de révision ne réinterprète pas une ancienne partie.
 - [x] Une zone fermée n’empêche pas d’avancer avec le secours vérifié.
 - [x] Un profil DEMO ne présente aucune direction comme réelle.
-- [ ] Un relevé réel non vérifié empêche sa publication.
+- [x] Un relevé réel non vérifié empêche sa publication (il n’est pas proposé, ne démarre pas et ne reprend pas une partie ; test `checks/contracts/site-gating.test.ts`).
 
 **Livrables :** profil documenté, ressources locales, preuves de relevé et scénarios pair/impair/fermeture.
 
