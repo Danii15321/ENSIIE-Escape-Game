@@ -140,6 +140,7 @@ export function LevelView({
             <PuzzleWidget
               mechanic={step.mechanic}
               answer={progress.drafts[step.id] ?? {}}
+              inputs={context.inputs}
               onChange={(answer) => onCommand({ type: 'draft', levelId: level.id, answer })}
             />
             <button className="primary" type="submit">

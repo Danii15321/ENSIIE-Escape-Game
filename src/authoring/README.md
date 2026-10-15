@@ -35,10 +35,20 @@ Le Conseil aura un contrat narratif distinct : ne pas lui inventer une réponse 
 | `match` | `idDeGauche → idDeDroite` | Test de mécanique partagé ; prévu pour PRE |
 | `constraints` | `projects: [ids des projets]` ; totaux recalculés par le moteur | `fut-01` |
 | `program` | `command-<index à partir de 0>` pour chaque trou + `message` | `fut-02` |
+| `circuit` | `link-<id de sortie>` → id de l’entrée raccordée (module ou cible) | `pre-01` |
+| `wordgrid` | `segments: ["ligne,colonne-ligne,colonne", ...]` (base 1) + `message` | `syn-02` |
+
+`match` accepte un `error` facultatif, préfixé par l’élément à corriger.
+
+`circuit` déclare une `source`, une `target` et des `modules` avec `input`/`output` typés et une `mission` facultative. `expected` liste l’ordre des modules ; le contrôle de contenu vérifie que cette chaîne est correctement typée de la source à la cible. Le validateur signale les raccords incompatibles (`feedback.link`), les entrées doublées et les circuits incomplets ou en boucle (`feedback.incomplete`). La réussite renvoie la trace de l’impulsion.
+
+`wordgrid` décrit la grille ligne par ligne (`A` à `Z`, `.` pour une case vide). `words` mélange des mots littéraux et des références `{ input, path }` vers une chaîne ou une liste de chaînes. `orientation` vaut `forward`, `reverse` ou une référence d’entrée. `message` doit être lu, en lecture normale, dans les cases qui restent après retrait des mots : chaque mot doit avoir un seul emplacement, sans chevauchement. En lecture inverse, le moteur replace les lettres du message à l’envers dans ces mêmes cases, sans modifier les mots. Les retours `select`, `missing`, `near.forward`, `near.reverse` et `error` viennent des données.
 
 Les formes de champs sont `text`, `code`, `date`, `integer`, `choice`, `set`. `text` ignore casse, accents et espaces multiples. `code` conserve les zéros et demande la chaîne exacte après retrait des espaces externes. Les dates acceptent les quatre représentations du README mais rejettent un jour impossible. Un entier doit contenir uniquement des chiffres. Les choix utilisent leurs identifiants ; une sélection multiple compare les ensembles sans doublons.
 
-Un `expected` peut être une chaîne, un tableau pour `set`, une référence `{ input, path }` vers un champ scalaire du fragment reçu ou `{ observation: "O1" }`. Les ports et observations doivent être déclarés. `SYN-01` montre une synthèse dont la réponse de calibration dépend des entrées injectées, pas d’une copie de ses voisins.
+Un `expected` peut être une chaîne, un tableau pour `set`, une référence `{ input, path }` vers un champ scalaire du fragment reçu, `{ observation: "O1" }` ou `{ parityOf: "O2", even: "<valeur si pair>", odd: "<valeur si impair>" }`. Pour un champ `choice`, `even` et `odd` doivent être des identifiants d’options.
+
+Une sortie peut porter `derive: { rule: "orientation-parity", observation: "O2" }`. Ses `data` et `summary` servent alors de réservation DEMO : le moteur recalcule la valeur observée, le sens de lecture et le résumé depuis le profil figé de la partie, puis valide le fragment obtenu. La règle doit correspondre au type de la sortie (`OrientationLecture`). Les ports et observations doivent être déclarés. `SYN-01` montre une synthèse dont la réponse de calibration dépend des entrées injectées, pas d’une copie de ses voisins.
 
 ## Étapes et sauvegarde
 
@@ -50,7 +60,7 @@ L’intégrité et le carnet sont dérivés des succès : aucune duplication de 
 
 ## Fixtures et critères
 
-`fixtures.json` contient `inputs`, un dictionnaire port → fragment complet (`id`, `type`, `data`, `summary`). Le contenu des fixtures est indépendant des fichiers producteurs. Les types et les champs obligatoires sont contrôlés.
+`fixtures.json` contient `inputs`, un dictionnaire port → fragment complet (`id`, `type`, `data`, `summary`). Le contenu des fixtures est indépendant des fichiers producteurs. Les types et les champs obligatoires sont contrôlés. Un dictionnaire facultatif `sites` remplace certains ports pour un profil donné, par exemple `sites["demo-odd"].orientation` ; l’atelier l’applique quand ce profil est choisi.
 
 `acceptance.json` contient le `siteId` de référence, `answers` avec une réponse par étape, `status` (`todo`/`executable`) et une liste de cas manuels. Une liste de cas en prose n’est pas un test automatisé : seuls les objets `answers` sont exécutés par `check:content`. Ajouter les contre-exemples importants dans `checks/puzzles/`.
 

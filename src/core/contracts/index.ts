@@ -40,24 +40,40 @@ const fragmentData = {
 export const fragmentTypeSchema = z.enum(
   Object.keys(fragmentData) as [keyof typeof fragmentData, ...(keyof typeof fragmentData)[]],
 );
-export const fragmentSchema = z
-  .object({
-    id,
-    type: fragmentTypeSchema,
-    data: z.record(z.string(), z.unknown()),
-    summary: text,
-  })
-  .superRefine((value, ctx) => {
-    const result = fragmentData[value.type].safeParse(value.data);
-    if (!result.success)
-      for (const issue of result.error.issues)
-        ctx.addIssue({ code: 'custom', path: ['data', ...issue.path], message: issue.message });
-  });
+const fragmentShape = {
+  id,
+  type: fragmentTypeSchema,
+  data: z.record(z.string(), z.unknown()),
+  summary: text,
+};
+const checkFragmentData = (
+  value: { type: z.infer<typeof fragmentTypeSchema>; data: unknown },
+  ctx: z.RefinementCtx,
+) => {
+  const result = fragmentData[value.type].safeParse(value.data);
+  if (!result.success)
+    for (const issue of result.error.issues)
+      ctx.addIssue({ code: 'custom', path: ['data', ...issue.path], message: issue.message });
+};
+export const fragmentSchema = z.object(fragmentShape).superRefine(checkFragmentData);
 export type Fragment = z.infer<typeof fragmentSchema>;
+export const observationSchema = z.enum(['O1', 'O2']);
+export type Observation = z.infer<typeof observationSchema>;
+export const deriveRules = { 'orientation-parity': 'OrientationLecture' } as const;
+const deriveSchema = z.object({
+  rule: z.enum(Object.keys(deriveRules) as [keyof typeof deriveRules]),
+  observation: observationSchema,
+});
+export const outputSchema = z
+  .object({ ...fragmentShape, derive: deriveSchema.optional() })
+  .superRefine(checkFragmentData);
+export type Output = z.infer<typeof outputSchema>;
+const inputRef = z.object({ input: id, path: id });
 export const expectedSchema = z.union([
   z.string(),
-  z.object({ input: id, path: id }),
-  z.object({ observation: z.enum(['O1', 'O2']) }),
+  inputRef,
+  z.object({ observation: observationSchema }),
+  z.object({ parityOf: observationSchema, even: text, odd: text }),
 ]);
 const optionSchema = z.object({ id, label: text });
 const fieldSchema = z.object({
@@ -80,6 +96,31 @@ const matchSchema = z.object({
   items: z.array(optionSchema).min(1),
   targets: z.array(optionSchema).min(1),
   expected: z.record(z.string(), id),
+  error: text.optional(),
+});
+const circuitEnd = z.object({ id, label: text, type: text });
+const circuitSchema = z.object({
+  kind: z.literal('circuit'),
+  source: circuitEnd,
+  target: circuitEnd,
+  modules: z
+    .array(z.object({ id, label: text, mission: text.optional(), input: text, output: text }))
+    .min(1),
+  expected: z.array(id).min(1),
+  feedback: z.object({ link: text, incomplete: text }),
+});
+const wordGridSchema = z.object({
+  kind: z.literal('wordgrid'),
+  rows: z.array(z.string().regex(/^[A-Z.]+$/)).min(1),
+  words: z.array(z.union([z.string().regex(/^[A-Z]+$/), inputRef])).min(1),
+  orientation: z.union([z.enum(['forward', 'reverse']), inputRef]),
+  message: z.string().regex(/^[A-Z]+$/),
+  feedback: z.object({
+    select: text,
+    missing: text,
+    near: z.object({ forward: text, reverse: text }),
+    error: text,
+  }),
 });
 const constraintSchema = z.object({
   kind: z.literal('constraints'),
@@ -118,6 +159,8 @@ export const mechanicSchema = z.discriminatedUnion('kind', [
   matchSchema,
   constraintSchema,
   programSchema,
+  circuitSchema,
+  wordGridSchema,
 ]);
 export type Mechanic = z.infer<typeof mechanicSchema>;
 export type Field = z.infer<typeof fieldSchema>;
@@ -143,7 +186,7 @@ export const levelSchema = z.object({
   status: z.enum(['draft', 'prototype', 'ready']),
   minutes: z.number().positive(),
   inputs: z.array(z.object({ id, type: fragmentTypeSchema })),
-  observations: z.array(z.enum(['O1', 'O2'])),
+  observations: z.array(observationSchema),
   documents: z.array(documentSchema),
   dialogue: z.object({
     entry: id,
@@ -154,7 +197,7 @@ export const levelSchema = z.object({
   hints: z.array(text).length(3),
   solution: text,
   capsule: text,
-  outputs: z.array(fragmentSchema),
+  outputs: z.array(outputSchema),
   steps: z
     .array(
       z.object({
@@ -196,8 +239,12 @@ export const siteSchema = z.object({
   }),
 });
 export type Site = z.infer<typeof siteSchema>;
-export const fixtureSchema = z.object({ inputs: z.record(z.string(), fragmentSchema) });
-export type Inputs = z.infer<typeof fixtureSchema>['inputs'];
+const inputsSchema = z.record(z.string(), fragmentSchema);
+export const fixtureSchema = z.object({
+  inputs: inputsSchema,
+  sites: z.record(z.string(), inputsSchema).default({}),
+});
+export type Inputs = z.infer<typeof inputsSchema>;
 export type Context = { inputs: Inputs; site: Site };
 export type Evaluation = {
   status: 'format' | 'incorrect' | 'partial' | 'correct';

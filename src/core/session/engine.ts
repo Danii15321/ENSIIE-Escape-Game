@@ -9,6 +9,7 @@ import {
   type Site,
 } from '../contracts';
 import type { Catalog } from '../content/catalog';
+import { materialize } from '../content/derive';
 import { evaluate } from '../validation/mechanics';
 
 export const progressSchema = z.object({
@@ -88,8 +89,9 @@ export function resolveInputs(session: Session, catalog: Catalog, levelId: strin
     const output = catalog.levels[binding.level]?.outputs.find(
       (output) => output.id === binding.output,
     );
-    if (!output) throw new Error(`Fragment absent : ${port}`);
-    inputs[port] = output;
+    const site = catalog.sites[session.siteId];
+    if (!output || !site) throw new Error(`Fragment absent : ${port}`);
+    inputs[port] = materialize(output, site);
   }
   return inputs;
 }
@@ -100,11 +102,13 @@ export function integrity(session: Session, catalog: Catalog): number {
   );
 }
 export function inventory(session: Session, catalog: Catalog) {
+  const site = catalog.sites[session.siteId];
+  if (!site) return [];
   return catalog.campaign.levels.flatMap((entry) =>
     isComplete(session.progress[entry.id])
-      ? (catalog.levels[entry.id]?.outputs ?? []).map((fragment) => ({
-          ...fragment,
-          rewardId: `${entry.id}:${fragment.id}`,
+      ? (catalog.levels[entry.id]?.outputs ?? []).map((output) => ({
+          ...materialize(output, site),
+          rewardId: `${entry.id}:${output.id}`,
           provenance: entry.id,
           version: session.levelRevisions[entry.id],
         }))

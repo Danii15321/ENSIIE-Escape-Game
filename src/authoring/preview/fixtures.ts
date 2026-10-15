@@ -9,8 +9,8 @@ const acceptance = import.meta.glob('../../../game/levels/*/acceptance.json', {
   eager: true,
   import: 'default',
 });
-export function inputsFor(level: Level) {
-  return validateFixture(level, fixtures[`../../../game/levels/${level.id}/fixtures.json`]);
+export function inputsFor(level: Level, siteId: string) {
+  return validateFixture(level, fixtures[`../../../game/levels/${level.id}/fixtures.json`], siteId);
 }
 export function referenceFor(levelId: string): unknown {
   return acceptance[`../../../game/levels/${levelId}/acceptance.json`];

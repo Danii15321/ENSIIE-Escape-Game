@@ -1,10 +1,13 @@
 import {
   campaignSchema,
+  deriveRules,
   fixtureSchema,
   levelSchema,
   siteSchema,
   type Campaign,
+  type Inputs,
   type Level,
+  type Mechanic,
   type Site,
 } from '../contracts';
 import { normalizeDate } from '../validation/mechanics';
@@ -14,6 +17,27 @@ export type Catalog = {
   levels: Record<string, Level>;
   sites: Record<string, Site>;
 };
+
+function circuitErrors(mechanic: Extract<Mechanic, { kind: 'circuit' }>, prefix: string) {
+  const errors: string[] = [];
+  const ids = mechanic.modules.map((module) => module.id);
+  if (new Set([...ids, mechanic.source.id, mechanic.target.id]).size !== ids.length + 2)
+    errors.push(`${prefix} : identifiant de circuit dupliqué`);
+  if (
+    mechanic.expected.length !== ids.length ||
+    new Set(mechanic.expected).size !== ids.length ||
+    mechanic.expected.some((id) => !ids.includes(id))
+  )
+    errors.push(`${prefix} : chaîne attendue invalide`);
+  else {
+    const chain = mechanic.expected.map((id) => mechanic.modules.find((m) => m.id === id)!);
+    const types = [mechanic.source.type, ...chain.flatMap((m) => [m.input, m.output])];
+    types.push(mechanic.target.type);
+    for (let i = 0; i < types.length; i += 2)
+      if (types[i] !== types[i + 1]) errors.push(`${prefix} : chaîne attendue mal typée`);
+  }
+  return errors;
+}
 
 export function validateCatalog(catalog: Catalog): string[] {
   const errors: string[] = [];
@@ -111,6 +135,17 @@ export function validateCatalog(catalog: Catalog): string[] {
               errors.push(`${prefix} : entrée ${expected.input} non déclarée`);
             if ('observation' in expected && !level.observations.includes(expected.observation))
               errors.push(`${prefix} : observation ${expected.observation} non déclarée`);
+            if ('parityOf' in expected) {
+              if (!level.observations.includes(expected.parityOf))
+                errors.push(`${prefix} : observation ${expected.parityOf} non déclarée`);
+              if (
+                field.format === 'choice' &&
+                [expected.even, expected.odd].some(
+                  (value) => !field.options.some((option) => option.id === value),
+                )
+              )
+                errors.push(`${prefix}/${field.id} : option de parité absente`);
+            }
           }
         }
       }
@@ -157,7 +192,27 @@ export function validateCatalog(catalog: Catalog): string[] {
         )
           errors.push(`${prefix} : départ ou arrivée verrouillé`);
       }
+      if (mechanic.kind === 'circuit') errors.push(...circuitErrors(mechanic, prefix));
+      if (mechanic.kind === 'wordgrid') {
+        if (mechanic.rows.some((row) => row.length !== mechanic.rows[0]!.length))
+          errors.push(`${prefix} : grille de mots non rectangulaire`);
+        const refs = [...mechanic.words, mechanic.orientation].filter(
+          (ref) => typeof ref === 'object',
+        );
+        for (const ref of refs)
+          if (!level.inputs.some((input) => input.id === ref.input))
+            errors.push(`${prefix} : entrée ${ref.input} non déclarée`);
+      }
     }
+    for (const output of level.outputs)
+      if (output.derive) {
+        if (deriveRules[output.derive.rule] !== output.type)
+          errors.push(`${prefix}/${output.id} : règle ${output.derive.rule} incompatible`);
+        if (!level.observations.includes(output.derive.observation))
+          errors.push(
+            `${prefix}/${output.id} : observation ${output.derive.observation} non déclarée`,
+          );
+      }
   }
   const ancestors = (id: string, visiting = new Set<string>()): Set<string> => {
     if (visiting.has(id)) {
@@ -214,10 +269,17 @@ export function parseCatalog(raw: {
   return catalog;
 }
 
-export function validateFixture(level: Level, raw: unknown) {
+export function validateFixture(level: Level, raw: unknown, siteId?: string): Inputs {
   const fixture = fixtureSchema.parse(raw);
+  for (const [site, overrides] of Object.entries(fixture.sites))
+    for (const [port, fragment] of Object.entries(overrides)) {
+      const input = level.inputs.find((input) => input.id === port);
+      if (input?.type !== fragment.type)
+        throw new Error(`${level.id} : fixture ${site} incompatible pour ${port}`);
+    }
+  const inputs = { ...fixture.inputs, ...(siteId ? fixture.sites[siteId] : undefined) };
   for (const input of level.inputs)
-    if (fixture.inputs[input.id]?.type !== input.type)
+    if (inputs[input.id]?.type !== input.type)
       throw new Error(`${level.id} : fixture manquante ou incompatible pour ${input.id}`);
-  return fixture.inputs;
+  return inputs;
 }
