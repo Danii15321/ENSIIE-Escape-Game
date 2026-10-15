@@ -22,11 +22,13 @@ Node 22 recommandé (`.nvmrc`) ; Node 20.19+ compatible. Ouvrir http://localhost
 - Découverte automatique des paquets, contrôle des prérequis, types de ports et cycles.
 - Moteur pur : brouillons par étape, validation, trois indices, assistance, dialogues, récompenses uniques et intégrité dérivée.
 - Sauvegarde locale versionnée, export/import contrôlé, protection contre une écriture concurrente détectée et maintien en mémoire si le stockage échoue.
-- Cinq mécaniques : formulaire, classement, appariement, sélection sous contraintes et programme sur grille. Documents, dialogues, aide, observations DEMO et carnet partagés.
+- Mécaniques : formulaire, classement, appariement, sélection sous contraintes, programme sur grille, circuit typé, mur de mots et choix de preuves. Documents, dialogues, aide, observations DEMO et carnet partagés.
 - Atelier isolé utilisant les mêmes validateurs et composants, profils DEMO pair/impair et fixtures locales.
-- Huit prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, FUT-01, FUT-02, EXT-EST. Le premier acte et EXT-EST fonctionnent en campagne ; les deux FUT se jouent dans l’atelier en attendant l’acte II.
+- Douze prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, PRE-01, PRE-02, SYN-02, FUT-01, FUT-02, SYN-03 et EXT-EST. Le parcours principal permet d’atteindre 100 points ; EXT-EST reste facultatif.
+- Circuit typé, mur de mots, parité et sorties dérivées du profil ; preuves de SYN-03, choix narratifs révisables et calcul de fin disponibles.
 
-Le jeu complet n’est pas livré. Les cinq paquets `draft` restent volontairement non jouables. Les dialogues de l’acte I et d’EXT-EST sont intégrés avec les adaptations décrites dans le [bilan de phase 1](PHASE-1-TEAMMATE.md). Pas encore de service worker, de chronomètre, de terrain réel, de roue graphique, de mur de mots, de circuit typé, de Conseil ni d’écran de fin.
+Le contenu de FUT-C reste `draft`. Les dialogues de l’acte I et d’EXT-EST sont intégrés avec les adaptations du [bilan de phase 1](PHASE-1-TEAMMATE.md). Service worker, chronomètre, roue graphique et écran de fin restent à réaliser.
+
 
 ## Fiches des niveaux
 
@@ -39,15 +41,16 @@ Une personne réserve un dossier de niveau. L’autre peut travailler sur un aut
 | 03 | [PAS-02 — Le nom perdu](../../game/levels/pas-02/TASK.md) | Prototype | À attribuer | ObservationCard DEMO et validation César disponibles. Roue graphique et profil réel à ajouter. |
 | 04 | [PAS-03 — Le décret aux trois dates](../../game/levels/pas-03/TASK.md) | Prototype | À attribuer | AnswerForm date et sélection de preuves disponibles. |
 | 05 | [SYN-01 — La machine temporelle](../../game/levels/syn-01/TASK.md) | Prototype | À attribuer | Deux étapes persistées, formulaires et injections de fragments disponibles ; SlotBoard graphique facultatif. |
-| 06 | [PRE-01 — L’atelier des compétences](../../game/levels/pre-01/TASK.md) | À réaliser | À attribuer | MatchBoard disponible. ConnectionBoard typé à construire dans le chantier 03-briques. |
-| 07 | [PRE-02 — Les yeux d’ARIIE](../../game/levels/pre-02/TASK.md) | À réaliser | À attribuer | MatchBoard et observation DEMO disponibles. Sorties dérivées du profil à ajouter avant publication. |
-| 08 | [SYN-02 — Le mur des mots](../../game/levels/syn-02/TASK.md) | À réaliser | À attribuer | WordGrid et extraction orientée à construire dans le chantier 03-briques. |
+| 06 | [PRE-01 — L’atelier des compétences](../../game/levels/pre-01/TASK.md) | Prototype | gitvonBS | MatchBoard avec retour éditorial et ConnectionBoard (`circuit`) disponibles. |
+| 07 | [PRE-02 — Les yeux d’ARIIE](../../game/levels/pre-02/TASK.md) | Prototype | gitvonBS | Formulaire avec parité (`parityOf`) et sortie `orientation` dérivée du profil disponibles. |
+| 08 | [SYN-02 — Le mur des mots](../../game/levels/syn-02/TASK.md) | Prototype | gitvonBS | WordGrid (`wordgrid`) et extraction orientée disponibles ; pair et impair testés. |
 | 09 | [FUT-01 — Le campus sous contraintes](../../game/levels/fut-01/TASK.md) | Prototype | À attribuer | ConstraintSelector disponible avec totaux en direct et liste ordonnée des contraintes. |
 | 10 | [FUT-02 — Le protocole incomplet](../../game/levels/fut-02/TASK.md) | Prototype | À attribuer | GridProgram disponible, trace et première erreur calculées par le moteur. |
-| 11 | [FUT-C — Le Conseil du futur](../../game/levels/fut-c/TASK.md) | À réaliser | À attribuer | NarrativeChoice, remplacement des réponses et thèmes de fin à construire dans le chantier 04-narration. |
-| 12 | [SYN-03 — Le contrôle du centenaire](../../game/levels/syn-03/TASK.md) | À réaliser | À attribuer | EvidenceChoice composé de décisions et preuves, puis cadran final à réaliser. |
+| 11 | [FUT-C — Le Conseil du futur](../../game/levels/fut-c/TASK.md) | À réaliser | À attribuer | Contrat `narrative`, commande `choose` et calcul de l’issue disponibles ; contenu à saisir. |
+| 12 | [SYN-03 — Le contrôle du centenaire](../../game/levels/syn-03/TASK.md) | Prototype | gitvonBS | Brique `evidence` et pièges de saisie (`traps`) disponibles. |
 | 13 | [EXT-EST — L’antenne de l’Est](../../game/levels/ext-est/TASK.md) | Prototype | À attribuer | AnswerForm et DocumentReader disponibles. Extension indépendante de la victoire. |
-| 14 | [END — Capsule et fins](../../game/endings/TASK.md) | À réaliser | À attribuer | Choix narratifs et composition de fin |
+| 14 | [END — Capsule et fins](../../game/endings/TASK.md) | À réaliser | À attribuer | `ending(session, catalog)` disponible ; écran et textes à réaliser. |
+
 
 ## Chantiers communs
 
@@ -77,9 +80,9 @@ Prendre une fiche entière ou ses sous-tâches. Les propriétaires ci-dessous so
 
 ## Phase 1 en parallèle
 
-- Colonne noyau : EvidenceChoice puis SYN-03, choix révisables de FUT-C, fonction pure de sélection de fin.
-- Colonne contenu/interface : EXT-EST, dialogues de l’acte I et cartes communes livrés ; relevé O1 = 2 / O2 = 3 reçu et documenté, photos à ajouter plus tard.
-- Voir le [bilan détaillé et les limites](PHASE-1-TEAMMATE.md) avant intégration. Les contrats et le moteur n’ont pas été modifiés par le lot contenu/interface.
-- Point commun à venir : profil de site documenté, secours et sorties dérivées, à partir des observations reçues pour Évry 2026 (foyer et premier étage).
+- Fusionnés : acte II et ses briques, SYN-03, contrat narratif et calcul de fin ; EXT-EST, dialogues de l’acte I et cartes communes.
+- Relevé Évry 2026 reçu : O1 = 2 / O2 = 3, trajets et secours textuel ; photos à ajouter plus tard.
+- Suite : intégration du profil réel, contenu de FUT-C, écran END, puis cache hors ligne.
 
-L’atelier permet de continuer chaque dossier sans attendre la campagne complète.
+L’atelier permet de développer chaque dossier indépendamment.
+

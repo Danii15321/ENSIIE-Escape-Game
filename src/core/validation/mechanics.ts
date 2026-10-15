@@ -1,4 +1,7 @@
 import type { Answer, Context, Evaluation, Field, Mechanic } from '../contracts';
+import { evaluateCircuit } from './circuit';
+import { evaluateEvidence } from './evidence';
+import { evaluateWordGrid } from './wordgrid';
 
 export function normalizeText(value: string): string {
   return value
@@ -36,6 +39,8 @@ function expected(field: Field, context: Context): string | string[] {
   const value = field.expected;
   if (typeof value === 'string' || Array.isArray(value)) return value;
   if ('observation' in value) return String(context.site.observations[value.observation]);
+  if ('parityOf' in value)
+    return context.site.observations[value.parityOf] % 2 === 0 ? value.even : value.odd;
   const data = context.inputs[value.input]?.data[value.path];
   if (typeof data !== 'string' && typeof data !== 'number')
     throw new Error(`Entrée absente ou non scalaire : ${value.input}.${value.path}`);
@@ -69,7 +74,10 @@ function fieldsResult(fields: Field[], answer: Answer, context: Context): Evalua
     } else if (field.format === 'code' || field.format === 'choice') {
       valid = received.trim() === target;
     } else valid = normalizeText(received) === normalizeText(String(target));
-    if (!valid) messages.push(`${field.label} : ${field.error}`);
+    const trap =
+      typeof received === 'string' &&
+      field.traps.find((trap) => normalizeText(trap.value) === normalizeText(received));
+    if (!valid) messages.push(`${field.label} : ${trap ? trap.error : field.error}`);
     else correct++;
   }
   return {
@@ -166,7 +174,11 @@ export function evaluate(mechanic: Mechanic, answer: Answer, context: Context): 
             : missing.length < mechanic.items.length
               ? 'partial'
               : 'incorrect',
-        messages: missing.map((item) => `Vérifiez l’association : ${item.label}.`),
+        messages: missing.map((item) =>
+          mechanic.error
+            ? `${item.label} : ${mechanic.error}`
+            : `Vérifiez l’association : ${item.label}.`,
+        ),
       };
     }
     case 'constraints': {
@@ -193,6 +205,12 @@ export function evaluate(mechanic: Mechanic, answer: Answer, context: Context): 
     }
     case 'program':
       return simulateProgram(mechanic, answer);
+    case 'circuit':
+      return evaluateCircuit(mechanic, answer);
+    case 'wordgrid':
+      return evaluateWordGrid(mechanic, answer, context.inputs);
+    case 'evidence':
+      return evaluateEvidence(mechanic, answer, context.inputs);
   }
 }
 

@@ -477,3 +477,20 @@ select {
     transition: none !important;
   }
 }
+
+.word-grid td {
+  padding: 0;
+  text-align: center;
+}
+.word-grid button {
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0.2rem;
+}
+.word-grid button.struck {
+  background: transparent;
+  border-style: dashed;
+}
+.word-grid button[aria-pressed='true'] {
+  outline: 3px solid #70d6e7;
+}

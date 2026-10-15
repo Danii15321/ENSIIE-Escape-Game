@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Context, Evaluation, Level } from '../../core/contracts';
 import { isComplete, type Command, type Progress } from '../../core/session/engine';
 import { caesar } from '../../core/validation/mechanics';
+import { NarrativeChoice } from '../widgets/NarrativeChoice';
 import { PuzzleWidget } from '../widgets/PuzzleWidget';
 import { DocumentCard, FocusedLevelTitle, MemoryCard, NarrativeCard, TextBlocks } from './Cards';
 import { feedbackLine, useEditorialCopy } from './EditorialCopy';
@@ -15,6 +16,7 @@ type Props = {
   onCommand: (command: Command) => void;
   onExit?: () => void;
   sources: Record<string, { title: string; url: string }>;
+  frozen?: boolean;
 };
 
 export function LevelView({
@@ -26,6 +28,7 @@ export function LevelView({
   onCommand,
   onExit,
   sources,
+  frozen = false,
 }: Props) {
   const [solutionVisible, setSolutionVisible] = useState(false);
   const { copy, interpolate } = useEditorialCopy(level.id);
@@ -70,7 +73,18 @@ export function LevelView({
           ))}
         </section>
       ) : null}
-      {done ? (
+      {level.narrative ? (
+        <NarrativeChoice
+          speaker={level.narrative.speaker}
+          questions={level.narrative.questions}
+          choices={progress.choices}
+          done={level.narrative.done}
+          frozen={frozen}
+          onChoose={(questionId, optionId) =>
+            onCommand({ type: 'choose', levelId: level.id, questionId, optionId })
+          }
+        />
+      ) : done ? (
         <section className="success">
           <h3>
             {progress.status === 'assisted' ? 'Dossier restauré avec aide' : 'Dossier restauré'}
@@ -132,6 +146,7 @@ export function LevelView({
             <PuzzleWidget
               mechanic={step.mechanic}
               answer={progress.drafts[step.id] ?? {}}
+              inputs={context.inputs}
               onChange={(answer) => onCommand({ type: 'draft', levelId: level.id, answer })}
             />
             <button className="primary" type="submit">

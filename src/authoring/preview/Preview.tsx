@@ -20,7 +20,7 @@ function IsolatedLevel({
   const [message, setMessage] = useState<string>();
   let inputs;
   try {
-    inputs = inputsFor(level);
+    inputs = inputsFor(level, site.id);
   } catch (error) {
     return <p role="alert">{String(error)}</p>;
   }

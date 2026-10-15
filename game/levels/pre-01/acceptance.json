@@ -1,11 +1,27 @@
 {
   "siteId": "demo",
-  "answers": [],
-  "status": "todo",
+  "answers": [
+    {
+      "model": "maths",
+      "verify": "software",
+      "interact": "interaction",
+      "accelerate": "hpc"
+    },
+    {
+      "link-need": "model",
+      "link-model": "verify",
+      "link-verify": "interact",
+      "link-interact": "accelerate",
+      "link-accelerate": "demo"
+    }
+  ],
+  "status": "executable",
   "cases": [
     "Solution nominale",
-    "Réponse incorrecte",
-    "Reprise après saisie",
+    "Domaine échangé : R1.DOMAIN sans avancer",
+    "Contournement de Vérifier : R1.LINK",
+    "Circuit sans Accélérer : R1.ERROR",
+    "Reprise après saisie des associations",
     "Assistance après trois indices",
     "Aucune double récompense"
   ]

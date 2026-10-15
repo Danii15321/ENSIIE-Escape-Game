@@ -1,11 +1,23 @@
-import type { Answer, Field, Mechanic } from '../../core/contracts';
+import type { Answer, Field, Inputs, Mechanic } from '../../core/contracts';
 import { projectTotals } from '../../core/validation/mechanics';
+import { CircuitBoard } from './CircuitBoard';
+import { EvidenceBoard } from './EvidenceBoard';
+import { WordGridBoard } from './WordGridBoard';
 
-type Props = { mechanic: Mechanic; answer: Answer; onChange: (answer: Answer) => void };
+type Props = {
+  mechanic: Mechanic;
+  answer: Answer;
+  inputs: Inputs;
+  onChange: (answer: Answer) => void;
+};
 const selected = (value: Answer[string] | undefined): string[] =>
   Array.isArray(value) ? value : [];
 
-function Fields({ fields, answer, onChange }: Omit<Props, 'mechanic'> & { fields: Field[] }) {
+function Fields({
+  fields,
+  answer,
+  onChange,
+}: Pick<Props, 'answer' | 'onChange'> & { fields: Field[] }) {
   return (
     <div className="fields">
       {fields.map((field) => {
@@ -66,7 +78,7 @@ function Fields({ fields, answer, onChange }: Omit<Props, 'mechanic'> & { fields
   );
 }
 
-export function PuzzleWidget({ mechanic, answer, onChange }: Props) {
+export function PuzzleWidget({ mechanic, answer, inputs, onChange }: Props) {
   switch (mechanic.kind) {
     case 'form':
       return <Fields fields={mechanic.fields} answer={answer} onChange={onChange} />;
@@ -250,6 +262,16 @@ export function PuzzleWidget({ mechanic, answer, onChange }: Props) {
             />
           </label>
         </>
+      );
+    case 'circuit':
+      return <CircuitBoard mechanic={mechanic} answer={answer} onChange={onChange} />;
+    case 'wordgrid':
+      return (
+        <WordGridBoard mechanic={mechanic} answer={answer} inputs={inputs} onChange={onChange} />
+      );
+    case 'evidence':
+      return (
+        <EvidenceBoard mechanic={mechanic} answer={answer} inputs={inputs} onChange={onChange} />
       );
   }
 }

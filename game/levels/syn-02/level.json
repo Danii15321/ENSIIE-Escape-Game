@@ -1,10 +1,10 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "syn-02",
   "title": "Le mur des mots",
   "era": "present",
-  "status": "draft",
+  "status": "prototype",
   "minutes": 6,
   "inputs": [
     {
@@ -21,33 +21,41 @@
     }
   ],
   "observations": [],
-  "documents": [],
+  "documents": [
+    {
+      "id": "wall",
+      "title": "Le mur de mémoire",
+      "body": "Toute la grille est un accessoire original du jeu. Les huit mots viennent de vos fragments : quatre compétences de l’atelier et quatre activités étudiantes. Le sens de lecture vient du repère O2 relevé pendant la mission précédente.",
+      "sourceIds": [],
+      "badge": "fiction"
+    }
+  ],
   "dialogue": {
     "entry": "entry",
     "nodes": [
       {
         "id": "entry",
         "speaker": "ARIIE",
-        "text": "Ce dossier est en préparation. Sa fiche de réalisation contient la conception détaillée.",
+        "text": "Vos mots sont revenus, mais ils recouvrent le message qui ouvre la capsule. Retirez seulement les huit mots du carnet, puis utilisez le repère de lecture.",
         "choices": [
           {
             "id": "start",
-            "label": "Examiner le dossier",
+            "label": "Examiner le mur",
             "to": null
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "CAPSULE. L’école n’est plus un nom isolé : ses compétences et ses activités ont retrouvé leurs liens. Le futur reste à écrire. Nora a laissé un message pour les personnes qui parviendraient jusqu’ici.",
+    "return": "Le futur reste à écrire. Nora a laissé un message pour les personnes qui parviendraient jusqu’ici."
   },
   "hints": [
-    "Relisez la consigne.",
-    "Comparez les documents.",
-    "La démarche complète est disponible après cet indice."
+    "La liste de mots vient des deux missions, pas d’un dictionnaire à deviner.",
+    "CALCUL est vertical dans la deuxième colonne. MODELE et MUSIQUE se lisent vers la gauche.",
+    "Après les huit mots, utilisez seulement les sept cases restantes. Leur ordre de lecture doit former CAPSULE."
   ],
-  "solution": "La solution complète figure dans TASK.md ; le validateur de production reste à intégrer.",
-  "capsule": "Prototype en cours de réalisation.",
+  "solution": "MODELE (5,9) à (5,4) ; LOGICIEL (1,3) à (1,10) ; INTERFACE (9,2) à (9,10) ; CALCUL (6,2) à (1,2) ; MUSIQUE (3,10) à (3,4) ; ROBOTIQUE (7,1) à (7,9) ; JEUX (4,6) à (4,9) ; VIRTUEL (8,1) à (8,7). Il reste sept lettres en (2,5), (2,10), (4,3), (4,10), (6,4), (7,10) et (8,8). Avec un repère pair, la lecture normale donne CAPSULE ; avec un repère impair, ces cases contiennent E, L, U, S, P, A, C et la lecture inverse donne aussi CAPSULE.",
+  "capsule": "Les mots réunissent plusieurs dimensions de l’école : apprendre, créer et participer. Le message caché est une construction du jeu.",
   "outputs": [
     {
       "id": "key",
@@ -60,23 +68,48 @@
   ],
   "steps": [
     {
-      "id": "placeholder",
-      "title": "Maquette à remplacer",
-      "instruction": "Lisez TASK.md dans le dossier de ce niveau. Cette maquette ne peut pas être validée dans la campagne.",
+      "id": "wall",
+      "title": "Retirer les mots, lire le message",
+      "instruction": "Retrouvez les huit mots de vos fragments. Ils sont écrits horizontalement ou verticalement, dans un sens ou dans l’autre. Sélectionnez leur première et leur dernière case. Les cases marquées d’un point ne contiennent rien et ne sont pas sélectionnables. Une fois les huit mots retirés, il reste sept lettres. Si le repère O2 est pair, lisez du haut vers le bas et de gauche à droite. S’il est impair, lisez du bas vers le haut et de droite à gauche. Saisissez le message.",
+      "documentIds": ["wall"],
       "mechanic": {
-        "kind": "form",
-        "fields": [
+        "kind": "wordgrid",
+        "rows": [
+          ".LLOGICIEL",
+          ".U..C....A",
+          ".C.EUQISUM",
+          ".LP..JEUXS",
+          ".A.ELEDOM.",
+          ".C.U......",
+          "ROBOTIQUEL",
+          "VIRTUELE..",
+          ".INTERFACE"
+        ],
+        "words": [
           {
-            "id": "placeholder",
-            "label": "Champ de maquette",
-            "format": "text",
-            "expected": "NON-JOUABLE",
-            "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "input": "lexicon",
+            "path": "words"
+          },
+          {
+            "input": "student-life",
+            "path": "words"
           }
-        ]
-      },
-      "documentIds": []
+        ],
+        "orientation": {
+          "input": "orientation",
+          "path": "direction"
+        },
+        "message": "CAPSULE",
+        "feedback": {
+          "select": "Ce segment ne correspond pas à un mot complet du carnet. Les diagonales ne sont pas utilisées.",
+          "missing": "Le message ne sera vérifiable qu’après les huit mots. Il en reste à retrouver dans la grille.",
+          "near": {
+            "forward": "Les lettres sont les bonnes, mais leur ordre est inversé. Le repère pair impose la lecture normale.",
+            "reverse": "Les lettres sont les bonnes, mais leur ordre est inversé. Le repère impair impose la lecture inverse."
+          },
+          "error": "Reprenez les lettres non barrées, en ignorant les cases vides. Vérifiez le sens indiqué par O2."
+        }
+      }
     }
   ]
 }

@@ -1,40 +1,118 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "pre-02",
   "title": "Les yeux d’ARIIE",
   "era": "present",
-  "status": "draft",
+  "status": "prototype",
   "minutes": 6,
   "inputs": [],
   "observations": ["O2"],
-  "documents": [],
+  "documents": [
+    {
+      "id": "protocol",
+      "title": "Fiche de protocole",
+      "body": "Pair : lecture normale, du haut vers le bas et de gauche à droite. Impair : lecture inverse, du bas vers le haut et de droite à gauche. Un nombre pair est divisible par deux sans reste.",
+      "sourceIds": [],
+      "badge": "fiction"
+    },
+    {
+      "id": "associations",
+      "title": "Quatre collectifs étudiants",
+      "body": "Muzzik’ : musique. LudIIE : jeux de société. ORiGiNe : robotique. RealitIIE : réalité virtuelle. Présentations reformulées d’après la liste institutionnelle ; leur activité et leur présence dans les locaux en 2026 sont à vérifier avant toute visite de leurs espaces.",
+      "sourceIds": ["S12"],
+      "badge": "fact"
+    },
+    {
+      "id": "invitations",
+      "title": "Quatre invitations",
+      "body": "Une répétition : « Nous cherchons des personnes pour jouer d’un instrument ensemble. » Une soirée autour d’un plateau : « Nous voulons découvrir des règles et jouer autour d’une table. » Un atelier de machine mobile : « Nous voulons construire et faire agir un robot. » Une exploration immersive : « Nous voulons créer ou explorer un environnement virtuel. »",
+      "sourceIds": [],
+      "badge": "fiction"
+    }
+  ],
   "dialogue": {
     "entry": "entry",
     "nodes": [
       {
         "id": "entry",
         "speaker": "ARIIE",
-        "text": "Ce dossier est en préparation. Sa fiche de réalisation contient la conception détaillée.",
+        "text": "Mes capteurs ne voient plus les lieux. Soyez mes yeux au repère indiqué. Pendant ce temps, les autres peuvent rendre leurs destinataires à ces invitations.",
         "choices": [
           {
+            "id": "next",
+            "label": "Continuer",
+            "to": "demo"
+          }
+        ]
+      },
+      {
+        "id": "demo",
+        "speaker": "Système",
+        "text": "La carte de simulation remplace le repère. Son nombre est fictif.",
+        "choices": [
+          {
+            "id": "why",
+            "label": "Pourquoi ce nombre ?",
+            "to": "why"
+          },
+          {
+            "id": "collectives",
+            "label": "Que sont ces collectifs ?",
+            "to": "collectives"
+          },
+          {
             "id": "start",
-            "label": "Examiner le dossier",
+            "label": "Commençons.",
+            "to": null
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "speaker": "ARIIE",
+        "text": "Sa parité indique le sens de lecture de mon mur de mémoire. L’observation vous servira après cette mission.",
+        "choices": [
+          {
+            "id": "collectives",
+            "label": "Que sont ces collectifs ?",
+            "to": "collectives"
+          },
+          {
+            "id": "start",
+            "label": "Commençons.",
+            "to": null
+          }
+        ]
+      },
+      {
+        "id": "collectives",
+        "speaker": "ARIIE",
+        "text": "Les fiches présentent quatre exemples de vie associative. Elles ne constituent pas la liste complète des activités de l’école.",
+        "choices": [
+          {
+            "id": "why",
+            "label": "Pourquoi ce nombre ?",
+            "to": "why"
+          },
+          {
+            "id": "start",
+            "label": "Commençons.",
             "to": null
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "Observation retrouvée, invitations distribuées. Une école se découvre aussi dans ce que ses élèves choisissent de faire ensemble.",
+    "return": "J’ajoute les quatre mots et la règle de lecture à notre mémoire."
   },
   "hints": [
-    "Relisez la consigne.",
-    "Comparez les documents.",
-    "La démarche complète est disponible après cet indice."
+    "Traitez le relevé et les invitations comme deux petits dossiers séparés.",
+    "Muzzik’ correspond à la musique et LudIIE aux jeux de société.",
+    "Associez ORiGiNe au robot et RealitIIE au monde virtuel. Conservez ensuite le nombre observé et sa parité."
   ],
-  "solution": "La solution complète figure dans TASK.md ; le validateur de production reste à intégrer.",
-  "capsule": "Prototype en cours de réalisation.",
+  "solution": "Relever le nombre du repère O2 (DEMO : 4), constater qu’il est pair, donc lecture normale. Invitations : la répétition va à Muzzik’, la soirée de plateau à LudIIE, l’atelier de machine mobile à ORiGiNe, l’exploration immersive à RealitIIE. Mots obtenus : MUSIQUE, JEUX, ROBOTIQUE, VIRTUEL.",
+  "capsule": "Musique, jeux, robotique et réalité virtuelle illustrent la diversité des activités étudiantes présentées par l’école.",
   "outputs": [
     {
       "id": "student-life",
@@ -42,7 +120,7 @@
       "data": {
         "words": ["MUSIQUE", "JEUX", "ROBOTIQUE", "VIRTUEL"]
       },
-      "summary": "Des activités étudiantes pour apprendre ensemble."
+      "summary": "Quatre mots de mémoire : MUSIQUE, JEUX, ROBOTIQUE, VIRTUEL."
     },
     {
       "id": "orientation",
@@ -51,28 +129,128 @@
         "observed": 4,
         "direction": "forward"
       },
-      "summary": "DEMO pair : lecture de gauche à droite, du haut vers le bas."
+      "summary": "Réservation DEMO, recalculée depuis le profil de la partie.",
+      "derive": {
+        "rule": "orientation-parity",
+        "observation": "O2"
+      }
     }
   ],
   "steps": [
     {
-      "id": "placeholder",
-      "title": "Maquette à remplacer",
-      "instruction": "Lisez TASK.md dans le dossier de ce niveau. Cette maquette ne peut pas être validée dans la campagne.",
+      "id": "eyes",
+      "title": "Relevé et invitations",
+      "instruction": "Retrouvez le repère indiqué et déterminez sa parité. Associez ensuite chaque invitation à l’activité et au collectif présentés dans les fiches. Les deux dossiers se remplissent dans l’ordre de votre choix ; les bonnes réponses restent acquises pendant que vous corrigez les autres.",
+      "documentIds": ["protocol", "associations", "invitations"],
       "mechanic": {
         "kind": "form",
         "fields": [
           {
-            "id": "placeholder",
-            "label": "Champ de maquette",
-            "format": "text",
-            "expected": "NON-JOUABLE",
+            "id": "observation",
+            "label": "Nombre relevé au repère O2",
+            "format": "integer",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "expected": {
+              "observation": "O2"
+            },
+            "error": "Vérifiez le repère exact, pas une inscription voisine. La photo de secours est disponible si le lieu est fermé."
+          },
+          {
+            "id": "parity",
+            "label": "Ce nombre est-il pair ou impair ?",
+            "format": "choice",
+            "options": [
+              {
+                "id": "even",
+                "label": "Pair"
+              },
+              {
+                "id": "odd",
+                "label": "Impair"
+              }
+            ],
+            "expected": {
+              "parityOf": "O2",
+              "even": "even",
+              "odd": "odd"
+            },
+            "error": "Un nombre pair peut se partager en deux parts entières égales. Vérifiez votre choix."
+          },
+          {
+            "id": "reading",
+            "label": "Sens de lecture du mur de mémoire",
+            "format": "choice",
+            "options": [
+              {
+                "id": "forward",
+                "label": "Lecture normale : du haut vers le bas, de gauche à droite"
+              },
+              {
+                "id": "reverse",
+                "label": "Lecture inverse : du bas vers le haut, de droite à gauche"
+              }
+            ],
+            "expected": {
+              "parityOf": "O2",
+              "even": "forward",
+              "odd": "reverse"
+            },
+            "error": "Relisez la fiche de protocole : la parité du relevé fixe le sens de lecture."
+          },
+          {
+            "id": "rehearsal",
+            "label": "Une répétition",
+            "format": "choice",
+            "options": [
+              { "id": "muzzik", "label": "Muzzik’" },
+              { "id": "ludiie", "label": "LudIIE" },
+              { "id": "origine", "label": "ORiGiNe" },
+              { "id": "realitiie", "label": "RealitIIE" }
+            ],
+            "expected": "muzzik",
+            "error": "Cherchez l’activité décrite dans chaque invitation. Le nom de l’association peut être moins explicite que sa fiche."
+          },
+          {
+            "id": "board",
+            "label": "Une soirée autour d’un plateau",
+            "format": "choice",
+            "options": [
+              { "id": "muzzik", "label": "Muzzik’" },
+              { "id": "ludiie", "label": "LudIIE" },
+              { "id": "origine", "label": "ORiGiNe" },
+              { "id": "realitiie", "label": "RealitIIE" }
+            ],
+            "expected": "ludiie",
+            "error": "Cherchez l’activité décrite dans chaque invitation. Le nom de l’association peut être moins explicite que sa fiche."
+          },
+          {
+            "id": "robot",
+            "label": "Un atelier de machine mobile",
+            "format": "choice",
+            "options": [
+              { "id": "muzzik", "label": "Muzzik’" },
+              { "id": "ludiie", "label": "LudIIE" },
+              { "id": "origine", "label": "ORiGiNe" },
+              { "id": "realitiie", "label": "RealitIIE" }
+            ],
+            "expected": "origine",
+            "error": "Cherchez l’activité décrite dans chaque invitation. Le nom de l’association peut être moins explicite que sa fiche."
+          },
+          {
+            "id": "immersive",
+            "label": "Une exploration immersive",
+            "format": "choice",
+            "options": [
+              { "id": "muzzik", "label": "Muzzik’" },
+              { "id": "ludiie", "label": "LudIIE" },
+              { "id": "origine", "label": "ORiGiNe" },
+              { "id": "realitiie", "label": "RealitIIE" }
+            ],
+            "expected": "realitiie",
+            "error": "Cherchez l’activité décrite dans chaque invitation. Le nom de l’association peut être moins explicite que sa fiche."
           }
         ]
-      },
-      "documentIds": []
+      }
     }
   ]
 }

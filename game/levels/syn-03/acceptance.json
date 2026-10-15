@@ -1,11 +1,30 @@
 {
   "siteId": "demo",
-  "answers": [],
-  "status": "todo",
+  "answers": [
+    {
+      "decision-name": "correct",
+      "proofs-name": ["chronology", "renaming"],
+      "decision-evry": "confirm",
+      "proofs-evry": ["chronology"],
+      "decision-decree": "correct",
+      "proofs-decree": ["publication", "rule"],
+      "decision-domains": "correct",
+      "proofs-domains": ["workshop"],
+      "decision-simulation": "confirm",
+      "proofs-simulation": ["bcf"]
+    },
+    {
+      "year": "2068"
+    }
+  ],
+  "status": "executable",
   "cases": [
-    "Solution nominale",
-    "Réponse incorrecte",
-    "Reprise après saisie",
+    "Solution nominale : Corriger, Confirmer, Corriger, Corriger, Confirmer avec leurs preuves, puis 2068",
+    "Décision fausse : réplique S3.E1 à S3.E5 de l’affirmation concernée",
+    "Bonne décision sans la bonne preuve : S3.PROOF",
+    "Une affirmation justifiée reste acquise pendant la correction des autres",
+    "2106 : réplique dédiée ; 2006 ou 1968 : erreur générale",
+    "2068 saisi sans les cinq preuves : impossible, le cadran n’est pas encore ouvert",
     "Assistance après trois indices",
     "Aucune double récompense"
   ]

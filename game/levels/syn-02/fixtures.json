@@ -6,7 +6,7 @@
       "data": {
         "words": ["MODELE", "LOGICIEL", "INTERFACE", "CALCUL"]
       },
-      "summary": "Quatre mots pour explorer les compétences."
+      "summary": "Quatre mots de mémoire : MODELE, LOGICIEL, INTERFACE, CALCUL."
     },
     "student-life": {
       "id": "student-life",
@@ -14,7 +14,7 @@
       "data": {
         "words": ["MUSIQUE", "JEUX", "ROBOTIQUE", "VIRTUEL"]
       },
-      "summary": "Des activités étudiantes pour apprendre ensemble."
+      "summary": "Quatre mots de mémoire : MUSIQUE, JEUX, ROBOTIQUE, VIRTUEL."
     },
     "orientation": {
       "id": "orientation",
@@ -23,7 +23,20 @@
         "observed": 4,
         "direction": "forward"
       },
-      "summary": "DEMO pair : lecture de gauche à droite, du haut vers le bas."
+      "summary": "Repère O2 = 4, pair : lecture normale, du haut vers le bas et de gauche à droite."
+    }
+  },
+  "sites": {
+    "demo-odd": {
+      "orientation": {
+        "id": "orientation",
+        "type": "OrientationLecture",
+        "data": {
+          "observed": 3,
+          "direction": "reverse"
+        },
+        "summary": "Repère O2 = 3, impair : lecture inverse, du bas vers le haut et de droite à gauche."
+      }
     }
   }
 }

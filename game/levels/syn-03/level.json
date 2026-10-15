@@ -1,61 +1,61 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "syn-03",
   "title": "Le contrôle du centenaire",
   "era": "future",
-  "status": "draft",
+  "status": "prototype",
   "minutes": 5,
   "inputs": [
-    {
-      "id": "origin",
-      "type": "OrigineHistorique"
-    },
-    {
-      "id": "transition",
-      "type": "TransitionInstitutionnelle"
-    },
-    {
-      "id": "lexicon",
-      "type": "LexiqueTechnique"
-    },
-    {
-      "id": "projects",
-      "type": "SelectionProjets"
-    },
-    {
-      "id": "program",
-      "type": "ProgrammeTransmission"
-    }
+    { "id": "origin", "type": "OrigineHistorique" },
+    { "id": "transition", "type": "TransitionInstitutionnelle" },
+    { "id": "lexicon", "type": "LexiqueTechnique" },
+    { "id": "projects", "type": "SelectionProjets" },
+    { "id": "program", "type": "ProgrammeTransmission" }
   ],
   "observations": [],
-  "documents": [],
+  "documents": [
+    {
+      "id": "method",
+      "title": "Protocole de contrôle",
+      "body": "Le final vérifie que les faits restaurés n’ont pas été confondus avec la fiction. Le carnet reste ouvert : ce n’est pas une interrogation de mémoire. Pour chaque affirmation, choisissez Confirmer ou Corriger, puis la ou les preuves requises, et seulement celles-là. Une affirmation déjà justifiée reste acquise ; une erreur ne remet pas la série à zéro.",
+      "sourceIds": [],
+      "badge": "fiction"
+    },
+    {
+      "id": "timeline",
+      "title": "Frise réelle",
+      "body": "1968 : origine au Cnam. 1973 : association des anciens. 1984 : installation à Évry. 2006 : passage à l’ENSIIE. 2068 est une projection fictive de votre équipe.",
+      "sourceIds": ["S04", "S06", "S07"],
+      "badge": "fact"
+    }
+  ],
   "dialogue": {
     "entry": "entry",
     "nodes": [
       {
         "id": "entry",
-        "speaker": "Nora",
-        "text": "Ce dossier est en préparation. Sa fiche de réalisation contient la conception détaillée.",
+        "speaker": "ARIIE",
+        "text": "Le dispositif peut transmettre. Avant d’ouvrir la capsule, vérifions ce qu’il raconte. Je vais proposer cinq affirmations. Confirmez ou corrigez chacune avec notre carnet. Vous pouvez relire toutes les preuves.",
         "choices": [
           {
             "id": "start",
-            "label": "Examiner le dossier",
+            "label": "Vérifier les affirmations",
             "to": null
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "2068. Identité restaurée. Chronologie vérifiée. Transmission prête.",
+    "return": "La capsule est ouverte. Le carnet garde toutes les preuves vérifiées."
   },
   "hints": [
-    "Relisez la consigne.",
-    "Comparez les documents.",
-    "La démarche complète est disponible après cet indice."
+    "Le carnet contient toutes les preuves. Le final distingue origine, changement de nom, publication et simulation.",
+    "Pour les trois premières affirmations, ouvrez la frise et le décret. Pour les deux dernières, ouvrez l’atelier et le calcul BCF.",
+    "Les décisions sont : Corriger, Confirmer, Corriger, Corriger, Confirmer. Sélectionnez les preuves correspondantes."
   ],
-  "solution": "La solution complète figure dans TASK.md ; le validateur de production reste à intégrer.",
-  "capsule": "Prototype en cours de réalisation.",
+  "solution": "Affirmation 1 : Corriger, avec la frise des origines et le dossier du changement de nom. Affirmation 2 : Confirmer, avec la frise des origines. Affirmation 3 : Corriger, avec les pièces Publication et Règle du décret. Affirmation 4 : Corriger, avec les mots de l’atelier. Affirmation 5 : Confirmer, avec le calcul BCF. Cadran : ajoutez 100 à 1968 : 2068.",
+  "capsule": "1968 : origine au Cnam ; 1973 : association des anciens ; 1984 : installation à Évry ; 2006 : passage à l’ENSIIE. L’année 2068 reste une projection fictive de votre équipe.",
   "outputs": [
     {
       "id": "memory",
@@ -68,23 +68,122 @@
   ],
   "steps": [
     {
-      "id": "placeholder",
-      "title": "Maquette à remplacer",
-      "instruction": "Lisez TASK.md dans le dossier de ce niveau. Cette maquette ne peut pas être validée dans la campagne.",
+      "id": "claims",
+      "title": "Cinq affirmations",
+      "instruction": "Pour chaque affirmation d’ARIIE, choisissez Confirmer ou Corriger, puis sélectionnez la ou les preuves du carnet qui justifient votre décision.",
+      "documentIds": ["method"],
+      "mechanic": {
+        "kind": "evidence",
+        "decisions": [
+          { "id": "confirm", "label": "Confirmer" },
+          { "id": "correct", "label": "Corriger" }
+        ],
+        "proofs": [
+          {
+            "id": "chronology",
+            "label": "Frise des origines (PAS-01)",
+            "source": { "input": "origin", "path": "chronology" }
+          },
+          {
+            "id": "renaming",
+            "label": "Dossier du changement de nom (PAS-03)",
+            "source": { "input": "transition" }
+          },
+          {
+            "id": "publication",
+            "label": "Pièce du décret : publication au Journal officiel",
+            "source": { "input": "transition", "path": "evidence", "item": "Publication" }
+          },
+          {
+            "id": "rule",
+            "label": "Pièce du décret : règle d’entrée en vigueur",
+            "source": { "input": "transition", "path": "evidence", "item": "Règle" }
+          },
+          {
+            "id": "workshop",
+            "label": "Mots et fiches de l’atelier (PRE-01)",
+            "source": { "input": "lexicon", "path": "words" }
+          },
+          {
+            "id": "bcf",
+            "label": "Calcul BCF (FUT-01)",
+            "source": { "input": "projects" }
+          },
+          {
+            "id": "route",
+            "label": "Trajet de transmission (FUT-02)",
+            "source": { "input": "program" }
+          }
+        ],
+        "claims": [
+          {
+            "id": "name",
+            "statement": "Le nom ENSIIE était déjà celui de l’école à son origine en 1968.",
+            "decision": "correct",
+            "proofs": ["chronology", "renaming"],
+            "accepted": "Correction enregistrée. L’origine remonte à l’IIE ; le passage au nom ENSIIE intervient en 2006.",
+            "error": "Reprenez la frise et le dossier du changement de nom. Une origine et une nouvelle identité peuvent avoir des dates différentes."
+          },
+          {
+            "id": "evry",
+            "statement": "L’installation de l’école à Évry date de 1984.",
+            "decision": "confirm",
+            "proofs": ["chronology"],
+            "accepted": "Confirmé. Cette étape appartient à l’histoire des lieux de l’école.",
+            "error": "La notice Lieux permet de trancher. Il n’est pas nécessaire de deviner."
+          },
+          {
+            "id": "decree",
+            "statement": "La publication du décret le 7 juillet 2006 est aussi sa date d’entrée en vigueur.",
+            "decision": "correct",
+            "proofs": ["publication", "rule"],
+            "accepted": "Correction enregistrée : publication le 7 juillet, entrée en vigueur le 1er août 2006.",
+            "error": "Les deux dates remplissent des rôles différents. Retrouvez la règle du mois suivant."
+          },
+          {
+            "id": "domains",
+            "statement": "Les domaines découverts dans l’atelier se résument tous à écrire du code.",
+            "decision": "correct",
+            "proofs": ["workshop"],
+            "accepted": "Correction enregistrée. Vous avez aussi rencontré la modélisation, l’optimisation, l’interaction et le calcul intensif.",
+            "error": "Relisez les quatre fiches de domaines. Quelles activités ne se réduisent pas à la saisie d’un programme ?"
+          },
+          {
+            "id": "simulation",
+            "statement": "Dans notre simulation, BCF respecte le budget maximal de 8, la pression maximale de 6 et le service minimal de 9.",
+            "decision": "confirm",
+            "proofs": ["bcf"],
+            "accepted": "Confirmé : 8, 4 et 9. Ces valeurs décrivent notre simulation, pas les moyens réels de l’école.",
+            "error": "Ouvrez le calcul BCF et comparez chacun des trois totaux à son seuil."
+          }
+        ],
+        "proofError": "Votre décision ne suffit pas encore : sélectionnez la preuve qui permet de la justifier."
+      }
+    },
+    {
+      "id": "dial",
+      "title": "Le cadran du centenaire",
+      "instruction": "Les cinq affirmations sont vérifiées. Réglez maintenant le cadran du centenaire de l’origine de l’école : année d’origine plus cent ans.",
+      "documentIds": ["timeline"],
       "mechanic": {
         "kind": "form",
         "fields": [
           {
-            "id": "placeholder",
-            "label": "Champ de maquette",
-            "format": "text",
-            "expected": "NON-JOUABLE",
+            "id": "year",
+            "label": "Année du centenaire",
+            "format": "integer",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "expected": "2068",
+            "error": "Reprenez l’année d’origine, pas celle du changement de nom.",
+            "traps": [
+              {
+                "value": "2106",
+                "error": "Vous avez ajouté cent ans à 2006. La capsule célèbre ici l’origine de 1968."
+              }
+            ]
           }
         ]
-      },
-      "documentIds": []
+      }
     }
   ]
 }

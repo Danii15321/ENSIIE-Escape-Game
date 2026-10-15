@@ -75,3 +75,7 @@ Dans cet ordre : titre de la variante ; texte de Nora ; texte d’ARIIE ; engage
 **END.CLOSE — ARIIE :** « Merci, {equipe}. Vous avez retrouvé d’où nous venons, observé ce qui nous rassemble et choisi comment transmettre. La mémoire peut continuer. »
 
 Actions : **Relire le carnet**, **Exporter le souvenir**, **Revenir à l’accueil**. L’export est un document local de synthèse, avec les engagements et le nom d’équipe ; il n’est pas un diplôme officiel de l’école.
+
+## Contrat disponible (2026-10-15)
+
+`ending(session, catalog)` dans `src/core/session/engine.ts` renvoie `null` avant la réussite du final, puis `{ theme, commitments }`. `theme` vaut l’identifiant de thème des options du Conseil (`lucidite`, `sobriete`, `partage` si le Conseil utilise ces identifiants) ou `null` pour Horizon commun. `commitments` suit l’ordre C1 à C3. Les textes de fin restent des données à créer dans ce dossier.

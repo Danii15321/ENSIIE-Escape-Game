@@ -1,40 +1,72 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "pre-01",
   "title": "L’atelier des compétences",
   "era": "present",
-  "status": "draft",
-  "minutes": 6,
+  "status": "prototype",
+  "minutes": 7,
   "inputs": [],
   "observations": [],
-  "documents": [],
+  "documents": [
+    {
+      "id": "simulator",
+      "title": "Le simulateur pédagogique",
+      "body": "Un simulateur fictif doit transformer un besoin en démonstration fluide. Quatre modules sont mélangés. Chaque module a une mission, un type de donnée d’entrée et un type de sortie. Les types sont visibles : il n’est pas nécessaire de connaître la programmation. L’ordre de ce circuit est une règle de cette simulation, pas une description imposée des cursus ou de tous les projets réels.",
+      "sourceIds": [],
+      "badge": "fiction"
+    },
+    {
+      "id": "domains",
+      "title": "Les quatre fiches de domaines",
+      "body": "Mathématiques appliquées : modélisation et optimisation. Ingénierie logicielle : conception et vérification de programmes. Interactions numériques : interfaces et expériences interactives. Calcul intensif et données massives : calcul parallèle et grands ensembles de données.",
+      "sourceIds": ["S09"],
+      "badge": "fact"
+    }
+  ],
   "dialogue": {
     "entry": "entry",
     "nodes": [
       {
         "id": "entry",
         "speaker": "ARIIE",
-        "text": "Ce dossier est en préparation. Sa fiche de réalisation contient la conception détaillée.",
+        "text": "Mon simulateur possède tous ses modules. Il essaie simplement de faire interagir un besoin avant d’avoir construit son modèle. Cela explique plusieurs choses.",
+        "choices": [
+          {
+            "id": "cursus",
+            "label": "Faut-il connaître les cursus ?",
+            "to": "cursus"
+          },
+          {
+            "id": "start",
+            "label": "Ouvrons l’atelier.",
+            "to": null
+          }
+        ]
+      },
+      {
+        "id": "cursus",
+        "speaker": "ARIIE",
+        "text": "Non. Les fiches expliquent les compétences. Vous cherchez une association principale ; dans un projet réel, les domaines se croisent.",
         "choices": [
           {
             "id": "start",
-            "label": "Examiner le dossier",
+            "label": "Ouvrons l’atelier.",
             "to": null
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "Le simulateur fonctionne. Vous avez relié des compétences et des informations, pas seulement quatre boîtes.",
+    "return": "Je garde quatre mots : MODELE, LOGICIEL, INTERFACE, CALCUL. Ils seront utiles au mur de mémoire."
   },
   "hints": [
-    "Relisez la consigne.",
-    "Comparez les documents.",
-    "La démarche complète est disponible après cet indice."
+    "Cherchez d’abord le seul module qui accepte BESOIN.",
+    "MODELE doit être validé avant de devenir une SCENE dans ce circuit.",
+    "L’ordre est Modéliser, Vérifier, Faire interagir, Accélérer. Associez mathématiques, logiciel, interactions et calcul à ces quatre actions."
   ],
-  "solution": "La solution complète figure dans TASK.md ; le validateur de production reste à intégrer.",
-  "capsule": "Prototype en cours de réalisation.",
+  "solution": "Mathématiques appliquées → Modéliser ; ingénierie logicielle → Vérifier ; interactions numériques → Faire interagir ; calcul intensif et données massives → Accélérer. Chaîne unique : BESOIN → Modéliser → Vérifier → Faire interagir → Accélérer → DEMO FLUIDE. Mots de mémoire : MODELE, LOGICIEL, INTERFACE, CALCUL.",
+  "capsule": "L’école présente notamment des domaines de mathématiques appliquées, de logiciel, d’interactions numériques et de calcul intensif. Cette sélection illustre leur complémentarité sans résumer toute l’offre de formation.",
   "outputs": [
     {
       "id": "lexicon",
@@ -42,28 +74,115 @@
       "data": {
         "words": ["MODELE", "LOGICIEL", "INTERFACE", "CALCUL"]
       },
-      "summary": "Quatre mots pour explorer les compétences."
+      "summary": "Quatre mots de mémoire : MODELE, LOGICIEL, INTERFACE, CALCUL."
     }
   ],
   "steps": [
     {
-      "id": "placeholder",
-      "title": "Maquette à remplacer",
-      "instruction": "Lisez TASK.md dans le dossier de ce niveau. Cette maquette ne peut pas être validée dans la campagne.",
+      "id": "domains",
+      "title": "Attribuer les domaines",
+      "instruction": "Attribuez un domaine principal à chaque module, d’après sa mission et les fiches de domaines.",
+      "documentIds": ["simulator", "domains"],
       "mechanic": {
-        "kind": "form",
-        "fields": [
+        "kind": "match",
+        "items": [
           {
-            "id": "placeholder",
-            "label": "Champ de maquette",
-            "format": "text",
-            "expected": "NON-JOUABLE",
-            "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "id": "interact",
+            "label": "Faire interagir : concevoir les commandes et les retours du simulateur"
+          },
+          {
+            "id": "accelerate",
+            "label": "Accélérer : répartir les traitements pour fluidifier la simulation"
+          },
+          {
+            "id": "model",
+            "label": "Modéliser : répartir des ressources sous contraintes"
+          },
+          {
+            "id": "verify",
+            "label": "Vérifier : contrôler les propriétés du modèle programmé"
           }
-        ]
-      },
-      "documentIds": []
+        ],
+        "targets": [
+          {
+            "id": "maths",
+            "label": "Mathématiques appliquées"
+          },
+          {
+            "id": "software",
+            "label": "Ingénierie logicielle"
+          },
+          {
+            "id": "interaction",
+            "label": "Interactions numériques"
+          },
+          {
+            "id": "hpc",
+            "label": "Calcul intensif et données massives"
+          }
+        ],
+        "expected": {
+          "model": "maths",
+          "verify": "software",
+          "interact": "interaction",
+          "accelerate": "hpc"
+        },
+        "error": "Relisez l’action principale du module et la définition du domaine. Les connexions ne suffisent pas à elles seules."
+      }
+    },
+    {
+      "id": "circuit",
+      "title": "Brancher le simulateur",
+      "instruction": "Branchez les modules pour transformer BESOIN en DEMO FLUIDE. Une sortie peut être raccordée uniquement à une entrée portant exactement le même nom. Utilisez chaque module une fois.",
+      "documentIds": ["simulator"],
+      "mechanic": {
+        "kind": "circuit",
+        "source": {
+          "id": "need",
+          "label": "Besoin",
+          "type": "BESOIN"
+        },
+        "target": {
+          "id": "demo",
+          "label": "Démonstration",
+          "type": "DEMO FLUIDE"
+        },
+        "modules": [
+          {
+            "id": "interact",
+            "label": "Faire interagir",
+            "mission": "Concevoir les commandes et les retours du simulateur",
+            "input": "MODELE VALIDE",
+            "output": "SCENE"
+          },
+          {
+            "id": "accelerate",
+            "label": "Accélérer",
+            "mission": "Répartir les traitements pour fluidifier la simulation",
+            "input": "SCENE",
+            "output": "DEMO FLUIDE"
+          },
+          {
+            "id": "model",
+            "label": "Modéliser",
+            "mission": "Répartir des ressources sous contraintes",
+            "input": "BESOIN",
+            "output": "MODELE"
+          },
+          {
+            "id": "verify",
+            "label": "Vérifier",
+            "mission": "Contrôler les propriétés du modèle programmé",
+            "input": "MODELE",
+            "output": "MODELE VALIDE"
+          }
+        ],
+        "expected": ["model", "verify", "interact", "accelerate"],
+        "feedback": {
+          "link": "Ces deux prises ne portent pas le même type de donnée. La sortie précédente doit correspondre à l’entrée suivante.",
+          "incomplete": "Il manque un module ou une liaison pour atteindre DEMO FLUIDE."
+        }
+      }
     }
   ]
 }

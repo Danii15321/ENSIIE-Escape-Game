@@ -3,6 +3,7 @@ import { catalog, sourceRegistry } from './catalog';
 import { useGame } from './useGame';
 import {
   availability,
+  choicesFrozen,
   initialProgress,
   integrity,
   inventory,
@@ -82,8 +83,8 @@ export function App() {
               </div>
               <progress max={100} value={score} aria-label="Intégrité d’ARIIE" />
               <p>
-                Le premier acte est jouable en version sobre. Les dossiers « À réaliser » disposent
-                de leur fiche de travail et n’ouvrent pas encore la suite.
+                Les actes I et II sont jouables en version sobre. Les dossiers « À réaliser »
+                disposent de leur fiche de travail et n’ouvrent pas encore la suite.
               </p>
             </section>
             {game.notice ? (
@@ -202,6 +203,7 @@ export function App() {
                       evaluation={game.evaluation}
                       message={game.message}
                       sources={sourceRegistry}
+                      frozen={choicesFrozen(game.session, catalog)}
                     />
                   </fieldset>
                 ) : null}

@@ -1,6 +1,6 @@
 # SYN-03 — Le contrôle du centenaire : fiche de réalisation
 
-**Statut :** contenu à implémenter ; maquette exclue du jeu. **Responsable :** à attribuer. **Relecteur :** autre membre du binôme.
+**Statut :** prototype jouable, recette à terminer. **Responsable :** gitvonBS. **Relecteur :** autre membre du binôme.
 
 Cette fiche reprend la conception du README au 15 octobre 2026. Les textes et solutions ci-dessous sont la référence éditoriale du niveau ; `level.json` est sa version exécutée. Lors d’un changement de design, mettre à jour ces deux fichiers et signaler toute divergence avec le [README principal](../../../README.md). La fiche n’est pas chargée par le jeu.
 
@@ -52,17 +52,17 @@ Le moteur attribue les sorties après la réussite de **toutes** les étapes. Le
 
 ## Recette à cocher
 
-- [ ] Chaque consigne et chaque document nécessaire est lisible dans le niveau.
+- [x] Chaque consigne et chaque document nécessaire est lisible dans le niveau.
 - [ ] Les dialogues d’entrée, de question, d’erreur, d’indice, de réussite et de retour ci-dessous sont intégrés, ou une simplification est explicitement acceptée dans cette fiche.
-- [ ] La solution nominale passe ; une réponse fausse et une réponse proche ne terminent pas le niveau.
-- [ ] Les preuves et sous-objectifs sont exigés, pas seulement le mot de sortie.
-- [ ] Une interruption après saisie conserve le brouillon et les étapes validées en campagne.
-- [ ] Les indices et l’aide complète permettent de reprendre sans retirer de points (sauf Conseil narratif : aucune bonne/mauvaise réponse).
-- [ ] Les références documentaires sont enregistrées dans le registre partagé et leur identifiant existe.
-- [ ] Le niveau fonctionne au clavier et sans glisser-déposer ; aucun sens transmis seulement par la couleur.
-- [ ] Les variantes de site utiles sont testées, sans déclarer les repères fictifs réels.
-- [ ] Une seconde validation ne duplique ni récompense ni points.
-- [ ] `npm run check:content -- syn-03` puis `npm run check` passent.
+- [x] La solution nominale passe ; une réponse fausse et une réponse proche ne terminent pas le niveau.
+- [x] Les preuves et sous-objectifs sont exigés, pas seulement le mot de sortie.
+- [x] Une interruption après saisie conserve le brouillon et les étapes validées en campagne.
+- [x] Les indices et l’aide complète permettent de reprendre sans retirer de points (sauf Conseil narratif : aucune bonne/mauvaise réponse).
+- [x] Les références documentaires sont enregistrées dans le registre partagé et leur identifiant existe.
+- [x] Le niveau fonctionne au clavier et sans glisser-déposer ; aucun sens transmis seulement par la couleur.
+- [x] Les variantes de site utiles sont testées, sans déclarer les repères fictifs réels.
+- [x] Une seconde validation ne duplique ni récompense ni points.
+- [x] `npm run check:content -- syn-03` puis `npm run check` passent.
 - [ ] Une autre personne joue la prévisualisation sans explication orale du concepteur.
 - [ ] Le statut passe de `draft` à `prototype`, puis à `ready` après recette et dialogues complets. Augmenter `revision` si le contenu joué change.
 
@@ -118,3 +118,4 @@ La réussite attribue les dix derniers points d’intégrité, fige les choix na
 | Date | Décision | Auteur / relecture |
 |---|---|---|
 | 2026-10-15 | Contrats et dossier isolé créés ; statut ci-dessus | Socle initial |
+| 2026-10-15 | Prototype jouable (révision 2). Étape 1 : brique commune `evidence`, cinq affirmations avec Confirmer ou Corriger et l’ensemble exact des preuves, tirées des ports injectés (frise, changement de nom, pièces Publication et Règle, mots de l’atelier, calcul BCF ; trajet FUT-02 comme leurre). S3.E1 à S3.E5 et S3.PROOF viennent des données ; les affirmations justifiées sont annoncées à chaque vérification et restent acquises dans le brouillon. Étape 2 : cadran 2068, ouvert seulement après l’étape 1 ; piège 2106 avec sa réplique. Le texte de réussite reprend END.01 ; l’écran END reste à réaliser. La réussite fige les choix du Conseil. Simplification à valider : la réponse correcte d’ARIIE s’affiche après vérification, pas affirmation par affirmation en direct. | gitvonBS, relecture à faire |
