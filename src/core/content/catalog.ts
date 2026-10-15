@@ -10,7 +10,7 @@ import {
   type Mechanic,
   type Site,
 } from '../contracts';
-import { normalizeDate } from '../validation/mechanics';
+import { normalizeDate, normalizeText } from '../validation/mechanics';
 
 export type Catalog = {
   campaign: Campaign;
@@ -130,6 +130,11 @@ export function validateCatalog(catalog: Catalog): string[] {
             errors.push(`${prefix}/${field.id} : option attendue absente`);
           if (field.format === 'date' && typeof expected === 'string' && !normalizeDate(expected))
             errors.push(`${prefix}/${field.id} : date attendue impossible`);
+          if (
+            typeof expected === 'string' &&
+            field.traps.some((trap) => normalizeText(trap.value) === normalizeText(expected))
+          )
+            errors.push(`${prefix}/${field.id} : piège identique à la réponse`);
           if (typeof expected === 'object' && !Array.isArray(expected)) {
             if ('input' in expected && !level.inputs.some((input) => input.id === expected.input))
               errors.push(`${prefix} : entrée ${expected.input} non déclarée`);
@@ -193,6 +198,28 @@ export function validateCatalog(catalog: Catalog): string[] {
           errors.push(`${prefix} : départ ou arrivée verrouillé`);
       }
       if (mechanic.kind === 'circuit') errors.push(...circuitErrors(mechanic, prefix));
+      if (mechanic.kind === 'evidence') {
+        unique(
+          mechanic.proofs.map((proof) => proof.id),
+          `${prefix}/preuves`,
+        );
+        unique(
+          mechanic.claims.map((claim) => claim.id),
+          `${prefix}/affirmations`,
+        );
+        for (const proof of mechanic.proofs)
+          if (!level.inputs.some((input) => input.id === proof.source.input))
+            errors.push(`${prefix} : entrée ${proof.source.input} non déclarée`);
+        for (const claim of mechanic.claims) {
+          if (!mechanic.decisions.some((decision) => decision.id === claim.decision))
+            errors.push(`${prefix}/${claim.id} : décision attendue absente`);
+          if (
+            new Set(claim.proofs).size !== claim.proofs.length ||
+            claim.proofs.some((id) => !mechanic.proofs.some((proof) => proof.id === id))
+          )
+            errors.push(`${prefix}/${claim.id} : preuve attendue absente ou dupliquée`);
+        }
+      }
       if (mechanic.kind === 'wordgrid') {
         if (mechanic.rows.some((row) => row.length !== mechanic.rows[0]!.length))
           errors.push(`${prefix} : grille de mots non rectangulaire`);
@@ -203,6 +230,17 @@ export function validateCatalog(catalog: Catalog): string[] {
           if (!level.inputs.some((input) => input.id === ref.input))
             errors.push(`${prefix} : entrée ${ref.input} non déclarée`);
       }
+    }
+    if (level.narrative) {
+      unique(
+        level.narrative.questions.map((question) => question.id),
+        `${prefix}/questions`,
+      );
+      for (const question of level.narrative.questions)
+        unique(
+          question.options.map((option) => option.id),
+          `${prefix}/${question.id}/options`,
+        );
     }
     for (const output of level.outputs)
       if (output.derive) {
@@ -230,8 +268,15 @@ export function validateCatalog(catalog: Catalog): string[] {
       continue;
     }
     const parents = ancestors(entry.id);
-    for (const required of entry.requires)
+    for (const required of entry.requires) {
       if (!entries.has(required)) errors.push(`${entry.id} : prérequis ${required} absent`);
+      if (levels[required]?.narrative)
+        errors.push(`${entry.id} : un niveau narratif ne peut pas être un prérequis`);
+    }
+    if (level.narrative && entry.points !== 0)
+      errors.push(`${entry.id} : un niveau narratif ne donne aucun point`);
+    if (level.narrative && entry.id === campaign.finalLevel)
+      errors.push(`${entry.id} : un niveau narratif ne peut pas être le final`);
     for (const input of level.inputs) {
       const binding = entry.bindings[input.id];
       const output =

@@ -105,3 +105,4 @@ Chaque question stocke une option, remplaçable. Le thème final est celui qui a
 | Date | Décision | Auteur / relecture |
 |---|---|---|
 | 2026-10-15 | Contrats et dossier isolé créés ; statut ci-dessus | Socle initial |
+| 2026-10-15 | Contrat narratif disponible : champ `narrative` (speaker, questions, options avec theme, reply, commitment, texte done), commande `choose` remplaçable, gel au final, calcul `ending`/`outcome` (majorité, sinon `null` pour Horizon commun). Voir `src/authoring/README.md`, section Niveau narratif. Le contenu de ce niveau reste à saisir. | gitvonBS |

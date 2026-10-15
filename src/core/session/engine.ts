@@ -18,6 +18,7 @@ export const progressSchema = z.object({
   drafts: z.record(z.string(), answerSchema),
   hints: z.number().int().min(0).max(3),
   dialogue: z.string().nullable(),
+  choices: z.record(z.string(), z.string()).default({}),
 });
 export type Progress = z.infer<typeof progressSchema>;
 export const sessionSchema = z.object({
@@ -39,13 +40,54 @@ export type Command =
   | { type: 'submit'; levelId: string }
   | { type: 'hint'; levelId: string }
   | { type: 'dialogue'; levelId: string; choiceId: string }
-  | { type: 'assist'; levelId: string; confirmed: true };
+  | { type: 'assist'; levelId: string; confirmed: true }
+  | { type: 'choose'; levelId: string; questionId: string; optionId: string | null };
 export type Result = { session: Session; evaluation?: Evaluation; message?: string };
+export type Outcome = { theme: string | null; commitments: string[] };
 
 export const isComplete = (progress?: Progress) =>
   progress?.status === 'succeeded' || progress?.status === 'assisted';
 export function initialProgress(level: Level): Progress {
-  return { status: 'started', step: 0, drafts: {}, hints: 0, dialogue: level.dialogue.entry };
+  return {
+    status: 'started',
+    step: 0,
+    drafts: {},
+    hints: 0,
+    dialogue: level.dialogue.entry,
+    choices: {},
+  };
+}
+export const choicesFrozen = (session: Session, catalog: Catalog) =>
+  isComplete(session.progress[catalog.campaign.finalLevel]);
+
+export function outcome(levels: Level[], choices: Record<string, Record<string, string>>): Outcome {
+  const counts = new Map<string, number>();
+  const commitments: string[] = [];
+  for (const level of levels)
+    for (const question of level.narrative?.questions ?? []) {
+      const option = question.options.find(
+        (option) => option.id === choices[level.id]?.[question.id],
+      );
+      if (!option) continue;
+      counts.set(option.theme, (counts.get(option.theme) ?? 0) + 1);
+      commitments.push(option.commitment);
+    }
+  const best = Math.max(0, ...counts.values());
+  const leaders = [...counts].filter(([, count]) => count === best);
+  return { theme: leaders.length === 1 ? leaders[0]![0] : null, commitments };
+}
+
+export function ending(session: Session, catalog: Catalog): Outcome | null {
+  if (!choicesFrozen(session, catalog)) return null;
+  const levels = catalog.campaign.levels
+    .map((entry) => catalog.levels[entry.id])
+    .filter((level): level is Level => Boolean(level?.narrative) && level!.status !== 'draft');
+  return outcome(
+    levels,
+    Object.fromEntries(
+      levels.map((level) => [level.id, session.progress[level.id]?.choices ?? {}]),
+    ),
+  );
 }
 export function createSession(
   catalog: Catalog,
@@ -122,28 +164,45 @@ export function advance(
   progress: Progress,
   command: Command,
   context: Context,
+  frozen = false,
 ): { progress: Progress; evaluation?: Evaluation; message?: string } {
   if (isComplete(progress)) return { progress, message: level.dialogue.return };
   const next = structuredClone(progress);
+  if (command.type === 'open') return { progress: next };
+  if (command.type === 'dialogue') {
+    const choice = level.dialogue.nodes
+      .find((node) => node.id === next.dialogue)
+      ?.choices.find((choice) => choice.id === command.choiceId);
+    if (!choice) return { progress, message: 'Ce choix de dialogue n’est pas disponible.' };
+    next.dialogue = choice.to;
+    return { progress: next };
+  }
+  if (level.narrative) {
+    if (command.type !== 'choose')
+      return { progress, message: 'Ce dossier ne contient aucune énigme à valider.' };
+    if (frozen) return { progress, message: 'La capsule est ouverte : les choix sont figés.' };
+    const question = level.narrative.questions.find((item) => item.id === command.questionId);
+    if (
+      !question ||
+      (command.optionId !== null &&
+        !question.options.some((option) => option.id === command.optionId))
+    )
+      return { progress, message: 'Ce choix n’est pas proposé.' };
+    if (command.optionId === null) delete next.choices[question.id];
+    else next.choices[question.id] = command.optionId;
+    return { progress: next };
+  }
   const step = level.steps[next.step];
   if (!step) throw new Error(`${level.id} : étape absente`);
   switch (command.type) {
-    case 'open':
-      return { progress: next };
+    case 'choose':
+      return { progress, message: 'Ce dossier ne propose pas de choix narratif.' };
     case 'draft':
       next.drafts[step.id] = answerSchema.parse(command.answer);
       break;
     case 'hint':
       next.hints = Math.min(3, next.hints + 1);
       break;
-    case 'dialogue': {
-      const choice = level.dialogue.nodes
-        .find((node) => node.id === next.dialogue)
-        ?.choices.find((choice) => choice.id === command.choiceId);
-      if (!choice) return { progress, message: 'Ce choix de dialogue n’est pas disponible.' };
-      next.dialogue = choice.to;
-      break;
-    }
     case 'assist':
       if (next.hints < 3 || command.confirmed !== true)
         return {
@@ -179,10 +238,15 @@ export function dispatch(session: Session, catalog: Catalog, command: Command): 
   if (isComplete(session.progress[level.id])) return { session, message: level.dialogue.return };
   const site = catalog.sites[session.siteId];
   if (!site || !site.verified) return { session, message: 'Profil de site indisponible.' };
-  const result = advance(level, session.progress[level.id] ?? initialProgress(level), command, {
-    site,
-    inputs: resolveInputs(session, catalog, level.id),
-  });
+  const result = advance(
+    level,
+    session.progress[level.id] ?? initialProgress(level),
+    command,
+    { site, inputs: resolveInputs(session, catalog, level.id) },
+    choicesFrozen(session, catalog),
+  );
+  if (result.progress === session.progress[level.id])
+    return { session, evaluation: result.evaluation, message: result.message };
   return {
     session: {
       ...session,
@@ -216,15 +280,31 @@ export function restoreSession(raw: unknown, catalog: Catalog): Session {
     )
       throw new Error(`Progression incompatible : ${id}`);
     if (
-      progress.step > level.steps.length ||
-      isComplete(progress) !== (progress.step === level.steps.length)
-    )
-      throw new Error(`Étape incohérente : ${id}`);
-    if (
       progress.dialogue !== null &&
       !level.dialogue.nodes.some((node) => node.id === progress.dialogue)
     )
       throw new Error(`Dialogue absent : ${id}`);
+    if (level.narrative) {
+      const questions = level.narrative.questions;
+      if (
+        progress.status !== 'started' ||
+        progress.step !== 0 ||
+        progress.hints !== 0 ||
+        Object.keys(progress.drafts).length ||
+        Object.entries(progress.choices).some(
+          ([question, option]) =>
+            !questions.find((item) => item.id === question)?.options.some((o) => o.id === option),
+        )
+      )
+        throw new Error(`Choix narratif incohérent : ${id}`);
+      continue;
+    }
+    if (Object.keys(progress.choices).length) throw new Error(`Choix inattendu : ${id}`);
+    if (
+      progress.step > level.steps.length ||
+      isComplete(progress) !== (progress.step === level.steps.length)
+    )
+      throw new Error(`Étape incohérente : ${id}`);
     for (const stepId of Object.keys(progress.drafts))
       if (!level.steps.some((step) => step.id === stepId))
         throw new Error(`Brouillon inconnu : ${id}/${stepId}`);

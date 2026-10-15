@@ -1,5 +1,6 @@
 import type { Answer, Context, Evaluation, Field, Mechanic } from '../contracts';
 import { evaluateCircuit } from './circuit';
+import { evaluateEvidence } from './evidence';
 import { evaluateWordGrid } from './wordgrid';
 
 export function normalizeText(value: string): string {
@@ -73,7 +74,10 @@ function fieldsResult(fields: Field[], answer: Answer, context: Context): Evalua
     } else if (field.format === 'code' || field.format === 'choice') {
       valid = received.trim() === target;
     } else valid = normalizeText(received) === normalizeText(String(target));
-    if (!valid) messages.push(`${field.label} : ${field.error}`);
+    const trap =
+      typeof received === 'string' &&
+      field.traps.find((trap) => normalizeText(trap.value) === normalizeText(received));
+    if (!valid) messages.push(`${field.label} : ${trap ? trap.error : field.error}`);
     else correct++;
   }
   return {
@@ -205,6 +209,8 @@ export function evaluate(mechanic: Mechanic, answer: Answer, context: Context): 
       return evaluateCircuit(mechanic, answer);
     case 'wordgrid':
       return evaluateWordGrid(mechanic, answer, context.inputs);
+    case 'evidence':
+      return evaluateEvidence(mechanic, answer, context.inputs);
   }
 }
 

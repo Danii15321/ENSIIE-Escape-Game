@@ -24,10 +24,10 @@ Node 22 recommandé (`.nvmrc`) ; Node 20.19+ compatible. Ouvrir http://localhost
 - Sauvegarde locale versionnée, export/import contrôlé, protection contre une écriture concurrente détectée et maintien en mémoire si le stockage échoue.
 - Cinq mécaniques : formulaire, classement, appariement, sélection sous contraintes et programme sur grille. Documents, dialogues, aide, observations DEMO et carnet partagés.
 - Atelier isolé utilisant les mêmes validateurs et composants, profils DEMO pair/impair et fixtures locales.
-- Dix prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, PRE-01, PRE-02, SYN-02, FUT-01, FUT-02. Les actes I et II fonctionnent en campagne, avec les profils DEMO pair et impair ; FUT-01 et FUT-02 s’ouvrent après CAPSULE.
+- Onze prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, PRE-01, PRE-02, SYN-02, FUT-01, FUT-02, SYN-03. Une campagne complète atteint 100 points. Les actes I et II fonctionnent en campagne, avec les profils DEMO pair et impair ; FUT-01 et FUT-02 s’ouvrent après CAPSULE.
 - Briques de l’acte II : circuit typé (`circuit`), mur de mots (`wordgrid`), réponses attendues selon la parité d’une observation (`parityOf`), sorties dérivées du profil (`derive`), fixtures et réponses de recette par profil.
 
-Le jeu complet n’est pas livré. Les trois paquets `draft` (FUT-C, SYN-03, EXT-EST) restent volontairement non jouables. Les dialogues exécutés sont encore abrégés : les fiches conservent le script complet à intégrer. Pas encore de service worker, de chronomètre, de terrain réel, de roue graphique, de Conseil ni d’écran de fin.
+Le jeu complet n’est pas livré. Les deux paquets `draft` (FUT-C, EXT-EST) restent volontairement non jouables. Les dialogues exécutés sont encore abrégés : les fiches conservent le script complet à intégrer. Pas encore de service worker, de chronomètre, de terrain réel, de roue graphique ni d’écran de fin. Le Conseil a son contrat mais pas encore son contenu.
 
 ## Fiches des niveaux
 
@@ -45,10 +45,10 @@ Une personne réserve un dossier de niveau. L’autre peut travailler sur un aut
 | 08 | [SYN-02 — Le mur des mots](../../game/levels/syn-02/TASK.md) | Prototype | gitvonBS | WordGrid (`wordgrid`) et extraction orientée disponibles ; pair et impair testés. |
 | 09 | [FUT-01 — Le campus sous contraintes](../../game/levels/fut-01/TASK.md) | Prototype | À attribuer | ConstraintSelector disponible avec totaux en direct et liste ordonnée des contraintes. |
 | 10 | [FUT-02 — Le protocole incomplet](../../game/levels/fut-02/TASK.md) | Prototype | À attribuer | GridProgram disponible, trace et première erreur calculées par le moteur. |
-| 11 | [FUT-C — Le Conseil du futur](../../game/levels/fut-c/TASK.md) | À réaliser | À attribuer | NarrativeChoice, remplacement des réponses et thèmes de fin à construire dans le chantier 04-narration. |
-| 12 | [SYN-03 — Le contrôle du centenaire](../../game/levels/syn-03/TASK.md) | À réaliser | À attribuer | EvidenceChoice composé de décisions et preuves, puis cadran final à réaliser. |
+| 11 | [FUT-C — Le Conseil du futur](../../game/levels/fut-c/TASK.md) | À réaliser | À attribuer | Contrat `narrative`, commande `choose` et calcul de l’issue disponibles ; contenu à saisir. |
+| 12 | [SYN-03 — Le contrôle du centenaire](../../game/levels/syn-03/TASK.md) | Prototype | gitvonBS | Brique `evidence` et pièges de saisie (`traps`) disponibles. |
 | 13 | [EXT-EST — L’antenne de l’Est](../../game/levels/ext-est/TASK.md) | À réaliser | À attribuer | AnswerForm et DocumentReader disponibles. Extension indépendante de la victoire. |
-| 14 | [END — Capsule et fins](../../game/endings/TASK.md) | À réaliser | À attribuer | Choix narratifs et composition de fin |
+| 14 | [END — Capsule et fins](../../game/endings/TASK.md) | À réaliser | À attribuer | `ending(session, catalog)` disponible ; écran et textes à réaliser. |
 
 ## Chantiers communs
 
@@ -80,6 +80,7 @@ Prendre une fiche entière ou ses sous-tâches. Les propriétaires ci-dessous so
 
 - Fait : acte II (PRE-01, PRE-02, SYN-02) et ses briques communes, sur la branche `level/act-2`.
 - Sans conflit avec le code commun : EXT-EST (contenu seul), dialogues complets de l’acte I dans chaque `level.json`, thème et navigation (chantier 06), hors ligne (chantier 07).
-- Ensuite : contrat narratif de FUT-C, brique EvidenceChoice de SYN-03, puis l’écran END ; enfin terrain réel et cache.
+- Fait : SYN-03 (brique `evidence`), contrat narratif (`narrative`, `choose`) et calcul de l’issue (`ending`).
+- Ensuite : contenu de FUT-C et écran END, puis terrain réel et cache.
 
 Les actes I et II fournissent le modèle à suivre, et l’atelier permet d’avancer sans attendre la campagne complète.

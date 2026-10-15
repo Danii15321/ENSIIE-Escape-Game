@@ -1,6 +1,7 @@
 import type { Answer, Field, Inputs, Mechanic } from '../../core/contracts';
 import { projectTotals } from '../../core/validation/mechanics';
 import { CircuitBoard } from './CircuitBoard';
+import { EvidenceBoard } from './EvidenceBoard';
 import { WordGridBoard } from './WordGridBoard';
 
 type Props = {
@@ -267,6 +268,10 @@ export function PuzzleWidget({ mechanic, answer, inputs, onChange }: Props) {
     case 'wordgrid':
       return (
         <WordGridBoard mechanic={mechanic} answer={answer} inputs={inputs} onChange={onChange} />
+      );
+    case 'evidence':
+      return (
+        <EvidenceBoard mechanic={mechanic} answer={answer} inputs={inputs} onChange={onChange} />
       );
   }
 }

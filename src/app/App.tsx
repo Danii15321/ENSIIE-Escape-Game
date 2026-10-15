@@ -3,6 +3,7 @@ import { catalog, sourceRegistry } from './catalog';
 import { useGame } from './useGame';
 import {
   availability,
+  choicesFrozen,
   initialProgress,
   integrity,
   inventory,
@@ -199,6 +200,7 @@ export function App() {
                       evaluation={game.evaluation}
                       message={game.message}
                       sources={sourceRegistry}
+                      frozen={choicesFrozen(game.session, catalog)}
                     />
                   </fieldset>
                 ) : null}

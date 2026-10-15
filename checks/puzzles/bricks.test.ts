@@ -251,6 +251,7 @@ describe('Sorties dérivées et parité', () => {
           ],
           expected: { parityOf: 'O2', even: 'even', odd: 'odd' },
           error: 'Parité',
+          traps: [],
         },
       ],
     };

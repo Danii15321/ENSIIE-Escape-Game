@@ -17,8 +17,8 @@
 | WordGrid | `wordgrid` : sélection départ puis fin, deux sens, résidus recalculés, lecture inverse | Glisser au doigt facultatif |
 | ConstraintSelector | Totaux, contraintes et validation | Peaufiner les cartes |
 | GridProgram | Programme à trous, obstacles, trace et message | Simulation exploratoire et cartes de rôles |
-| EvidenceChoice | Date + pièces via formulaire ; pas encore de brique dédiée | Affirmations et preuves pour SYN-03 |
-| NarrativeChoice | À faire | Questions remplaçables sans échec |
+| EvidenceChoice | `evidence` : décisions, ensemble exact de preuves tirées des ports, retours par affirmation | Cartes de preuves illustrées |
+| NarrativeChoice | Niveau `narrative`, commande `choose`, gel au final | Habillage des réponses de Nora |
 | MemoryCard | Capsules, carnet et fragments reçus | Cartes de preuves consultables dans le final |
 
 ## Extension commune : méthode

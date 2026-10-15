@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Context, Evaluation, Level } from '../../core/contracts';
 import { isComplete, type Command, type Progress } from '../../core/session/engine';
 import { caesar } from '../../core/validation/mechanics';
+import { NarrativeChoice } from '../widgets/NarrativeChoice';
 import { PuzzleWidget } from '../widgets/PuzzleWidget';
 
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
   message?: string;
   onCommand: (command: Command) => void;
   sources: Record<string, { title: string; url: string }>;
+  frozen?: boolean;
 };
 const badges = {
   fact: 'Fait sourcé',
@@ -27,6 +29,7 @@ export function LevelView({
   message,
   onCommand,
   sources,
+  frozen = false,
 }: Props) {
   const [solutionVisible, setSolutionVisible] = useState(false);
   const send = (command: Omit<Command, 'levelId'>) =>
@@ -71,7 +74,18 @@ export function LevelView({
           ))}
         </details>
       ) : null}
-      {done ? (
+      {level.narrative ? (
+        <NarrativeChoice
+          speaker={level.narrative.speaker}
+          questions={level.narrative.questions}
+          choices={progress.choices}
+          done={level.narrative.done}
+          frozen={frozen}
+          onChoose={(questionId, optionId) =>
+            onCommand({ type: 'choose', levelId: level.id, questionId, optionId })
+          }
+        />
+      ) : done ? (
         <section className="success">
           <h3>
             {progress.status === 'assisted' ? 'Dossier restauré avec aide' : 'Dossier restauré'}

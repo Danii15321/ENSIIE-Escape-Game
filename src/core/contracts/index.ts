@@ -83,6 +83,7 @@ const fieldSchema = z.object({
   options: z.array(optionSchema).default([]),
   expected: z.union([expectedSchema, z.array(z.string())]),
   error: text,
+  traps: z.array(z.object({ value: z.string().min(1), error: text })).default([]),
 });
 const formSchema = z.object({ kind: z.literal('form'), fields: z.array(fieldSchema).min(1) });
 const orderSchema = z.object({
@@ -121,6 +122,32 @@ const wordGridSchema = z.object({
     near: z.object({ forward: text, reverse: text }),
     error: text,
   }),
+});
+const evidenceSchema = z.object({
+  kind: z.literal('evidence'),
+  decisions: z.array(optionSchema).min(2),
+  proofs: z
+    .array(
+      z.object({
+        id,
+        label: text,
+        source: z.object({ input: id, path: id.optional(), item: text.optional() }),
+      }),
+    )
+    .min(1),
+  claims: z
+    .array(
+      z.object({
+        id,
+        statement: text,
+        decision: id,
+        proofs: z.array(id).min(1),
+        accepted: text,
+        error: text,
+      }),
+    )
+    .min(1),
+  proofError: text,
 });
 const constraintSchema = z.object({
   kind: z.literal('constraints'),
@@ -161,6 +188,7 @@ export const mechanicSchema = z.discriminatedUnion('kind', [
   programSchema,
   circuitSchema,
   wordGridSchema,
+  evidenceSchema,
 ]);
 export type Mechanic = z.infer<typeof mechanicSchema>;
 export type Field = z.infer<typeof fieldSchema>;
@@ -171,35 +199,48 @@ export const documentSchema = z.object({
   sourceIds: z.array(id),
   badge: z.enum(['fact', 'reconstruction', 'fiction']),
 });
+const speakerSchema = z.enum(['ARIIE', 'Nora', 'Système']);
 const dialogueNode = z.object({
   id,
-  speaker: z.enum(['ARIIE', 'Nora', 'Système']),
+  speaker: speakerSchema,
   text,
   choices: z.array(z.object({ id, label: text, to: id.nullable() })).default([]),
 });
-export const levelSchema = z.object({
-  contractVersion: z.literal(1),
-  revision: z.number().int().positive(),
+export const questionSchema = z.object({
   id,
-  title: text,
-  era: z.enum(['prologue', 'past', 'present', 'future', 'extension']),
-  status: z.enum(['draft', 'prototype', 'ready']),
-  minutes: z.number().positive(),
-  inputs: z.array(z.object({ id, type: fragmentTypeSchema })),
-  observations: z.array(observationSchema),
-  documents: z.array(documentSchema),
-  dialogue: z.object({
-    entry: id,
-    nodes: z.array(dialogueNode).min(1),
-    success: text,
-    return: text,
-  }),
-  hints: z.array(text).length(3),
-  solution: text,
-  capsule: text,
-  outputs: z.array(outputSchema),
-  steps: z
-    .array(
+  prompt: text,
+  options: z.array(z.object({ id, label: text, theme: id, reply: text, commitment: text })).min(2),
+});
+export type Question = z.infer<typeof questionSchema>;
+const narrativeSchema = z.object({
+  speaker: speakerSchema,
+  questions: z.array(questionSchema).min(1),
+  done: text,
+});
+export const levelSchema = z
+  .object({
+    contractVersion: z.literal(1),
+    revision: z.number().int().positive(),
+    id,
+    title: text,
+    era: z.enum(['prologue', 'past', 'present', 'future', 'extension']),
+    status: z.enum(['draft', 'prototype', 'ready']),
+    minutes: z.number().positive(),
+    inputs: z.array(z.object({ id, type: fragmentTypeSchema })),
+    observations: z.array(observationSchema),
+    documents: z.array(documentSchema),
+    dialogue: z.object({
+      entry: id,
+      nodes: z.array(dialogueNode).min(1),
+      success: text,
+      return: text,
+    }),
+    hints: z.array(text).max(3),
+    solution: z.string(),
+    capsule: text,
+    outputs: z.array(outputSchema),
+    narrative: narrativeSchema.optional(),
+    steps: z.array(
       z.object({
         id,
         title: text,
@@ -207,9 +248,19 @@ export const levelSchema = z.object({
         documentIds: z.array(id),
         mechanic: mechanicSchema,
       }),
-    )
-    .min(1),
-});
+    ),
+  })
+  .superRefine((level, ctx) => {
+    const issue = (message: string) => ctx.addIssue({ code: 'custom', message });
+    if (level.narrative) {
+      if (level.steps.length || level.hints.length || level.outputs.length || level.inputs.length)
+        issue('Un niveau narratif n’a ni étape, ni indice, ni entrée, ni sortie');
+    } else {
+      if (!level.steps.length) issue('Un puzzle contient au moins une étape');
+      if (level.hints.length !== 3) issue('Un puzzle contient exactement trois indices');
+      if (!level.solution.trim()) issue('Un puzzle explique sa solution');
+    }
+  });
 export type Level = z.infer<typeof levelSchema>;
 export const campaignSchema = z.object({
   id,
