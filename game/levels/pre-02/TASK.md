@@ -1,6 +1,6 @@
 # PRE-02 — Les yeux d’ARIIE : fiche de réalisation
 
-**Statut :** contenu à implémenter ; maquette exclue du jeu. **Responsable :** à attribuer. **Relecteur :** autre membre du binôme.
+**Statut :** prototype jouable, recette à terminer. **Responsable :** gitvonBS. **Relecteur :** autre membre du binôme.
 
 Cette fiche reprend la conception du README au 15 octobre 2026. Les textes et solutions ci-dessous sont la référence éditoriale du niveau ; `level.json` est sa version exécutée. Lors d’un changement de design, mettre à jour ces deux fichiers et signaler toute divergence avec le [README principal](../../../README.md). La fiche n’est pas chargée par le jeu.
 
@@ -49,17 +49,17 @@ Le moteur attribue les sorties après la réussite de **toutes** les étapes. Le
 
 ## Recette à cocher
 
-- [ ] Chaque consigne et chaque document nécessaire est lisible dans le niveau.
+- [x] Chaque consigne et chaque document nécessaire est lisible dans le niveau.
 - [ ] Les dialogues d’entrée, de question, d’erreur, d’indice, de réussite et de retour ci-dessous sont intégrés, ou une simplification est explicitement acceptée dans cette fiche.
-- [ ] La solution nominale passe ; une réponse fausse et une réponse proche ne terminent pas le niveau.
-- [ ] Les preuves et sous-objectifs sont exigés, pas seulement le mot de sortie.
-- [ ] Une interruption après saisie conserve le brouillon et les étapes validées en campagne.
-- [ ] Les indices et l’aide complète permettent de reprendre sans retirer de points (sauf Conseil narratif : aucune bonne/mauvaise réponse).
-- [ ] Les références documentaires sont enregistrées dans le registre partagé et leur identifiant existe.
-- [ ] Le niveau fonctionne au clavier et sans glisser-déposer ; aucun sens transmis seulement par la couleur.
-- [ ] Les variantes de site utiles sont testées, sans déclarer les repères fictifs réels.
-- [ ] Une seconde validation ne duplique ni récompense ni points.
-- [ ] `npm run check:content -- pre-02` puis `npm run check` passent.
+- [x] La solution nominale passe ; une réponse fausse et une réponse proche ne terminent pas le niveau.
+- [x] Les preuves et sous-objectifs sont exigés, pas seulement le mot de sortie.
+- [x] Une interruption après saisie conserve le brouillon et les étapes validées en campagne.
+- [x] Les indices et l’aide complète permettent de reprendre sans retirer de points (sauf Conseil narratif : aucune bonne/mauvaise réponse).
+- [x] Les références documentaires sont enregistrées dans le registre partagé et leur identifiant existe.
+- [x] Le niveau fonctionne au clavier et sans glisser-déposer ; aucun sens transmis seulement par la couleur.
+- [x] Les variantes de site utiles sont testées, sans déclarer les repères fictifs réels.
+- [x] Une seconde validation ne duplique ni récompense ni points.
+- [x] `npm run check:content -- pre-02` puis `npm run check` passent.
 - [ ] Une autre personne joue la prévisualisation sans explication orale du concepteur.
 - [ ] Le statut passe de `draft` à `prototype`, puis à `ready` après recette et dialogues complets. Augmenter `revision` si le contenu joué change.
 
@@ -118,3 +118,4 @@ DEMO : **4, pair, lecture normale**. Invitations : **Muzzik’**, **LudIIE**, **
 | Date | Décision | Auteur / relecture |
 |---|---|---|
 | 2026-10-15 | Contrats et dossier isolé créés ; statut ci-dessus | Socle initial |
+| 2026-10-15 | Prototype jouable (révision 2). Les deux sous-objectifs sont réunis dans une seule étape de formulaire : ils se remplissent dans n’importe quel ordre et les réponses justes restent dans le brouillon pendant la correction des autres. Champs : relevé O2, parité, sens de lecture, quatre invitations (R2.OBSERROR, R2.PARITY, R2.ERROR). La sortie `orientation` est dérivée du profil par la règle `orientation-parity` ; les profils DEMO pair et impair sont testés. Simplifications à valider : R2.GO attend la description réelle du repère dans le profil de site (chantier 05) ; la photo de secours citée par R2.OBSERROR n’existe pas encore. | gitvonBS, relecture à faire |

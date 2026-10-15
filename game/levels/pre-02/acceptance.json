@@ -1,11 +1,37 @@
 {
   "siteId": "demo",
-  "answers": [],
-  "status": "todo",
+  "answers": [
+    {
+      "observation": "4",
+      "parity": "even",
+      "reading": "forward",
+      "rehearsal": "muzzik",
+      "board": "ludiie",
+      "robot": "origine",
+      "immersive": "realitiie"
+    }
+  ],
+  "variants": {
+    "demo-odd": [
+      {
+        "observation": "3",
+        "parity": "odd",
+        "reading": "reverse",
+        "rehearsal": "muzzik",
+        "board": "ludiie",
+        "robot": "origine",
+        "immersive": "realitiie"
+      }
+    ]
+  },
+  "status": "executable",
   "cases": [
-    "Solution nominale",
-    "Réponse incorrecte",
-    "Reprise après saisie",
+    "Solution nominale DEMO pair : 4, pair, lecture normale",
+    "Profil DEMO impair : 3, impair, lecture inverse ; le fragment OrientationLecture vaut reverse",
+    "Relevé faux : R2.OBSERROR, les invitations correctes restent saisies",
+    "Parité fausse : R2.PARITY",
+    "Invitation fausse : R2.ERROR",
+    "Reprise après saisie partielle",
     "Assistance après trois indices",
     "Aucune double récompense"
   ]

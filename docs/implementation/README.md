@@ -24,9 +24,10 @@ Node 22 recommandé (`.nvmrc`) ; Node 20.19+ compatible. Ouvrir http://localhost
 - Sauvegarde locale versionnée, export/import contrôlé, protection contre une écriture concurrente détectée et maintien en mémoire si le stockage échoue.
 - Cinq mécaniques : formulaire, classement, appariement, sélection sous contraintes et programme sur grille. Documents, dialogues, aide, observations DEMO et carnet partagés.
 - Atelier isolé utilisant les mêmes validateurs et composants, profils DEMO pair/impair et fixtures locales.
-- Sept prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, FUT-01, FUT-02. Le premier acte fonctionne en campagne ; les deux FUT se jouent dans l’atelier en attendant l’acte II.
+- Dix prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, PRE-01, PRE-02, SYN-02, FUT-01, FUT-02. Les actes I et II fonctionnent en campagne, avec les profils DEMO pair et impair ; FUT-01 et FUT-02 s’ouvrent après CAPSULE.
+- Briques de l’acte II : circuit typé (`circuit`), mur de mots (`wordgrid`), réponses attendues selon la parité d’une observation (`parityOf`), sorties dérivées du profil (`derive`), fixtures et réponses de recette par profil.
 
-Le jeu complet n’est pas livré. Les six paquets `draft` restent volontairement non jouables. Les dialogues exécutés sont encore abrégés : les fiches conservent le script complet à intégrer. Pas encore de service worker, de chronomètre, de terrain réel, de roue graphique, de mur de mots, de circuit typé, de Conseil ni d’écran de fin.
+Le jeu complet n’est pas livré. Les trois paquets `draft` (FUT-C, SYN-03, EXT-EST) restent volontairement non jouables. Les dialogues exécutés sont encore abrégés : les fiches conservent le script complet à intégrer. Pas encore de service worker, de chronomètre, de terrain réel, de roue graphique, de Conseil ni d’écran de fin.
 
 ## Fiches des niveaux
 
@@ -39,9 +40,9 @@ Une personne réserve un dossier de niveau. L’autre peut travailler sur un aut
 | 03 | [PAS-02 — Le nom perdu](../../game/levels/pas-02/TASK.md) | Prototype | À attribuer | ObservationCard DEMO et validation César disponibles. Roue graphique et profil réel à ajouter. |
 | 04 | [PAS-03 — Le décret aux trois dates](../../game/levels/pas-03/TASK.md) | Prototype | À attribuer | AnswerForm date et sélection de preuves disponibles. |
 | 05 | [SYN-01 — La machine temporelle](../../game/levels/syn-01/TASK.md) | Prototype | À attribuer | Deux étapes persistées, formulaires et injections de fragments disponibles ; SlotBoard graphique facultatif. |
-| 06 | [PRE-01 — L’atelier des compétences](../../game/levels/pre-01/TASK.md) | À réaliser | À attribuer | MatchBoard disponible. ConnectionBoard typé à construire dans le chantier 03-briques. |
-| 07 | [PRE-02 — Les yeux d’ARIIE](../../game/levels/pre-02/TASK.md) | À réaliser | À attribuer | MatchBoard et observation DEMO disponibles. Sorties dérivées du profil à ajouter avant publication. |
-| 08 | [SYN-02 — Le mur des mots](../../game/levels/syn-02/TASK.md) | À réaliser | À attribuer | WordGrid et extraction orientée à construire dans le chantier 03-briques. |
+| 06 | [PRE-01 — L’atelier des compétences](../../game/levels/pre-01/TASK.md) | Prototype | gitvonBS | MatchBoard avec retour éditorial et ConnectionBoard (`circuit`) disponibles. |
+| 07 | [PRE-02 — Les yeux d’ARIIE](../../game/levels/pre-02/TASK.md) | Prototype | gitvonBS | Formulaire avec parité (`parityOf`) et sortie `orientation` dérivée du profil disponibles. |
+| 08 | [SYN-02 — Le mur des mots](../../game/levels/syn-02/TASK.md) | Prototype | gitvonBS | WordGrid (`wordgrid`) et extraction orientée disponibles ; pair et impair testés. |
 | 09 | [FUT-01 — Le campus sous contraintes](../../game/levels/fut-01/TASK.md) | Prototype | À attribuer | ConstraintSelector disponible avec totaux en direct et liste ordonnée des contraintes. |
 | 10 | [FUT-02 — Le protocole incomplet](../../game/levels/fut-02/TASK.md) | Prototype | À attribuer | GridProgram disponible, trace et première erreur calculées par le moteur. |
 | 11 | [FUT-C — Le Conseil du futur](../../game/levels/fut-c/TASK.md) | À réaliser | À attribuer | NarrativeChoice, remplacement des réponses et thèmes de fin à construire dans le chantier 04-narration. |
@@ -77,9 +78,8 @@ Prendre une fiche entière ou ses sous-tâches. Les propriétaires ci-dessous so
 
 ## Ordre conseillé pour la suite immédiate
 
-- Personne A : WordGrid + SYN-02, puis sorties de profil de PRE-02.
-- Personne B : PRE-01 (appariements puis ConnectionBoard), puis PRE-02.
-- Point commun : contrat des sorties calculées et règles de circuit/grille, avant de les implémenter.
-- Ensuite : Conseil, final et fins ; enfin terrain réel et cache.
+- Fait : acte II (PRE-01, PRE-02, SYN-02) et ses briques communes, sur la branche `level/act-2`.
+- Sans conflit avec le code commun : EXT-EST (contenu seul), dialogues complets de l’acte I dans chaque `level.json`, thème et navigation (chantier 06), hors ligne (chantier 07).
+- Ensuite : contrat narratif de FUT-C, brique EvidenceChoice de SYN-03, puis l’écran END ; enfin terrain réel et cache.
 
-Le premier acte fournit le modèle à suivre, et l’atelier permet d’avancer sans attendre la campagne complète.
+Les actes I et II fournissent le modèle à suivre, et l’atelier permet d’avancer sans attendre la campagne complète.

@@ -11,10 +11,10 @@
 | OrderBoard | Boutons monter/descendre + champs | Sélection puis placement, habillage |
 | CaesarWheel | Chiffrement calculé et formulaire de recul | Roue visuelle optionnelle |
 | SlotBoard | Formulaire de calibration + références de fragments | Placement graphique avec même validation |
-| MatchBoard | Appariement par listes de choix | Présentation en cartes |
-| ConnectionBoard | À faire | Ports et circuit typés pour PRE-01 |
+| MatchBoard | Appariement par listes de choix, retour éditorial `error` facultatif | Présentation en cartes |
+| ConnectionBoard | `circuit` : une liste de raccordement par sortie, types, entrées doublées, boucles et trace | Animation d’impulsion facultative |
 | ObservationCard | Valeurs fictives O1/O2 + génération César | Profil réel et secours traçable |
-| WordGrid | À faire | Segments, mots, résidus et sens pour SYN-02 |
+| WordGrid | `wordgrid` : sélection départ puis fin, deux sens, résidus recalculés, lecture inverse | Glisser au doigt facultatif |
 | ConstraintSelector | Totaux, contraintes et validation | Peaufiner les cartes |
 | GridProgram | Programme à trous, obstacles, trace et message | Simulation exploratoire et cartes de rôles |
 | EvidenceChoice | Date + pièces via formulaire ; pas encore de brique dédiée | Affirmations et preuves pour SYN-03 |

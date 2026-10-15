@@ -7,6 +7,7 @@ import { evaluate } from '../src/core/validation/mechanics';
 const acceptanceSchema = z.object({
   siteId: z.string(),
   answers: z.array(answerSchema),
+  variants: z.record(z.string(), z.array(answerSchema)).default({}),
   status: z.enum(['todo', 'executable']),
   cases: z.array(z.string()).min(1),
 });
@@ -28,7 +29,8 @@ if (requested && !catalog.levels[requested]) throw new Error(`Niveau inconnu : $
 for (const level of Object.values(catalog.levels).filter(
   (level) => !requested || level.id === requested,
 )) {
-  const inputs = validateFixture(level, readJson(`game/levels/${level.id}/fixtures.json`));
+  const raw = readJson(`game/levels/${level.id}/fixtures.json`);
+  validateFixture(level, raw);
   const acceptance = acceptanceSchema.parse(readJson(`game/levels/${level.id}/acceptance.json`));
   for (const document of level.documents)
     for (const source of document.sourceIds)
@@ -39,13 +41,24 @@ for (const level of Object.values(catalog.levels).filter(
   }
   if (acceptance.status !== 'executable' || acceptance.answers.length !== level.steps.length)
     throw new Error(`${level.id} : réponse de référence manquante`);
-  const site = catalog.sites[acceptance.siteId];
-  if (!site?.verified) throw new Error(`${level.id} : site de test non vérifié`);
-  level.steps.forEach((step, index) => {
-    const result = evaluate(step.mechanic, acceptance.answers[index]!, { inputs, site });
-    if (result.status !== 'correct')
-      throw new Error(`${level.id}/${step.id} : solution refusée — ${result.messages.join('; ')}`);
-  });
+  const runs = [
+    [acceptance.siteId, acceptance.answers] as const,
+    ...Object.entries(acceptance.variants),
+  ];
+  for (const [siteId, answers] of runs) {
+    const site = catalog.sites[siteId];
+    if (!site?.verified) throw new Error(`${level.id} : site de test ${siteId} non vérifié`);
+    if (answers.length !== level.steps.length)
+      throw new Error(`${level.id} : réponses ${siteId} incomplètes`);
+    const siteInputs = validateFixture(level, raw, siteId);
+    level.steps.forEach((step, index) => {
+      const result = evaluate(step.mechanic, answers[index]!, { inputs: siteInputs, site });
+      if (result.status !== 'correct')
+        throw new Error(
+          `${level.id}/${step.id} (${siteId}) : solution refusée, ${result.messages.join('; ')}`,
+        );
+    });
+  }
   executable++;
 }
 console.log(

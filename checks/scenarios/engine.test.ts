@@ -50,7 +50,8 @@ describe('Campagne et sauvegarde', () => {
     const again = dispatch(session, catalog, { type: 'submit', levelId: 'syn-01' }).session;
     expect(again).toBe(session);
     expect(restoreSession(JSON.parse(JSON.stringify(session)), catalog)).toEqual(session);
-    expect(availability(session, catalog, 'pre-01')).toBe('draft');
+    expect(availability(session, catalog, 'pre-01')).toBe('available');
+    expect(availability(session, catalog, 'syn-02')).toBe('locked');
   });
   it('conserve la première étape de la synthèse et le brouillon de la seconde', () => {
     let session = solve(create(), 'pro-00');

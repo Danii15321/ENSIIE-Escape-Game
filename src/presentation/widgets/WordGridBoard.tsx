@@ -118,7 +118,7 @@ export function WordGridBoard({ mechanic, answer, inputs, onChange }: Props) {
         </button>
       ) : null}
       {segments.length ? (
-        <ul>
+        <ul aria-label="Segments retenus">
           {segments.map((segment, index) => (
             <li key={segment}>
               {matches.find((m) => formatSegment(m.cells[0]!, m.cells.at(-1)!) === segment)?.word ??
