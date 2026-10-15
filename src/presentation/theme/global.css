@@ -1,0 +1,396 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #f4f1e8;
+  background: #101820;
+  font-size: 18px;
+  line-height: 1.55;
+  font-synthesis: none;
+  --panel: #1b2733;
+  --muted: #c5ced6;
+  --accent: #70d6e7;
+  --line: #415365;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button,
+.file-button {
+  min-height: 44px;
+  border: 1px solid #61788d;
+  border-radius: 8px;
+  padding: 0.55rem 0.9rem;
+  background: #243646;
+  color: inherit;
+  cursor: pointer;
+}
+button:hover:not(:disabled),
+.file-button:hover {
+  background: #304a5e;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+button[aria-current='page'],
+button.primary {
+  background: #70d6e7;
+  color: #101820;
+  border-color: #70d6e7;
+}
+input,
+select {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid #748697;
+  border-radius: 6px;
+  background: #101820;
+  color: #f4f1e8;
+  padding: 0.6rem;
+}
+input[type='checkbox'] {
+  width: 24px;
+  height: 24px;
+  min-height: 24px;
+  flex-shrink: 0;
+  accent-color: #70d6e7;
+}
+label {
+  display: block;
+}
+label > input,
+label > select {
+  margin-top: 0.35rem;
+}
+:focus-visible {
+  outline: 3px solid #e7b56a;
+  outline-offset: 4px;
+}
+a {
+  color: #91e3ef;
+}
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+h1 {
+  font-size: 2rem;
+  margin: 0.2rem 0;
+}
+h2 {
+  font-size: 1.4rem;
+}
+h3 {
+  font-size: 1.1rem;
+}
+p {
+  max-width: 75ch;
+}
+small {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.8rem;
+}
+code,
+.alphabet {
+  overflow-wrap: anywhere;
+}
+.masthead {
+  max-width: 1160px;
+  margin: auto;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 2rem 1rem 1rem;
+}
+.masthead p {
+  margin: 0.2rem 0;
+}
+.brand-mark {
+  font-size: 3rem;
+  color: var(--accent);
+}
+.tag {
+  margin-left: auto;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  color: var(--accent);
+}
+nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+main {
+  max-width: 1160px;
+  margin: auto;
+  padding: 1rem;
+}
+.panel,
+.level,
+.notice {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 1.3rem;
+  margin-bottom: 1rem;
+}
+.campaign {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.mission {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem;
+  background: var(--panel);
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.mission h2 {
+  font-size: 1.05rem;
+}
+.mission p {
+  margin: 0.2rem 0 0.7rem;
+}
+.mission button {
+  margin-top: auto;
+}
+.mission small {
+  margin-bottom: 0.6rem;
+}
+.era-past {
+  --accent: #e7b56a;
+}
+.era-future {
+  --accent: #beaff5;
+}
+.era-extension {
+  --accent: #9bd6b0;
+}
+.level {
+  max-width: 850px;
+  margin: 0 auto 2rem;
+  border-top: 3px solid var(--accent);
+}
+.dialogue {
+  border-left: 3px solid var(--accent);
+  padding: 1rem;
+  background: #101820;
+  margin-bottom: 1.4rem;
+}
+.row,
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.spread {
+  justify-content: space-between;
+}
+.actions {
+  margin: 1rem 0;
+}
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.document {
+  background: #f3ebdd;
+  color: #20272e;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.7rem 0;
+}
+.document small {
+  color: #48515b;
+}
+.document a {
+  color: #174c60;
+}
+summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 0.5rem 0;
+  font-weight: 600;
+}
+.check,
+.project {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 48px;
+  padding: 0.6rem 0;
+}
+.project small {
+  display: block;
+}
+.order {
+  padding-left: 1.5rem;
+}
+.order li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.order .row {
+  margin-top: 0.5rem;
+}
+fieldset {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1rem;
+  min-width: 0;
+  margin: 1rem 0;
+}
+fieldset.play-area {
+  border: 0;
+  padding: 0;
+}
+fieldset.play-area > legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.hints {
+  margin-top: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+.success {
+  border-left: 3px solid #9bd6b0;
+  padding: 1rem;
+}
+.feedback,
+.notice {
+  border-left: 3px solid #ffb3a7;
+}
+.feedback {
+  margin-top: 1rem;
+  padding: 1rem;
+}
+.feedback.success {
+  border-color: #9bd6b0;
+}
+.observation {
+  padding: 1rem;
+  border: 1px dashed #70d6e7;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+}
+th,
+td {
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+.table-scroll {
+  overflow-x: auto;
+}
+caption {
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+progress {
+  width: 100%;
+  height: 10px;
+  accent-color: #9bd6b0;
+}
+footer {
+  max-width: 1160px;
+  margin: 2rem auto;
+  padding: 1rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.file-button input {
+  max-width: 240px;
+  font-size: 0.75rem;
+}
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  padding: 1rem;
+  background: #101820;
+  z-index: 2;
+}
+@media (max-width: 600px) {
+  .masthead {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .tag {
+    margin-left: 0;
+  }
+  .level,
+  .panel {
+    padding: 1rem;
+  }
+  main {
+    padding: 0.75rem;
+  }
+  .fields {
+    grid-template-columns: 1fr;
+  }
+  .campaign {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mission {
+    padding: 0.75rem;
+  }
+  .mission button {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 380px) {
+  .campaign {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

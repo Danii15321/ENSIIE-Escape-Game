@@ -1,0 +1,16 @@
+{
+  "siteId": "demo",
+  "answers": [
+    {
+      "projects": ["B", "C", "F"]
+    }
+  ],
+  "status": "executable",
+  "cases": [
+    "Solution nominale",
+    "Réponse incorrecte",
+    "Reprise après saisie",
+    "Assistance après trois indices",
+    "Aucune double récompense"
+  ]
+}

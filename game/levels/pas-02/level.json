@@ -1,0 +1,123 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "pas-02",
+  "title": "Le nom perdu",
+  "era": "past",
+  "status": "prototype",
+  "minutes": 6,
+  "inputs": [],
+  "observations": ["O1"],
+  "documents": [
+    {
+      "id": "method",
+      "title": "Méthode du César",
+      "body": "Le stockage avance chaque lettre de O1 positions dans A à Z. Z revient à A. Pour lire, reculez du même nombre de positions. Les espaces restent en place.",
+      "sourceIds": [],
+      "badge": "fiction"
+    }
+  ],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "ARIIE",
+        "text": "Trois mots se sont décalés dans mon alphabet. La clé de lecture a été associée à un repère que vous pouvez encore observer.",
+        "choices": [
+          {
+            "id": "start",
+            "label": "Examiner le dossier",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "success": "Dossier restauré.",
+    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+  },
+  "hints": [
+    "La valeur observée déplace l’alphabet.",
+    "La lecture doit faire reculer les lettres.",
+    "INSTITUT INFORMATIQUE ENTREPRISE. Prenez les initiales."
+  ],
+  "solution": "Lire la valeur O1 du profil, reculer d’autant : INSTITUT INFORMATIQUE ENTREPRISE, sigle IIE.",
+  "capsule": "L’ancienne école portait le nom d’Institut d’informatique d’entreprise. DEMO : le repère ne décrit pas les locaux.",
+  "outputs": [
+    {
+      "id": "name",
+      "type": "NomHistorique",
+      "data": {
+        "acronym": "IIE",
+        "plaintext": "INSTITUT INFORMATIQUE ENTREPRISE"
+      },
+      "summary": "IIE : Institut d’informatique d’entreprise."
+    }
+  ],
+  "steps": [
+    {
+      "id": "decode",
+      "title": "Restaurer le nom",
+      "instruction": "Relevez O1 sur la carte de démonstration. Reculez de ce nombre de lettres, puis restituez le texte et son sigle.",
+      "mechanic": {
+        "kind": "form",
+        "fields": [
+          {
+            "id": "observation",
+            "label": "Valeur observée O1",
+            "format": "integer",
+            "expected": {
+              "observation": "O1"
+            },
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "shift",
+            "label": "Décalage de lecture (recul)",
+            "format": "integer",
+            "expected": {
+              "observation": "O1"
+            },
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "direction",
+            "label": "Sens",
+            "format": "choice",
+            "expected": "back",
+            "options": [
+              {
+                "id": "back",
+                "label": "Reculer dans l’alphabet"
+              },
+              {
+                "id": "forward",
+                "label": "Avancer dans l’alphabet"
+              }
+            ],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "plaintext",
+            "label": "Trois mots déchiffrés",
+            "format": "text",
+            "expected": "INSTITUT INFORMATIQUE ENTREPRISE",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "acronym",
+            "label": "Sigle",
+            "format": "text",
+            "expected": "IIE",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          }
+        ]
+      },
+      "documentIds": ["method"]
+    }
+  ]
+}

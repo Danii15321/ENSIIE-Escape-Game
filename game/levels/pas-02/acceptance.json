@@ -1,0 +1,20 @@
+{
+  "siteId": "demo",
+  "answers": [
+    {
+      "observation": "3",
+      "shift": "3",
+      "direction": "back",
+      "plaintext": "INSTITUT INFORMATIQUE ENTREPRISE",
+      "acronym": "IIE"
+    }
+  ],
+  "status": "executable",
+  "cases": [
+    "Solution nominale",
+    "Réponse incorrecte",
+    "Reprise après saisie",
+    "Assistance après trois indices",
+    "Aucune double récompense"
+  ]
+}

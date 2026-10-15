@@ -1,0 +1,17 @@
+{
+  "siteId": "demo",
+  "answers": [
+    {
+      "date": "01/08/2006",
+      "evidence": ["publication", "rule"]
+    }
+  ],
+  "status": "executable",
+  "cases": [
+    "Solution nominale",
+    "Réponse incorrecte",
+    "Reprise après saisie",
+    "Assistance après trois indices",
+    "Aucune double récompense"
+  ]
+}

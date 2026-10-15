@@ -1,0 +1,176 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "syn-01",
+  "title": "La machine temporelle",
+  "era": "past",
+  "status": "prototype",
+  "minutes": 6,
+  "inputs": [
+    {
+      "id": "origin",
+      "type": "OrigineHistorique"
+    },
+    {
+      "id": "name",
+      "type": "NomHistorique"
+    },
+    {
+      "id": "transition",
+      "type": "TransitionInstitutionnelle"
+    }
+  ],
+  "observations": [],
+  "documents": [
+    {
+      "id": "archive",
+      "title": "Site de l’IIE — Événements",
+      "body": "Capture conservée le 17 décembre 2004. La remise des diplômes de la promotion 2004 est annoncée pour le 21 janvier 2005 au château de Chamarande. Ceci prouve une annonce, pas que l’événement s’est tenu.",
+      "sourceIds": ["S16"],
+      "badge": "reconstruction"
+    }
+  ],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "ARIIE",
+        "text": "Nous avons une origine, un nom et une transition. Placez-les dans la machine. J’ai gardé l’étiquette de la capture.",
+        "choices": [
+          {
+            "id": "start",
+            "label": "Examiner le dossier",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "success": "Dossier restauré.",
+    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+  },
+  "hints": [
+    "Associez les étiquettes aux fragments.",
+    "La capture est en décembre 2004, le rendez-vous en janvier suivant.",
+    "L’annonce donne le 21 janvier 2005 à Chamarande ; le cadenas attend JJMM."
+  ],
+  "solution": "1968 ; IIE + CNAM ; 20041217 ; 01/08/2006. Puis clé 2101, Château de Chamarande.",
+  "capsule": "Distinguez date de capture, promotion et rendez-vous annoncé.",
+  "outputs": [
+    {
+      "id": "announcement",
+      "type": "ArchiveAnnonce",
+      "data": {
+        "date": "2005-01-21",
+        "location": "Château de Chamarande",
+        "key": "2101"
+      },
+      "summary": "Une capture de décembre 2004 conserve l’annonce du 21 janvier 2005."
+    }
+  ],
+  "steps": [
+    {
+      "id": "calibrate",
+      "title": "Calibrer la machine",
+      "instruction": "Utilisez les fragments du tiroir. La capture porte la date du 17/12/2004 ; son cadran attend AAAAMMJJ.",
+      "mechanic": {
+        "kind": "form",
+        "fields": [
+          {
+            "id": "origin",
+            "label": "Année d’origine",
+            "format": "integer",
+            "expected": {
+              "input": "origin",
+              "path": "year"
+            },
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "name",
+            "label": "Nom du domaine",
+            "format": "text",
+            "expected": {
+              "input": "name",
+              "path": "acronym"
+            },
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "host",
+            "label": "Hôte du domaine",
+            "format": "text",
+            "expected": {
+              "input": "origin",
+              "path": "institution"
+            },
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "capture",
+            "label": "Capture AAAAMMJJ",
+            "format": "code",
+            "expected": "20041217",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "transition",
+            "label": "Date de transition",
+            "format": "date",
+            "expected": {
+              "input": "transition",
+              "path": "date"
+            },
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          }
+        ]
+      },
+      "documentIds": []
+    },
+    {
+      "id": "archive",
+      "title": "Lire l’annonce",
+      "instruction": "Retrouvez le jour et le mois du rendez-vous annoncé pour la promotion 2004. Saisissez JJMM et choisissez le lieu.",
+      "mechanic": {
+        "kind": "form",
+        "fields": [
+          {
+            "id": "key",
+            "label": "Jour et mois JJMM",
+            "format": "code",
+            "expected": "2101",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "place",
+            "label": "Lieu",
+            "format": "choice",
+            "expected": "chamarande",
+            "options": [
+              {
+                "id": "chamarande",
+                "label": "Château de Chamarande"
+              },
+              {
+                "id": "paris",
+                "label": "Paris"
+              },
+              {
+                "id": "evry",
+                "label": "Évry"
+              }
+            ],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          }
+        ]
+      },
+      "documentIds": ["archive"]
+    }
+  ]
+}

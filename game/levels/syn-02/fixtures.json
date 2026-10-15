@@ -1,0 +1,29 @@
+{
+  "inputs": {
+    "lexicon": {
+      "id": "lexicon",
+      "type": "LexiqueTechnique",
+      "data": {
+        "words": ["MODELE", "LOGICIEL", "INTERFACE", "CALCUL"]
+      },
+      "summary": "Quatre mots pour explorer les compétences."
+    },
+    "student-life": {
+      "id": "student-life",
+      "type": "VieEtudiante",
+      "data": {
+        "words": ["MUSIQUE", "JEUX", "ROBOTIQUE", "VIRTUEL"]
+      },
+      "summary": "Des activités étudiantes pour apprendre ensemble."
+    },
+    "orientation": {
+      "id": "orientation",
+      "type": "OrientationLecture",
+      "data": {
+        "observed": 4,
+        "direction": "forward"
+      },
+      "summary": "DEMO pair : lecture de gauche à droite, du haut vers le bas."
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "inputs": {
+    "origin": {
+      "id": "origin",
+      "type": "OrigineHistorique",
+      "data": {
+        "year": 1968,
+        "institution": "CNAM",
+        "chronology": ["1968 — Création", "1973 — Anciens élèves", "1984 — Évry", "2006 — ENSIIE"],
+        "proof": "Notice Origines"
+      },
+      "summary": "L’IIE est créé en 1968 au Cnam."
+    },
+    "name": {
+      "id": "name",
+      "type": "NomHistorique",
+      "data": {
+        "acronym": "IIE",
+        "plaintext": "INSTITUT INFORMATIQUE ENTREPRISE"
+      },
+      "summary": "IIE : Institut d’informatique d’entreprise."
+    },
+    "transition": {
+      "id": "transition",
+      "type": "TransitionInstitutionnelle",
+      "data": {
+        "date": "2006-08-01",
+        "decree": "2006-805",
+        "evidence": ["Publication", "Règle"]
+      },
+      "summary": "Décret du 5 juillet 2006, publié le 7 juillet, applicable le 1er août."
+    }
+  }
+}

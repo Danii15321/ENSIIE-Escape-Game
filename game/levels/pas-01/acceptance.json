@@ -1,0 +1,22 @@
+{
+  "siteId": "demo",
+  "answers": [
+    {
+      "order": ["creation", "alumni", "evry", "name"],
+      "creation-year": "1968",
+      "alumni-year": "1973",
+      "evry-year": "1984",
+      "name-year": "2006",
+      "institution": "CNAM",
+      "proof": "origins"
+    }
+  ],
+  "status": "executable",
+  "cases": [
+    "Solution nominale",
+    "Réponse incorrecte",
+    "Reprise après saisie",
+    "Assistance après trois indices",
+    "Aucune double récompense"
+  ]
+}

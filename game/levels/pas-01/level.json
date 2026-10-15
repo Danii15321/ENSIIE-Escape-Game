@@ -1,0 +1,186 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "pas-01",
+  "title": "Les archives déclassées",
+  "era": "past",
+  "status": "prototype",
+  "minutes": 5,
+  "inputs": [],
+  "observations": [],
+  "documents": [
+    {
+      "id": "origins",
+      "title": "Notice Origines",
+      "body": "En 1968, l’Institut d’informatique d’entreprise est créé au Conservatoire national des arts et métiers, le Cnam.",
+      "sourceIds": ["S04", "S05"],
+      "badge": "reconstruction"
+    },
+    {
+      "id": "community",
+      "title": "Notice Communauté",
+      "body": "Les ingénieurs IIE se regroupent dans leur association, l’A3IE, à partir de 1973.",
+      "sourceIds": ["S15"],
+      "badge": "reconstruction"
+    },
+    {
+      "id": "places",
+      "title": "Notice Lieux",
+      "body": "Après ses locaux du Cnam à Paris, rue Saint-Martin, l’école s’installe à Évry en 1984.",
+      "sourceIds": ["S04"],
+      "badge": "reconstruction"
+    },
+    {
+      "id": "identity",
+      "title": "Notice Identité",
+      "body": "L’année 2006 marque le passage à l’ENSIIE. La date précise d’entrée en vigueur appartient à un autre dossier.",
+      "sourceIds": ["S04"],
+      "badge": "reconstruction"
+    }
+  ],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "ARIIE",
+        "text": "Ma première date certaine est 1972. Donc l’école est née en 1972. Raisonnement impeccable… sauf si j’ai confondu deux événements.",
+        "choices": [
+          {
+            "id": "start",
+            "label": "Examiner le dossier",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "success": "Dossier restauré.",
+    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+  },
+  "hints": [
+    "Chaque notice contient le sujet d’une des cartes.",
+    "Les anciens précèdent l’arrivée à Évry ; le nouveau nom arrive en dernier.",
+    "1968, 1973, 1984, 2006. La première notice nomme le Cnam."
+  ],
+  "solution": "Création 1968 → Anciens 1973 → Évry 1984 → Nouveau nom 2006. Maison mère CNAM, preuve Notice Origines.",
+  "capsule": "L’école commence comme IIE au Cnam. Une reconnaissance de diplôme ne se confond pas avec une création.",
+  "outputs": [
+    {
+      "id": "origin",
+      "type": "OrigineHistorique",
+      "data": {
+        "year": 1968,
+        "institution": "CNAM",
+        "chronology": ["1968 — Création", "1973 — Anciens élèves", "1984 — Évry", "2006 — ENSIIE"],
+        "proof": "Notice Origines"
+      },
+      "summary": "L’IIE est créé en 1968 au Cnam."
+    }
+  ],
+  "steps": [
+    {
+      "id": "timeline",
+      "title": "Restaurer la chronologie",
+      "instruction": "Rangez les cartes du plus ancien au plus récent, associez leurs années et justifiez l’origine.",
+      "mechanic": {
+        "kind": "order",
+        "cards": [
+          {
+            "id": "evry",
+            "label": "L’école s’installe à Évry."
+          },
+          {
+            "id": "name",
+            "label": "L’IIE devient l’ENSIIE."
+          },
+          {
+            "id": "alumni",
+            "label": "Les ingénieurs constituent leur association."
+          },
+          {
+            "id": "creation",
+            "label": "L’institut est créé au sein de sa maison mère."
+          }
+        ],
+        "expected": ["creation", "alumni", "evry", "name"],
+        "fields": [
+          {
+            "id": "creation-year",
+            "label": "Année de création",
+            "format": "integer",
+            "expected": "1968",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "alumni-year",
+            "label": "Année des anciens élèves",
+            "format": "integer",
+            "expected": "1973",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "evry-year",
+            "label": "Installation à Évry",
+            "format": "integer",
+            "expected": "1984",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "name-year",
+            "label": "Nouveau nom",
+            "format": "integer",
+            "expected": "2006",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "institution",
+            "label": "Maison mère",
+            "format": "choice",
+            "expected": "CNAM",
+            "options": [
+              {
+                "id": "CNAM",
+                "label": "Cnam"
+              },
+              {
+                "id": "Strasbourg",
+                "label": "Université de Strasbourg"
+              }
+            ],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "proof",
+            "label": "Notice qui prouve l’origine",
+            "format": "choice",
+            "expected": "origins",
+            "options": [
+              {
+                "id": "origins",
+                "label": "Origines"
+              },
+              {
+                "id": "community",
+                "label": "Communauté"
+              },
+              {
+                "id": "places",
+                "label": "Lieux"
+              },
+              {
+                "id": "identity",
+                "label": "Identité"
+              }
+            ],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          }
+        ]
+      },
+      "documentIds": ["origins", "community", "places", "identity"]
+    }
+  ]
+}

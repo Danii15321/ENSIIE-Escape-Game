@@ -1,0 +1,75 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "fut-02",
+  "title": "Le protocole incomplet",
+  "era": "future",
+  "status": "prototype",
+  "minutes": 6,
+  "inputs": [],
+  "observations": [],
+  "documents": [],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "Nora",
+        "text": "Deux instructions ont disparu. Mettez en commun le plan et le programme.",
+        "choices": [
+          {
+            "id": "start",
+            "label": "Examiner le dossier",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "success": "Dossier restauré.",
+    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+  },
+  "hints": [
+    "Depuis O, examinez les directions possibles.",
+    "Descendre revient au départ. Aller à droite mène trop tôt à l’arrivée.",
+    "Complétez par MONTER, puis DESCENDRE. Les arrivées forment un verbe."
+  ],
+  "solution": "MONTER, MONTER, DROITE, DESCENDRE, DROITE. Trace D → O → U → V → R → E. Message OUVRE.",
+  "capsule": "Un programme doit être explicite et vérifiable. La grille est fictive ; ce n’est pas un plan de l’école.",
+  "outputs": [
+    {
+      "id": "program",
+      "type": "ProgrammeTransmission",
+      "data": {
+        "commands": ["UP", "UP", "RIGHT", "DOWN", "RIGHT"],
+        "trace": ["D", "O", "U", "V", "R", "E"],
+        "message": "OUVRE"
+      },
+      "summary": "Trajet vérifié, sans répétition : D → O → U → V → R → E."
+    }
+  ],
+  "steps": [
+    {
+      "id": "program",
+      "title": "Réparer le protocole",
+      "instruction": "Départ D, arrivée E. Cinq déplacements, aucune case verrouillée ni revisitée, y compris le départ. Écrivez une lettre après chaque déplacement.",
+      "mechanic": {
+        "kind": "program",
+        "grid": [
+          ["U", "V", "X"],
+          ["O", "R", "E"],
+          ["D", "N", "T"]
+        ],
+        "start": [2, 0],
+        "goal": [1, 2],
+        "blocked": [
+          [0, 2],
+          [2, 1],
+          [2, 2]
+        ],
+        "program": ["UP", null, "RIGHT", null, "RIGHT"],
+        "noRevisit": true
+      },
+      "documentIds": []
+    }
+  ]
+}

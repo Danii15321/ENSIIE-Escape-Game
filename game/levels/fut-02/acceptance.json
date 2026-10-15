@@ -1,0 +1,18 @@
+{
+  "siteId": "demo",
+  "answers": [
+    {
+      "command-1": "UP",
+      "command-3": "DOWN",
+      "message": "OUVRE"
+    }
+  ],
+  "status": "executable",
+  "cases": [
+    "Solution nominale",
+    "Réponse incorrecte",
+    "Reprise après saisie",
+    "Assistance après trois indices",
+    "Aucune double récompense"
+  ]
+}

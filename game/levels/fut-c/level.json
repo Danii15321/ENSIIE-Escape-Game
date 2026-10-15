@@ -1,0 +1,60 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "fut-c",
+  "title": "Le Conseil du futur",
+  "era": "future",
+  "status": "draft",
+  "minutes": 3,
+  "inputs": [],
+  "observations": [],
+  "documents": [],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "Nora",
+        "text": "Ce dossier est en préparation. Sa fiche de réalisation contient la conception détaillée.",
+        "choices": [
+          {
+            "id": "start",
+            "label": "Examiner le dossier",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "success": "Dossier restauré.",
+    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+  },
+  "hints": [
+    "Relisez la consigne.",
+    "Comparez les documents.",
+    "La démarche complète est disponible après cet indice."
+  ],
+  "solution": "La solution complète figure dans TASK.md ; le validateur de production reste à intégrer.",
+  "capsule": "Prototype en cours de réalisation.",
+  "outputs": [],
+  "steps": [
+    {
+      "id": "placeholder",
+      "title": "Maquette à remplacer",
+      "instruction": "Lisez TASK.md dans le dossier de ce niveau. Cette maquette ne peut pas être validée dans la campagne.",
+      "mechanic": {
+        "kind": "form",
+        "fields": [
+          {
+            "id": "placeholder",
+            "label": "Champ de maquette",
+            "format": "text",
+            "expected": "NON-JOUABLE",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          }
+        ]
+      },
+      "documentIds": []
+    }
+  ]
+}

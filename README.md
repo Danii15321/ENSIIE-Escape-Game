@@ -2,9 +2,27 @@
 
 **Game design complet, direction artistique, dialogues et architecture du projet.**
 
-Version consolidée du 15 octobre 2026 pour le hackathon ENSIIE. Ce document est la référence commune d’une équipe de réalisation de **deux personnes**. Il décrit le jeu à construire ; aucune application n’est encore implémentée.
+Version consolidée du 15 octobre 2026 pour le hackathon ENSIIE. Ce document est la référence commune d’une équipe de réalisation de **deux personnes**. Un premier socle exécutable est maintenant disponible ; les sections de conception décrivent le jeu complet visé, au-delà des prototypes déjà réalisés.
 
-Le README réunit « Chrono-IIE » et « La mémoire de demain ». Il contient les consignes joueurs, les supports, les solutions, les indices, les réactions des personnages et les contrats nécessaires pour développer des niveaux séparément. **Tous les spoilers sont présents.** Les fichiers de `docs/` conservent les propositions antérieures ; en cas de divergence, ce README fait référence.
+Le README réunit « Chrono-IIE » et « La mémoire de demain ». Il contient les consignes joueurs, les supports, les solutions, les indices, les réactions des personnages et les contrats nécessaires pour développer des niveaux séparément. **Tous les spoilers sont présents.** Les fichiers numérotés de `docs/` conservent les propositions antérieures ; `docs/implementation/` décrit le travail actuel.
+
+## Démarrer le développement
+
+```sh
+npm ci
+npm run dev
+```
+
+Node 22 recommandé. Dans ce workspace WSL, exécuter ces commandes dans Ubuntu, depuis `/home/daniel/hackathon`. Ouvrir `http://localhost:5173` ; `npm run check` lance tous les contrôles.
+
+- [Tableau de travail et fiches de chaque étape](docs/implementation/README.md) : 13 niveaux, la capsule finale et 9 chantiers techniques à se répartir.
+- [Guide de contribution à deux](CONTRIBUTING.md) : propriété des fichiers, branches et intégration.
+- [Contrat d’auteur](src/authoring/README.md) : format des paquets, réponses, fixtures et ajout de briques.
+- Atelier isolé : ouvrir `/?level=syn-01`, ou choisir **Atelier des niveaux** dans l’application.
+
+**Livré :** moteur indépendant de React, contrats validés, progression, aide, dialogues simples, sauvegarde/export/import, composants communs et sept prototypes. Le premier acte se joue en campagne ; FUT-01 et FUT-02 se testent isolément. Les autres paquets sont explicitement `draft`, avec leur conception complète dans `TASK.md`.
+
+**À poursuivre :** dialogues complets, circuit typé, grille de mots, choix narratifs, contrôle final, fins, terrain réel, chronomètre et préparation hors ligne. Les fiches indiquent précisément les dépendances communes de chaque niveau.
 
 ## Sommaire
 
@@ -1253,7 +1271,7 @@ Pour deux personnes, un dépôt et une application suffisent. Les frontières de
 | AR | Adaptateur optionnel à choisir après test | Ne modifie pas le contrat de l’énigme ; 2D conservée |
 | Multijoueur synchronisé | Hors première version | Nécessite une autorité de session et un transport distincts |
 
-Ces choix sont des propositions d’architecture, pas des dépendances déjà installées. Les versions seront figées au démarrage dans le fichier de verrouillage du gestionnaire de paquets. Vite documente notamment ses modèles React/TypeScript et sa production statique ; React fournit la composition par composants. [Documentation Vite](https://vite.dev/guide/), [documentation React](https://react.dev/learn).
+Ces choix définissent la cible d’architecture. Le socle React/TypeScript/Vite et la validation Zod sont désormais installés avec des versions figées dans `package-lock.json` ; les fonctions encore à construire sont identifiées dans le tableau de travail. Vite documente notamment ses modèles React/TypeScript et sa production statique ; React fournit la composition par composants. [Documentation Vite](https://vite.dev/guide/), [documentation React](https://react.dev/learn).
 
 localStorage persiste des chaînes par origine et peut être indisponible selon le navigateur ou ses réglages. Le service worker gère séparément les ressources hors ligne et requiert un contexte sécurisé en production. La reprise d’une partie et le cache des pages sont deux responsabilités différentes. [Documentation localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), [documentation Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
 
@@ -1285,7 +1303,7 @@ flowchart TB
 
 ### 16.4 Arborescence cible
 
-Cette arborescence décrit des fichiers à créer plus tard. Elle ne contient aucun code d’implémentation.
+Cette arborescence décrit la cible complète. Le socle actuel regroupe certains modules : le paquet d’un niveau est dans `level.json`, la composition React dans `src/app/`, et les limites livrées sont détaillées dans [le tableau de travail](docs/implementation/README.md).
 
 ```text
 projet/

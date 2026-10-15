@@ -1,0 +1,90 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "syn-03",
+  "title": "Le contrôle du centenaire",
+  "era": "future",
+  "status": "draft",
+  "minutes": 5,
+  "inputs": [
+    {
+      "id": "origin",
+      "type": "OrigineHistorique"
+    },
+    {
+      "id": "transition",
+      "type": "TransitionInstitutionnelle"
+    },
+    {
+      "id": "lexicon",
+      "type": "LexiqueTechnique"
+    },
+    {
+      "id": "projects",
+      "type": "SelectionProjets"
+    },
+    {
+      "id": "program",
+      "type": "ProgrammeTransmission"
+    }
+  ],
+  "observations": [],
+  "documents": [],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "Nora",
+        "text": "Ce dossier est en préparation. Sa fiche de réalisation contient la conception détaillée.",
+        "choices": [
+          {
+            "id": "start",
+            "label": "Examiner le dossier",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "success": "Dossier restauré.",
+    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+  },
+  "hints": [
+    "Relisez la consigne.",
+    "Comparez les documents.",
+    "La démarche complète est disponible après cet indice."
+  ],
+  "solution": "La solution complète figure dans TASK.md ; le validateur de production reste à intégrer.",
+  "capsule": "Prototype en cours de réalisation.",
+  "outputs": [
+    {
+      "id": "memory",
+      "type": "MemoireRestauree",
+      "data": {
+        "year": 2068
+      },
+      "summary": "Centenaire : origine 1968 → projection fictive 2068."
+    }
+  ],
+  "steps": [
+    {
+      "id": "placeholder",
+      "title": "Maquette à remplacer",
+      "instruction": "Lisez TASK.md dans le dossier de ce niveau. Cette maquette ne peut pas être validée dans la campagne.",
+      "mechanic": {
+        "kind": "form",
+        "fields": [
+          {
+            "id": "placeholder",
+            "label": "Champ de maquette",
+            "format": "text",
+            "expected": "NON-JOUABLE",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          }
+        ]
+      },
+      "documentIds": []
+    }
+  ]
+}

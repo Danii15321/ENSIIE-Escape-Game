@@ -1,0 +1,12 @@
+{
+  "siteId": "demo",
+  "answers": [],
+  "status": "todo",
+  "cases": [
+    "Solution nominale",
+    "Réponse incorrecte",
+    "Reprise après saisie",
+    "Assistance après trois indices",
+    "Aucune double récompense"
+  ]
+}

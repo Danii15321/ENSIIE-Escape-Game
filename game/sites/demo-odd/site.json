@@ -1,0 +1,10 @@
+{
+  "id": "demo-odd",
+  "revision": 1,
+  "title": "DEMO impair — observations fictives",
+  "verified": true,
+  "observations": {
+    "O1": 5,
+    "O2": 3
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "fut-01",
+  "title": "Le campus sous contraintes",
+  "era": "future",
+  "status": "prototype",
+  "minutes": 6,
+  "inputs": [],
+  "observations": [],
+  "documents": [],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "Nora",
+        "text": "Nous ne pouvons pas tout construire. Il faut choisir un ensemble cohérent.",
+        "choices": [
+          {
+            "id": "start",
+            "label": "Examiner le dossier",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "success": "Dossier restauré.",
+    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+  },
+  "hints": [
+    "Placez d’abord B.",
+    "Après B, il reste six points de budget et au moins sept points de service.",
+    "Essayez l’atelier de réemploi et la bibliothèque hors ligne."
+  ],
+  "solution": "B + C + F : budget 8, pression 4, service 9. Une seule combinaison satisfait toutes les contraintes.",
+  "capsule": "Ces chiffres sont fictifs. Les contraintes rendent la décision vérifiable.",
+  "outputs": [
+    {
+      "id": "projects",
+      "type": "SelectionProjets",
+      "data": {
+        "ids": ["B", "C", "F"],
+        "budget": 8,
+        "pressure": 4,
+        "service": 9,
+        "fictional": true
+      },
+      "summary": "Simulation BCF : budget 8, pression 4, service 9."
+    }
+  ],
+  "steps": [
+    {
+      "id": "projects",
+      "title": "Composer le dispositif",
+      "instruction": "Trois projets distincts. B obligatoire, budget ≤ 8, pression ≤ 6, service ≥ 9. Tous les indicateurs sont des points de simulation fictifs.",
+      "mechanic": {
+        "kind": "constraints",
+        "projects": [
+          {
+            "id": "A",
+            "label": "Moteur immersif permanent",
+            "budget": 4,
+            "pressure": 4,
+            "service": 5
+          },
+          {
+            "id": "B",
+            "label": "Interface accessible",
+            "budget": 2,
+            "pressure": 1,
+            "service": 2
+          },
+          {
+            "id": "C",
+            "label": "Atelier de réemploi",
+            "budget": 3,
+            "pressure": 1,
+            "service": 4
+          },
+          {
+            "id": "D",
+            "label": "Mur vidéo continu",
+            "budget": 4,
+            "pressure": 3,
+            "service": 4
+          },
+          {
+            "id": "E",
+            "label": "Tableau de bord connecté",
+            "budget": 2,
+            "pressure": 2,
+            "service": 2
+          },
+          {
+            "id": "F",
+            "label": "Bibliothèque hors ligne",
+            "budget": 3,
+            "pressure": 2,
+            "service": 3
+          }
+        ],
+        "count": 3,
+        "required": ["B"],
+        "maxBudget": 8,
+        "maxPressure": 6,
+        "minService": 9
+      },
+      "documentIds": []
+    }
+  ]
+}

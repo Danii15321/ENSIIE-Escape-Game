@@ -1,0 +1,102 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "pro-00",
+  "title": "Le Signal",
+  "era": "prologue",
+  "status": "prototype",
+  "minutes": 4,
+  "inputs": [],
+  "observations": [],
+  "documents": [
+    {
+      "id": "signal",
+      "title": "Signal fragmenté",
+      "body": "[E]nquête [N]umérique — [S]ouvenirs [I]ncomplets, [I]dentité [E]ffacée.",
+      "sourceIds": [],
+      "badge": "fiction"
+    }
+  ],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "ARIIE",
+        "text": "Je suis ARIIE, l’Archive Intelligente de l’IIE. Je dois ouvrir une capsule de mémoire. Mais mes souvenirs ont mélangé les époques.",
+        "choices": [
+          {
+            "id": "creator",
+            "label": "Qui t’a créée ?",
+            "to": "fiction"
+          },
+          {
+            "id": "why",
+            "label": "Pourquoi nous ?",
+            "to": "team"
+          },
+          {
+            "id": "start",
+            "label": "Comment t’aider ?",
+            "to": null
+          }
+        ]
+      },
+      {
+        "id": "fiction",
+        "speaker": "ARIIE",
+        "text": "Dans cette histoire, je conserve la mémoire de l’école. Mon existence et la capsule sont fictives ; les documents historiques sont sourcés.",
+        "choices": [
+          {
+            "id": "back",
+            "label": "Revenir",
+            "to": "entry"
+          }
+        ]
+      },
+      {
+        "id": "team",
+        "speaker": "ARIIE",
+        "text": "Vous pouvez vérifier ce que je raconte. C’est exactement la compétence qui me manque.",
+        "choices": [
+          {
+            "id": "back",
+            "label": "Revenir",
+            "to": "entry"
+          }
+        ]
+      }
+    ],
+    "success": "ENSIIE. Canal restauré. Le nom complet est École nationale supérieure d’informatique pour l’industrie et l’entreprise.",
+    "return": "Canal restauré. Les dossiers du passé sont disponibles."
+  },
+  "hints": [
+    "Les autres lettres servent à former la phrase.",
+    "Le résultat commence par E, N, S.",
+    "Ajoutez I, I, E : vous avez les six lettres."
+  ],
+  "solution": "Les lettres encadrées donnent ENSIIE.",
+  "capsule": "Le nom ENSIIE reprend les lettres IIE de l’ancien nom.",
+  "outputs": [],
+  "steps": [
+    {
+      "id": "signal",
+      "title": "Rétablir le canal",
+      "instruction": "Lisez les lettres encadrées de gauche à droite et saisissez le nom obtenu.",
+      "mechanic": {
+        "kind": "form",
+        "fields": [
+          {
+            "id": "name",
+            "label": "Les six lettres",
+            "format": "text",
+            "expected": "ENSIIE",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          }
+        ]
+      },
+      "documentIds": ["signal"]
+    }
+  ]
+}

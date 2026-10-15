@@ -1,0 +1,114 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "pas-03",
+  "title": "Le décret aux trois dates",
+  "era": "past",
+  "status": "prototype",
+  "minutes": 4,
+  "inputs": [],
+  "observations": [],
+  "documents": [
+    {
+      "id": "text",
+      "title": "Texte",
+      "body": "Décret n° 2006-805, daté du 5 juillet 2006, portant création de l’ENSIIE.",
+      "sourceIds": ["S06"],
+      "badge": "reconstruction"
+    },
+    {
+      "id": "publication",
+      "title": "Publication",
+      "body": "Ce décret figure dans le Journal officiel du 7 juillet 2006.",
+      "sourceIds": ["S07"],
+      "badge": "reconstruction"
+    },
+    {
+      "id": "rule",
+      "title": "Règle",
+      "body": "Son article 4 fait commencer l’application le premier jour du mois suivant la publication.",
+      "sourceIds": ["S06"],
+      "badge": "reconstruction"
+    }
+  ],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "ARIIE",
+        "text": "J’ai trois dates possibles pour un changement. Vérifions si elles parlent vraiment de la même chose.",
+        "choices": [
+          {
+            "id": "start",
+            "label": "Examiner le dossier",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "success": "Dossier restauré.",
+    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+  },
+  "hints": [
+    "Une pièce fournit une date, une autre une règle.",
+    "La règle part du Journal officiel.",
+    "Le mois qui suit juillet est août. Prenez son premier jour en 2006."
+  ],
+  "solution": "Publication en juillet, application le 1er août 2006. Preuves : Publication + Règle.",
+  "capsule": "Le décret est daté du 5 juillet, publié le 7 juillet et applicable le 1er août 2006.",
+  "outputs": [
+    {
+      "id": "transition",
+      "type": "TransitionInstitutionnelle",
+      "data": {
+        "date": "2006-08-01",
+        "decree": "2006-805",
+        "evidence": ["Publication", "Règle"]
+      },
+      "summary": "Décret du 5 juillet 2006, publié le 7 juillet, applicable le 1er août."
+    }
+  ],
+  "steps": [
+    {
+      "id": "date",
+      "title": "Déduire l’entrée en vigueur",
+      "instruction": "Saisissez la date d’entrée en vigueur et sélectionnez les deux pièces nécessaires au calcul.",
+      "mechanic": {
+        "kind": "form",
+        "fields": [
+          {
+            "id": "date",
+            "label": "Date d’entrée en vigueur",
+            "format": "date",
+            "expected": "2006-08-01",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          },
+          {
+            "id": "evidence",
+            "label": "Pièces utiles",
+            "format": "set",
+            "expected": ["publication", "rule"],
+            "options": [
+              {
+                "id": "text",
+                "label": "Texte"
+              },
+              {
+                "id": "publication",
+                "label": "Publication"
+              },
+              {
+                "id": "rule",
+                "label": "Règle"
+              }
+            ],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          }
+        ]
+      },
+      "documentIds": ["text", "publication", "rule"]
+    }
+  ]
+}

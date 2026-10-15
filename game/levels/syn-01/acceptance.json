@@ -1,0 +1,24 @@
+{
+  "siteId": "demo",
+  "answers": [
+    {
+      "origin": "1968",
+      "name": "IIE",
+      "host": "CNAM",
+      "capture": "20041217",
+      "transition": "01/08/2006"
+    },
+    {
+      "key": "2101",
+      "place": "chamarande"
+    }
+  ],
+  "status": "executable",
+  "cases": [
+    "Solution nominale",
+    "Réponse incorrecte",
+    "Reprise après saisie",
+    "Assistance après trois indices",
+    "Aucune double récompense"
+  ]
+}

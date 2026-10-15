@@ -1,0 +1,97 @@
+{
+  "S01": {
+    "title": "Sujet officiel",
+    "url": "https://hackathon.ensiie.fr/escape-game/",
+    "usage": "Exploration passé, présent, avenir ; diversité de supports ; imaginaire autorisé pour le futur ; organisation du hackathon"
+  },
+  "S02": {
+    "title": "Pistes documentaires",
+    "url": "https://hackathon.ensiie.fr/projet1/pistes.html",
+    "usage": "Répertoire initial fourni par l’organisateur"
+  },
+  "S03": {
+    "title": "Pistes pour les archives",
+    "url": "https://hackathon.ensiie.fr/projet1/pistes-archives.html",
+    "usage": "Adresses de captures et méthode d’exploration"
+  },
+  "S04": {
+    "title": "Histoire institutionnelle",
+    "url": "https://www.ensiie.fr/en/school/history",
+    "usage": "Origines, Évry, évolution de l’école et période historique de Strasbourg"
+  },
+  "S05": {
+    "title": "Historique de l’IIE, capture du 19 décembre 2004",
+    "url": "https://web.archive.org/web/20041219033811/http://www3.iie.cnam.fr/ecole/index.php?changelangue=1&choix=1",
+    "usage": "Histoire racontée par l’institut avant le changement de nom"
+  },
+  "S06": {
+    "title": "Décret n° 2006-805 du 5 juillet 2006",
+    "url": "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000788862",
+    "usage": "Règle d’entrée en vigueur, notamment article 4"
+  },
+  "S07": {
+    "title": "Journal officiel du 7 juillet 2006",
+    "url": "https://www.legifrance.gouv.fr/jorf/jo/2006/07/07/0156",
+    "usage": "Date de publication du décret, entrée 34"
+  },
+  "S08": {
+    "title": "FAQ de l’école, capture du 16 novembre 2006",
+    "url": "https://web.archive.org/web/20061116185428/http://www.iie.cnam.fr/ecole/index.php?changelangue=1&choix=7",
+    "usage": "Explication du changement de nom et du nouveau statut à l’époque"
+  },
+  "S09": {
+    "title": "Formation initiale sous statut étudiant",
+    "url": "https://www.ensiie.fr/formation/trouver-votre-formation/la-formation-initiale-sous-statut-etudiant-fise",
+    "usage": "Domaines utilisés dans l’atelier ; pas d’affirmation sur un nombre exhaustif de parcours"
+  },
+  "S10": {
+    "title": "Trouver votre formation",
+    "url": "https://www.ensiie.fr/formation/trouver-votre-formation",
+    "usage": "Index de l’offre ; aucun millésime instable utilisé comme réponse"
+  },
+  "S11": {
+    "title": "Développement durable",
+    "url": "https://www.ensiie.fr/lecole/developpement-durable",
+    "usage": "Engagements institutionnels inspirant le défi prospectif"
+  },
+  "S12": {
+    "title": "Associations étudiantes",
+    "url": "https://www.ensiie.fr/en/student-life/student-associations",
+    "usage": "Quatre exemples d’activités ; activité sur place à vérifier avant visite dédiée"
+  },
+  "S13": {
+    "title": "Recherche et innovation",
+    "url": "https://www.ensiie.fr/recherche-innovation",
+    "usage": "Partenariats et contexte général"
+  },
+  "S14": {
+    "title": "Laboratoires associés",
+    "url": "https://www.ensiie.fr/recherche-innovation/les-laboratoires-associes",
+    "usage": "Thématiques de programmation, optimisation et interaction ; pas d’inventaire actuel des tutelles dans le jeu"
+  },
+  "S15": {
+    "title": "Présentation de l’A3IE",
+    "url": "https://www.a3ie.org/778_p_46250/l-association.html",
+    "usage": "Communauté des anciens et origine de l’association"
+  },
+  "S16": {
+    "title": "Événements, capture du 17 décembre 2004",
+    "url": "https://web.archive.org/web/20041217012944/http://www3.iie.cnam.fr/ecole/index.php?changelangue=1&choix=6",
+    "usage": "Annonce de Chamarande, prévue le 21 janvier 2005 pour la promotion 2004"
+  },
+  "S17": {
+    "title": "Fiche FISEA",
+    "url": "https://www.ensiie.fr/formation-dingenieur-sous-statut-etudiant-et-apprenti-fisea",
+    "usage": "Contrôle documentaire de la recherche initiale ; année d’ouverture non utilisée"
+  },
+  "S18": {
+    "title": "Entrepreneuriat",
+    "url": "https://www.ensiie.fr/entreprise/entrepreneuriat",
+    "usage": "Distingue notamment C-19 et IMT Starter ; ancrage des projets"
+  },
+  "S19": {
+    "title": "Portes ouvertes de Strasbourg",
+    "url": "https://www.ensiie.fr/ecole/actualites-et-evenements/journee-portes-ouvertes-ensiie-strasbourg",
+    "usage": "Annonce du 15 mars 2014, adresse d’Illkirch, usage historique uniquement"
+  }
+}

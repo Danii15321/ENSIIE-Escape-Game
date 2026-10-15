@@ -1,0 +1,10 @@
+{
+  "id": "demo",
+  "revision": 1,
+  "title": "DEMO — observations fictives",
+  "verified": true,
+  "observations": {
+    "O1": 3,
+    "O2": 4
+  }
+}

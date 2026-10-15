@@ -1,0 +1,78 @@
+{
+  "contractVersion": 1,
+  "revision": 1,
+  "id": "pre-02",
+  "title": "Les yeux d’ARIIE",
+  "era": "present",
+  "status": "draft",
+  "minutes": 6,
+  "inputs": [],
+  "observations": ["O2"],
+  "documents": [],
+  "dialogue": {
+    "entry": "entry",
+    "nodes": [
+      {
+        "id": "entry",
+        "speaker": "ARIIE",
+        "text": "Ce dossier est en préparation. Sa fiche de réalisation contient la conception détaillée.",
+        "choices": [
+          {
+            "id": "start",
+            "label": "Examiner le dossier",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "success": "Dossier restauré.",
+    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+  },
+  "hints": [
+    "Relisez la consigne.",
+    "Comparez les documents.",
+    "La démarche complète est disponible après cet indice."
+  ],
+  "solution": "La solution complète figure dans TASK.md ; le validateur de production reste à intégrer.",
+  "capsule": "Prototype en cours de réalisation.",
+  "outputs": [
+    {
+      "id": "student-life",
+      "type": "VieEtudiante",
+      "data": {
+        "words": ["MUSIQUE", "JEUX", "ROBOTIQUE", "VIRTUEL"]
+      },
+      "summary": "Des activités étudiantes pour apprendre ensemble."
+    },
+    {
+      "id": "orientation",
+      "type": "OrientationLecture",
+      "data": {
+        "observed": 4,
+        "direction": "forward"
+      },
+      "summary": "DEMO pair : lecture de gauche à droite, du haut vers le bas."
+    }
+  ],
+  "steps": [
+    {
+      "id": "placeholder",
+      "title": "Maquette à remplacer",
+      "instruction": "Lisez TASK.md dans le dossier de ce niveau. Cette maquette ne peut pas être validée dans la campagne.",
+      "mechanic": {
+        "kind": "form",
+        "fields": [
+          {
+            "id": "placeholder",
+            "label": "Champ de maquette",
+            "format": "text",
+            "expected": "NON-JOUABLE",
+            "options": [],
+            "error": "Consultez les documents et vérifiez votre réponse."
+          }
+        ]
+      },
+      "documentIds": []
+    }
+  ]
+}
