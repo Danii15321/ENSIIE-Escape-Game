@@ -1,12 +1,18 @@
 {
   "siteId": "demo",
-  "answers": [],
-  "status": "todo",
+  "answers": [
+    {
+      "postal-code": "67400",
+      "epoch": "historical"
+    }
+  ],
+  "status": "executable",
   "cases": [
-    "Solution nominale",
-    "Réponse incorrecte",
-    "Reprise après saisie",
-    "Assistance après trois indices",
-    "Aucune double récompense"
+    "67400 + historique acceptés",
+    "Code correct et époque actuelle refusés",
+    "Strasbourg, 67000, 2014 et code vide refusés",
+    "Reprise des deux champs",
+    "Trois indices et assistance",
+    "Aucun point et aucune double attribution"
   ]
 }

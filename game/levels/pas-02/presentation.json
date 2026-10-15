@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "feedback": [
+    {
+      "id": "P2.OBSERROR",
+      "text": "Ce relevé ne correspond pas au repère enregistré. Vérifiez le périmètre ou utilisez la photo de secours si le lieu est inaccessible.",
+      "when": {
+        "step": "decode",
+        "field": "observation",
+        "test": "notObservation",
+        "value": "O1"
+      }
+    },
+    {
+      "id": "P2.ERROR",
+      "text": "Le sigle seul ne répare pas la page. Vérifiez le sens de rotation et les trois mots obtenus.",
+      "when": {
+        "step": "decode"
+      }
+    }
+  ],
+  "stepLines": {},
+  "reservedLines": [
+    {
+      "id": "P2.GO",
+      "text": "Rendez-vous à {O1.lieu}. {O1.direction} Relevez ceci : {O1.question} Vous pouvez revenir à la mission sans perdre votre progression.",
+      "reason": "Relevé Évry 2026 reçu : foyer, deux baby-foot, à droite en entrant. Variante de P2.GO documentée dans game/sites/evry-2026/README.md. À raccorder au contrat Site enrichi ; ne pas afficher ces directions en profil DEMO."
+    }
+  ]
+}

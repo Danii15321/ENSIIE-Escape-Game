@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "feedback": [
+    {
+      "id": "S1.DATE",
+      "text": "Pour cette zone, la machine lit année, mois, jour. Le 17 décembre 2004 doit garder les quatre chiffres de l’année.",
+      "when": {
+        "step": "calibrate",
+        "field": "capture",
+        "test": "notEightDigits"
+      }
+    },
+    {
+      "id": "S1.SLOT",
+      "text": "Au moins un fragment est dans la mauvaise zone. Une année d’origine n’est pas une date de capture.",
+      "when": {
+        "step": "calibrate"
+      }
+    },
+    {
+      "id": "S1.NEAR1",
+      "text": "Vous avez choisi la date de capture. Je cherche le rendez-vous annoncé dans la page.",
+      "when": {
+        "step": "archive",
+        "field": "key",
+        "test": "equals",
+        "value": "1712"
+      }
+    },
+    {
+      "id": "S1.NEAR2",
+      "text": "L’année convient au rendez-vous, mais le cadenas attend son jour et son mois.",
+      "when": {
+        "step": "archive",
+        "field": "key",
+        "test": "equals",
+        "value": "2005"
+      }
+    },
+    {
+      "id": "S1.ERROR",
+      "text": "Relisez l’annonce : la promotion, la capture et le rendez-vous n’ont pas le même rôle.",
+      "when": {
+        "step": "archive"
+      }
+    }
+  ],
+  "stepLines": {
+    "archive": {
+      "id": "S1.OPEN",
+      "text": "Destination retrouvée. Voici ce que le site annonçait à cette date. Cherchez le rendez-vous de la promotion 2004."
+    }
+  },
+  "reservedLines": [],
+  "exitLabel": "Consulter les dossiers disponibles"
+}

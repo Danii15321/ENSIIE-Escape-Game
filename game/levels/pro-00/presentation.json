@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "feedback": [
+    {
+      "id": "PRO.ERROR",
+      "text": "Regardez seulement les lettres encadrées. Leur ordre est celui de la lecture.",
+      "when": {
+        "step": "signal"
+      }
+    }
+  ],
+  "stepLines": {},
+  "reservedLines": [],
+  "exitLabel": "Ouvrir le passé"
+}

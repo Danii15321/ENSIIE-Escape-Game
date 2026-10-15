@@ -112,7 +112,9 @@ describe('Campagne et sauvegarde', () => {
       levelId: 'pro-00',
       choiceId: 'invented',
     });
-    expect(result.session.progress['pro-00']?.dialogue).toBe('entry');
+    expect(result.session.progress['pro-00']?.dialogue).toBe(
+      catalog.levels['pro-00']!.dialogue.entry,
+    );
     expect(result.message).toContain('pas disponible');
   });
 });

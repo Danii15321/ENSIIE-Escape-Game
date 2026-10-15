@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "pas-01",
   "title": "Les archives déclassées",
   "era": "past",
@@ -39,31 +39,75 @@
     }
   ],
   "dialogue": {
-    "entry": "entry",
+    "entry": "P1.ENTER",
     "nodes": [
       {
-        "id": "entry",
+        "id": "P1.ENTER",
         "speaker": "ARIIE",
         "text": "Ma première date certaine est 1972. Donc l’école est née en 1972. Raisonnement impeccable… sauf si j’ai confondu deux événements.",
         "choices": [
           {
-            "id": "start",
-            "label": "Examiner le dossier",
+            "id": "0",
+            "label": "Vérifions les notices.",
             "to": null
+          },
+          {
+            "id": "1",
+            "label": "Que représente 1972 ?",
+            "to": "P1.A"
+          },
+          {
+            "id": "2",
+            "label": "Comment classer ?",
+            "to": "P1.M"
+          }
+        ]
+      },
+      {
+        "id": "P1.A",
+        "speaker": "ARIIE",
+        "text": "Une trace parle de reconnaissance du diplôme. Cela ne prouve pas la date de naissance de l’institut. Cherchez la notice consacrée à l’origine.",
+        "choices": [
+          {
+            "id": "0",
+            "label": "Vérifier les notices",
+            "to": null
+          },
+          {
+            "id": "1",
+            "label": "Revenir aux questions",
+            "to": "P1.ENTER"
+          }
+        ]
+      },
+      {
+        "id": "P1.M",
+        "speaker": "ARIIE",
+        "text": "Associez d’abord chaque carte à sa notice. Rangez ensuite les événements. Les dates sont des indices, pas des numéros de dossier.",
+        "choices": [
+          {
+            "id": "0",
+            "label": "Classer les cartes",
+            "to": null
+          },
+          {
+            "id": "1",
+            "label": "Revenir aux questions",
+            "to": "P1.ENTER"
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "Vous aviez raison de vérifier. J’avais pris une reconnaissance pour une naissance. Origine retrouvée : 1968, au Cnam.",
+    "return": "Je garde cette frise dans notre mémoire commune. Vous pourrez la consulter à tout moment."
   },
   "hints": [
     "Chaque notice contient le sujet d’une des cartes.",
-    "Les anciens précèdent l’arrivée à Évry ; le nouveau nom arrive en dernier.",
-    "1968, 1973, 1984, 2006. La première notice nomme le Cnam."
+    "La communauté des anciens précède l’arrivée à Évry ; le changement de nom arrive en dernier.",
+    "L’ordre des années est 1968, 1973, 1984, 2006. La première notice nomme le Cnam."
   ],
   "solution": "Création 1968 → Anciens 1973 → Évry 1984 → Nouveau nom 2006. Maison mère CNAM, preuve Notice Origines.",
-  "capsule": "L’école commence comme IIE au Cnam. Une reconnaissance de diplôme ne se confond pas avec une création.",
+  "capsule": "L’école commence comme IIE au Cnam. Son implantation, son nom et sa communauté évoluent ensuite. La date d’un diplôme ne se confond pas avec celle de la création.",
   "outputs": [
     {
       "id": "origin",
@@ -110,7 +154,7 @@
             "format": "integer",
             "expected": "1968",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins une association ne correspond pas à la notice. Vérifiez l’événement avant de modifier toute la frise."
           },
           {
             "id": "alumni-year",
@@ -118,7 +162,7 @@
             "format": "integer",
             "expected": "1973",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins une association ne correspond pas à la notice. Vérifiez l’événement avant de modifier toute la frise."
           },
           {
             "id": "evry-year",
@@ -126,7 +170,7 @@
             "format": "integer",
             "expected": "1984",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins une association ne correspond pas à la notice. Vérifiez l’événement avant de modifier toute la frise."
           },
           {
             "id": "name-year",
@@ -134,7 +178,7 @@
             "format": "integer",
             "expected": "2006",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins une association ne correspond pas à la notice. Vérifiez l’événement avant de modifier toute la frise."
           },
           {
             "id": "institution",
@@ -151,7 +195,7 @@
                 "label": "Université de Strasbourg"
               }
             ],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins une association ne correspond pas à la notice. Vérifiez l’événement avant de modifier toute la frise."
           },
           {
             "id": "proof",
@@ -176,7 +220,7 @@
                 "label": "Identité"
               }
             ],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Cette notice parle d’un autre événement. Choisissez celle qui nomme la maison mère au moment de la création."
           }
         ]
       },

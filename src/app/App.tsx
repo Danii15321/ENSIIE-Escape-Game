@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { catalog, sourceRegistry } from './catalog';
 import { useGame } from './useGame';
 import {
@@ -11,15 +11,15 @@ import {
 import { downloadSave, downloadText } from '../adapters/storage/local';
 import { LevelView } from '../presentation/components/LevelView';
 import { Preview } from '../authoring/preview/Preview';
+import { MemoryCard, MissionCard } from '../presentation/components/Cards';
+import {
+  EditorialProvider,
+  parsePresentationCatalog,
+} from '../presentation/components/EditorialCopy';
 
-const statusText = {
-  draft: 'À réaliser',
-  locked: 'Verrouillé',
-  available: 'Disponible',
-  started: 'En cours',
-  succeeded: 'Restauré',
-  assisted: 'Restauré avec aide',
-};
+const editorial = parsePresentationCatalog(
+  import.meta.glob('../../game/levels/*/presentation.json', { eager: true, import: 'default' }),
+);
 export function App() {
   const [tab, setTab] = useState(
     new URLSearchParams(location.search).has('level') ? 'author' : 'game',
@@ -27,12 +27,20 @@ export function App() {
   const [selected, setSelected] = useState<string>();
   const [resetConfirm, setResetConfirm] = useState(false);
   const game = useGame(catalog);
+  const returnFocus = useRef<string | undefined>(undefined);
+  const [fileError, setFileError] = useState('');
+  useEffect(() => {
+    if (tab === 'game' && !selected && returnFocus.current) {
+      document.getElementById(`open-${returnFocus.current}`)?.focus();
+      returnFocus.current = undefined;
+    }
+  }, [tab, selected]);
   const score = integrity(game.session, catalog);
   const level = selected ? catalog.levels[selected] : undefined;
   const levelState = level ? availability(game.session, catalog, level.id) : undefined;
   const canOpen = level && levelState !== 'draft' && levelState !== 'locked';
   return (
-    <>
+    <EditorialProvider copies={editorial} team={game.session.team}>
       <a className="skip" href="#main">
         Aller au contenu
       </a>
@@ -96,21 +104,26 @@ export function App() {
                   type="file"
                   accept="application/json,.json"
                   onChange={async (event) => {
-                    const file = event.target.files?.[0];
+                    const input = event.currentTarget;
+                    const file = input.files?.[0];
+                    setFileError('');
                     if (file) {
                       try {
                         game.importSave(await file.text());
                         setSelected(undefined);
                       } catch {
-                        /* File selection can be cancelled by the browser. */
+                        setFileError(
+                          'Ce fichier ne peut pas être lu. Réessayez ou sélectionnez un autre export.',
+                        );
                       }
                     }
-                    event.target.value = '';
+                    input.value = '';
                   }}
                 />
               </label>
               <button onClick={() => setResetConfirm(true)}>Nouvelle partie</button>
             </section>
+            {fileError ? <p role="alert">{fileError}</p> : null}
             {resetConfirm ? (
               <section className="notice">
                 <p>
@@ -134,14 +147,12 @@ export function App() {
                 <h2>Carnet de fragments</h2>
                 {inventory(game.session, catalog).length ? (
                   inventory(game.session, catalog).map((fragment) => (
-                    <article key={fragment.rewardId}>
-                      <h3>{fragment.type}</h3>
-                      <p>{fragment.summary}</p>
-                      <small>
-                        Provenance : {fragment.provenance.toUpperCase()} · révision{' '}
-                        {fragment.version}
-                      </small>
-                    </article>
+                    <MemoryCard
+                      key={fragment.rewardId}
+                      title={catalog.levels[fragment.provenance]?.title ?? 'Fragment restauré'}
+                      summary={fragment.summary}
+                      provenance={`Dossier ${fragment.provenance.toUpperCase()}`}
+                    />
                   ))
                 ) : (
                   <p>Les preuves acquises apparaîtront ici.</p>
@@ -155,27 +166,18 @@ export function App() {
                       const candidate = catalog.levels[entry.id]!;
                       const status = availability(game.session, catalog, entry.id);
                       return (
-                        <article className={`mission era-${candidate.era}`} key={entry.id}>
-                          <p className="eyebrow">{entry.id.toUpperCase()}</p>
-                          <h2>{candidate.title}</h2>
-                          <p>{statusText[status]}</p>
-                          {status === 'locked' ? (
-                            <small>
-                              Prérequis : {entry.requires.map((id) => id.toUpperCase()).join(', ')}
-                            </small>
-                          ) : null}
-                          <button
-                            disabled={game.blocked || status === 'locked' || status === 'draft'}
-                            onClick={() => {
-                              game.send({ type: 'open', levelId: entry.id });
-                              setSelected(entry.id);
-                            }}
-                          >
-                            {status === 'succeeded' || status === 'assisted'
-                              ? 'Consulter'
-                              : 'Ouvrir le dossier'}
-                          </button>
-                        </article>
+                        <MissionCard
+                          key={entry.id}
+                          level={candidate}
+                          status={status}
+                          requirements={entry.requires}
+                          blocked={game.blocked}
+                          onOpen={() => {
+                            returnFocus.current = entry.id;
+                            game.send({ type: 'open', levelId: entry.id });
+                            setSelected(entry.id);
+                          }}
+                        />
                       );
                     })}
                   </section>
@@ -196,6 +198,7 @@ export function App() {
                         inputs: resolveInputs(game.session, catalog, level.id),
                       }}
                       onCommand={game.send}
+                      onExit={() => setSelected(undefined)}
                       evaluation={game.evaluation}
                       message={game.message}
                       sources={sourceRegistry}
@@ -211,6 +214,6 @@ export function App() {
         ARIIE et 2068 appartiennent à la fiction. Les documents historiques sont sourcés. Aucun
         cache hors ligne n’est encore installé.
       </footer>
-    </>
+    </EditorialProvider>
   );
 }

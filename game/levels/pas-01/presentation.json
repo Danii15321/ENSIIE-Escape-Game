@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "feedback": [
+    {
+      "id": "P1.NEAR",
+      "text": "1972 correspond ici à la reconnaissance du diplôme. La création de l’institut est antérieure.",
+      "when": {
+        "step": "timeline",
+        "field": "creation-year",
+        "test": "integerEquals",
+        "value": "1972"
+      }
+    },
+    {
+      "id": "P1.PROOF",
+      "text": "Cette notice parle d’un autre événement. Choisissez celle qui nomme la maison mère au moment de la création.",
+      "when": {
+        "step": "timeline",
+        "field": "proof",
+        "test": "notEquals",
+        "value": "origins"
+      }
+    },
+    {
+      "id": "P1.ERROR",
+      "text": "Au moins une association ne correspond pas à la notice. Vérifiez l’événement avant de modifier toute la frise.",
+      "when": {
+        "step": "timeline"
+      }
+    }
+  ],
+  "stepLines": {},
+  "reservedLines": []
+}

@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "feedback": [
+    {
+      "id": "P3.DATE",
+      "text": "Il me faut une date complète. Vous pouvez écrire jour/mois/année.",
+      "when": {
+        "step": "date",
+        "field": "date",
+        "test": "invalidDate"
+      }
+    },
+    {
+      "id": "P3.NEAR1",
+      "text": "C’est la date du décret. Cherchez le début de son application.",
+      "when": {
+        "step": "date",
+        "field": "date",
+        "test": "dateEquals",
+        "value": "2006-07-05"
+      }
+    },
+    {
+      "id": "P3.NEAR2",
+      "text": "C’est la publication. Il reste à appliquer la règle de calendrier.",
+      "when": {
+        "step": "date",
+        "field": "date",
+        "test": "dateEquals",
+        "value": "2006-07-07"
+      }
+    },
+    {
+      "id": "P3.PROOF",
+      "text": "La date convient. Montrez maintenant les pièces qui permettent de la déduire.",
+      "when": {
+        "step": "date",
+        "field": "date",
+        "test": "dateEquals",
+        "value": "2006-08-01"
+      }
+    },
+    {
+      "id": "P3.ERROR",
+      "text": "Vérifiez le mois de publication et le premier jour du mois suivant.",
+      "when": {
+        "step": "date"
+      }
+    }
+  ],
+  "stepLines": {},
+  "reservedLines": []
+}

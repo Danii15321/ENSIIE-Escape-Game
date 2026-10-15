@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "feedback": [
+    {
+      "id": "EST.ERROR",
+      "text": "L’annonce distingue le nom de l’antenne et la commune de l’adresse. Lisez les coordonnées.",
+      "when": {
+        "step": "classify",
+        "field": "postal-code",
+        "test": "notEquals",
+        "value": "67400"
+      }
+    },
+    {
+      "id": "EST.EPOCH",
+      "text": "La page est encore accessible, mais la date de l’annonce et l’historique indiquent son époque.",
+      "when": {
+        "step": "classify"
+      }
+    }
+  ],
+  "stepLines": {},
+  "reservedLines": []
+}

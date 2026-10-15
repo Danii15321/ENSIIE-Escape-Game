@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "syn-01",
   "title": "La machine temporelle",
   "era": "past",
@@ -25,37 +25,44 @@
     {
       "id": "archive",
       "title": "Site de l’IIE — Événements",
-      "body": "Capture conservée le 17 décembre 2004. La remise des diplômes de la promotion 2004 est annoncée pour le 21 janvier 2005 au château de Chamarande. Ceci prouve une annonce, pas que l’événement s’est tenu.",
+      "body": "Site de l’IIE — Événements. Capture conservée le 17 décembre 2004.\n\nLa remise des diplômes de la promotion 2004 est annoncée pour le 21 janvier 2005 au château de Chamarande.",
+      "sourceIds": ["S16"],
+      "badge": "reconstruction"
+    },
+    {
+      "id": "archive-help",
+      "title": "Aide documentaire — trois dates différentes",
+      "body": "La date de capture décrit la conservation de la page. La date de promotion désigne le groupe diplômé. La date de l’annonce désigne le rendez-vous prévu. Cette page prouve une annonce ; elle ne suffit pas à prouver que la cérémonie a eu lieu.",
       "sourceIds": ["S16"],
       "badge": "reconstruction"
     }
   ],
   "dialogue": {
-    "entry": "entry",
+    "entry": "S1.ENTER",
     "nodes": [
       {
-        "id": "entry",
+        "id": "S1.ENTER",
         "speaker": "ARIIE",
-        "text": "Nous avons une origine, un nom et une transition. Placez-les dans la machine. J’ai gardé l’étiquette de la capture.",
+        "text": "Nous avons une origine, un nom et une transition. Placez-les dans la machine. J’ai gardé l’étiquette de la capture ; elle nous permettra de retrouver une page précise.",
         "choices": [
           {
-            "id": "start",
-            "label": "Examiner le dossier",
+            "id": "0",
+            "label": "Calibrer la machine",
             "to": null
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "2101. Le rendez-vous est retrouvé. Une archive peut conserver une annonce de demain au milieu des traces d’hier.",
+    "return": "Le passé tient de nouveau debout. Regardons maintenant ce que l’école permet d’apprendre et de faire ensemble."
   },
   "hints": [
-    "Associez les étiquettes aux fragments.",
-    "La capture est en décembre 2004, le rendez-vous en janvier suivant.",
-    "L’annonce donne le 21 janvier 2005 à Chamarande ; le cadenas attend JJMM."
+    "Associez les étiquettes de la machine aux fragments, puis ouvrez la rubrique Événements.",
+    "La capture est en décembre 2004 ; le rendez-vous annoncé se déroule en janvier de l’année suivante.",
+    "L’annonce donne le 21 janvier 2005 au château de Chamarande. Le cadenas attend seulement JJMM."
   ],
   "solution": "1968 ; IIE + CNAM ; 20041217 ; 01/08/2006. Puis clé 2101, Château de Chamarande.",
-  "capsule": "Distinguez date de capture, promotion et rendez-vous annoncé.",
+  "capsule": "Une capture de décembre 2004 conserve une annonce pour janvier 2005 concernant la promotion 2004. Lire une archive suppose de distinguer ces dates.",
   "outputs": [
     {
       "id": "announcement",
@@ -85,7 +92,7 @@
               "path": "year"
             },
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins un fragment est dans la mauvaise zone. Une année d’origine n’est pas une date de capture."
           },
           {
             "id": "name",
@@ -96,7 +103,7 @@
               "path": "acronym"
             },
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins un fragment est dans la mauvaise zone. Une année d’origine n’est pas une date de capture."
           },
           {
             "id": "host",
@@ -107,7 +114,7 @@
               "path": "institution"
             },
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins un fragment est dans la mauvaise zone. Une année d’origine n’est pas une date de capture."
           },
           {
             "id": "capture",
@@ -115,7 +122,7 @@
             "format": "code",
             "expected": "20041217",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins un fragment est dans la mauvaise zone. Une année d’origine n’est pas une date de capture."
           },
           {
             "id": "transition",
@@ -126,7 +133,7 @@
               "path": "date"
             },
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Au moins un fragment est dans la mauvaise zone. Une année d’origine n’est pas une date de capture."
           }
         ]
       },
@@ -145,7 +152,7 @@
             "format": "code",
             "expected": "2101",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Relisez l’annonce : la promotion, la capture et le rendez-vous n’ont pas le même rôle."
           },
           {
             "id": "place",
@@ -166,11 +173,11 @@
                 "label": "Évry"
               }
             ],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Relisez l’annonce : la promotion, la capture et le rendez-vous n’ont pas le même rôle."
           }
         ]
       },
-      "documentIds": ["archive"]
+      "documentIds": ["archive", "archive-help"]
     }
   ]
 }

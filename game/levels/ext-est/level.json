@@ -1,40 +1,55 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "ext-est",
   "title": "L’antenne de l’Est",
   "era": "extension",
-  "status": "draft",
-  "minutes": 5,
+  "status": "prototype",
+  "minutes": 4,
   "inputs": [],
   "observations": [],
-  "documents": [],
+  "documents": [
+    {
+      "id": "notice",
+      "title": "Fiche A — Journée portes ouvertes de 2014",
+      "body": "Journée portes ouvertes du 15 mars 2014. ENSIIE Strasbourg, bâtiment de l’ISU, 1 rue Jean-Dominique Cassini, 67400 Illkirch.\n\nCette adresse appartient au document historique. Ce n’est pas une destination de votre parcours à Évry.",
+      "sourceIds": ["S19"],
+      "badge": "reconstruction"
+    },
+    {
+      "id": "history",
+      "title": "Fiche B — Historique de l’école",
+      "body": "L’historique de l’école situe son antenne de Strasbourg entre 2009 et 2017. Une ancienne page encore accessible ne prouve donc pas une implantation actuelle en 2026.",
+      "sourceIds": ["S04"],
+      "badge": "reconstruction"
+    }
+  ],
   "dialogue": {
-    "entry": "entry",
+    "entry": "EST.ENTER",
     "nodes": [
       {
-        "id": "entry",
+        "id": "EST.ENTER",
         "speaker": "ARIIE",
-        "text": "Ce dossier est en préparation. Sa fiche de réalisation contient la conception détaillée.",
+        "text": "Une carte me signale un lieu à l’est. Mais mes archives ont tendance à confondre présent et passé. Pouvez-vous dater cette mémoire ?",
         "choices": [
           {
-            "id": "start",
-            "label": "Examiner le dossier",
+            "id": "0",
+            "label": "Comparer les deux fiches",
             "to": null
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "Illkirch, mémoire historique. Une trace peut rester en ligne longtemps après la période qu’elle décrit.",
+    "return": "Cette fiche historique reste disponible dans votre carnet. Vous pouvez reprendre le parcours principal."
   },
   "hints": [
-    "Relisez la consigne.",
-    "Comparez les documents.",
-    "La démarche complète est disponible après cet indice."
+    "Comparez les deux fiches, pas seulement le titre Strasbourg.",
+    "L’adresse de 2014 donne un code postal commençant par 67. L’historique s’arrête en 2017 pour cette antenne.",
+    "Choisissez Illkirch ou 67400, puis implantation historique. Dans ce formulaire, saisissez le code postal 67400."
   ],
-  "solution": "La solution complète figure dans TASK.md ; le validateur de production reste à intégrer.",
-  "capsule": "Prototype en cours de réalisation.",
+  "solution": "L’annonce du 15 mars 2014 donne Illkirch (Illkirch-Graffenstaden), code postal 67400. La fiche historique situe l’antenne entre 2009 et 2017. Saisissez 67400 puis choisissez implantation historique. L’adresse n’est pas un lieu à rejoindre.",
+  "capsule": "L’antenne de Strasbourg appartient à l’histoire de l’école. La page de portes ouvertes consultée concerne 2014 ; elle ne prouve pas un campus actuel.",
   "outputs": [
     {
       "id": "east",
@@ -48,23 +63,44 @@
   ],
   "steps": [
     {
-      "id": "placeholder",
-      "title": "Maquette à remplacer",
-      "instruction": "Lisez TASK.md dans le dossier de ce niveau. Cette maquette ne peut pas être validée dans la campagne.",
+      "id": "classify",
+      "title": "Situer cette mémoire",
+      "instruction": "Lisez les deux fiches. Retrouvez le code postal de la commune indiquée dans l’annonce, puis classez ce document dans la bonne époque. Une ancienne page encore en ligne ne décrit pas nécessairement la situation actuelle.",
+      "documentIds": ["notice", "history"],
       "mechanic": {
         "kind": "form",
         "fields": [
           {
-            "id": "placeholder",
-            "label": "Champ de maquette",
-            "format": "text",
-            "expected": "NON-JOUABLE",
+            "id": "postal-code",
+            "label": "Code postal de la commune",
+            "format": "code",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "expected": "67400",
+            "error": "L’annonce distingue le nom de l’antenne et la commune de l’adresse. Lisez les coordonnées."
+          },
+          {
+            "id": "epoch",
+            "label": "Époque du document",
+            "format": "choice",
+            "options": [
+              {
+                "id": "current",
+                "label": "Implantation actuelle attestée en 2026"
+              },
+              {
+                "id": "historical",
+                "label": "Implantation historique"
+              },
+              {
+                "id": "fiction",
+                "label": "Projet fictif de 2068"
+              }
+            ],
+            "expected": "historical",
+            "error": "La page est encore accessible, mais la date de l’annonce et l’historique indiquent son époque."
           }
         ]
-      },
-      "documentIds": []
+      }
     }
   ]
 }

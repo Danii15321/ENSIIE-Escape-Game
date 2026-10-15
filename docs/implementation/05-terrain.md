@@ -1,6 +1,6 @@
 # 05 — Profils de site et observation physique
 
-**État :** DEMO pair et impair disponibles ; aucun repère réel vérifié. **Propriétaire suggéré :** A, relevé relu ensemble.
+**État :** DEMO pair et impair disponibles ; relevé réel communiqué par le porteur du projet, intégration à faire. **Propriétaire suggéré :** A, relevé relu ensemble.
 
 ## Préparation
 
@@ -27,3 +27,14 @@ Ne pas inventer les observations du bâtiment. O1 doit donner un entier de 1 à 
 - [ ] Un relevé réel non vérifié empêche sa publication.
 
 **Livrables :** profil documenté, ressources locales, preuves de relevé et scénarios pair/impair/fermeture.
+
+## Relevé reçu — Évry 2026
+
+Source : message du porteur du projet du 15 octobre 2026. [Fiche complète](../../game/sites/evry-2026/README.md).
+
+- **O1 = 2** : nombre de baby-foot dans le foyer. Depuis l’entrée, tourner à droite pour accéder au foyer. Générer le César à +2.
+- **O2 = 3** : nombre de salles de TP au premier étage. Depuis l’entrée, rejoindre le premier étage. Produire `observed: 3`, `direction: reverse` et préparer la grille impaire.
+- Les deux lieux sont déclarés toujours accessibles. Les photos seront ajoutées plus tard ; un [secours textuel](../../game/sites/evry-2026/secours.md) est préparé avec les mêmes valeurs.
+- La date exacte du comptage, les durées de marche et le trajet sans escalier ne sont pas précisés. Aucune vérification indépendante n’est prétendue.
+
+L’absence de photos n’empêche pas de travailler avec ces données et les supports textuels. L’activation dans le catalogue attend les lieux/itinéraires/secours, les sorties dérivées et la recette de la variante impaire ; ne pas renommer les cartes DEMO en observations réelles.

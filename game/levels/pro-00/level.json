@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "pro-00",
   "title": "Le Signal",
   "era": "prologue",
@@ -18,57 +18,105 @@
     }
   ],
   "dialogue": {
-    "entry": "entry",
+    "entry": "PRO.01",
     "nodes": [
       {
-        "id": "entry",
+        "id": "PRO.01",
+        "speaker": "ARIIE",
+        "text": "Signal reçu. Année de votre terminal : 2026. Année de mon archive : 2068. Ce décalage est… plus important que prévu.",
+        "choices": [
+          {
+            "id": "0",
+            "label": "Recevoir le message",
+            "to": "PRO.02"
+          }
+        ]
+      },
+      {
+        "id": "PRO.02",
         "speaker": "ARIIE",
         "text": "Je suis ARIIE, l’Archive Intelligente de l’IIE. Je dois ouvrir une capsule de mémoire. Mais mes souvenirs ont mélangé les époques.",
         "choices": [
           {
-            "id": "creator",
+            "id": "0",
             "label": "Qui t’a créée ?",
-            "to": "fiction"
+            "to": "PRO.A1"
           },
           {
-            "id": "why",
+            "id": "1",
             "label": "Pourquoi nous ?",
-            "to": "team"
+            "to": "PRO.A2"
           },
           {
-            "id": "start",
+            "id": "2",
             "label": "Comment t’aider ?",
-            "to": null
+            "to": "PRO.03"
           }
         ]
       },
       {
-        "id": "fiction",
+        "id": "PRO.A1",
         "speaker": "ARIIE",
         "text": "Dans cette histoire, je conserve la mémoire de l’école. Mon existence et la capsule sont fictives ; les documents historiques sont sourcés.",
         "choices": [
           {
-            "id": "back",
-            "label": "Revenir",
-            "to": "entry"
+            "id": "0",
+            "label": "Revenir aux questions",
+            "to": "PRO.02"
           }
         ]
       },
       {
-        "id": "team",
+        "id": "PRO.A2",
         "speaker": "ARIIE",
-        "text": "Vous pouvez vérifier ce que je raconte. C’est exactement la compétence qui me manque.",
+        "text": "Vous êtes dans les locaux que je ne peux plus observer. Vous pouvez vérifier ce que je raconte. C’est exactement la compétence qui me manque.",
         "choices": [
           {
-            "id": "back",
-            "label": "Revenir",
-            "to": "entry"
+            "id": "0",
+            "label": "Revenir aux questions",
+            "to": "PRO.02"
+          }
+        ]
+      },
+      {
+        "id": "PRO.03",
+        "speaker": "ARIIE",
+        "text": "Choisissez un nom d’équipe, ou gardez Équipe Chrono.",
+        "choices": [
+          {
+            "id": "0",
+            "label": "Garder {equipe}",
+            "to": "PRO.04"
+          }
+        ]
+      },
+      {
+        "id": "PRO.04",
+        "speaker": "ARIIE",
+        "text": "Merci, {equipe}. Je peux me tromper dans mes souvenirs. Mes consignes et mes indices resteront fiables. Si une affirmation vous paraît douteuse, cherchez une preuve.",
+        "choices": [
+          {
+            "id": "0",
+            "label": "Rétablir le canal",
+            "to": "PRO.05"
+          }
+        ]
+      },
+      {
+        "id": "PRO.05",
+        "speaker": "ARIIE",
+        "text": "Pour rétablir le canal, recopiez les six lettres encadrées ci-dessous. Elles restent visibles : aucune vitesse particulière n’est nécessaire.",
+        "choices": [
+          {
+            "id": "0",
+            "label": "Examiner le signal",
+            "to": null
           }
         ]
       }
     ],
     "success": "ENSIIE. Canal restauré. Le nom complet est École nationale supérieure d’informatique pour l’industrie et l’entreprise.",
-    "return": "Canal restauré. Les dossiers du passé sont disponibles."
+    "return": "Nous allons commencer avant ce nom. Trois dossiers vous attendent. Choisissez leur ordre ; nous aurons besoin des trois pour redémarrer ma machine temporelle."
   },
   "hints": [
     "Les autres lettres servent à former la phrase.",
@@ -76,7 +124,7 @@
     "Ajoutez I, I, E : vous avez les six lettres."
   ],
   "solution": "Les lettres encadrées donnent ENSIIE.",
-  "capsule": "Le nom ENSIIE reprend les lettres IIE de l’ancien nom.",
+  "capsule": "Le nom ENSIIE reprend les lettres IIE de l’ancien nom. Le parcours va relier ces deux identités.",
   "outputs": [],
   "steps": [
     {
@@ -92,7 +140,7 @@
             "format": "text",
             "expected": "ENSIIE",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Regardez seulement les lettres encadrées. Leur ordre est celui de la lecture."
           }
         ]
       },

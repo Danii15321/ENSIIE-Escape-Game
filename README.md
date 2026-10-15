@@ -20,9 +20,11 @@ Node 22 recommandé. Dans ce workspace WSL, exécuter ces commandes dans Ubuntu,
 - [Contrat d’auteur](src/authoring/README.md) : format des paquets, réponses, fixtures et ajout de briques.
 - Atelier isolé : ouvrir `/?level=syn-01`, ou choisir **Atelier des niveaux** dans l’application.
 
-**Livré :** moteur indépendant de React, contrats validés, progression, aide, dialogues simples, sauvegarde/export/import, composants communs et sept prototypes. Le premier acte se joue en campagne ; FUT-01 et FUT-02 se testent isolément. Les autres paquets sont explicitement `draft`, avec leur conception complète dans `TASK.md`.
+**Livré :** moteur indépendant de React, contrats validés, progression, aide, dialogues détaillés de l’acte I, sauvegarde/export/import, cartes communes accessibles et huit prototypes. Le premier acte et EXT-EST se jouent en campagne ; FUT-01 et FUT-02 se testent isolément. Les autres paquets sont explicitement `draft`, avec leur conception complète dans `TASK.md`.
 
-**À poursuivre :** dialogues complets, circuit typé, grille de mots, choix narratifs, contrôle final, fins, terrain réel, chronomètre et préparation hors ligne. Les fiches indiquent précisément les dépendances communes de chaque niveau.
+**À poursuivre :** dialogues des actes suivants, circuit typé, grille de mots, choix narratifs, contrôle final, fins, terrain réel, chronomètre et préparation hors ligne. Les fiches indiquent précisément les dépendances communes de chaque niveau.
+
+Le [bilan de la phase 1 — contenu et interface](docs/implementation/PHASE-1-TEAMMATE.md) décrit les adaptations du prototype : code postal seul pour EXT-EST, nom d’équipe conservé et directions réelles à brancher. Le [relevé Évry 2026](game/sites/evry-2026/README.md) documente O1 = 2 baby-foot dans le foyer et O2 = 3 salles de TP au premier étage, d’après les informations du porteur du projet. Les photos seront ajoutées plus tard.
 
 ## Sommaire
 
@@ -331,6 +333,8 @@ Préférer une inscription lisible depuis un espace public. Un comptage de porte
 Une observation ne prouve pas techniquement la présence ; un coéquipier peut transmettre la réponse. L’exploration repose sur la coopération.
 
 ### Profil DEMO
+
+**Relevé réel Évry 2026 reçu le 15 octobre 2026 :** O1 = **2**, baby-foot du foyer (tourner à droite en entrant) ; O2 = **3**, salles de TP du premier étage (rejoindre le premier étage depuis l’entrée). Les deux zones sont déclarées toujours accessibles par le porteur du projet. Le profil réel doit donc utiliser un César +2 et la grille impaire. Les consignes et secours textuels sont prêts dans la [fiche de site](game/sites/evry-2026/README.md) ; activation technique à faire, photos à ajouter plus tard.
 
 Pour tester sans inventer le bâtiment, deux cartes fictives sont fournies : **Repère d’archive : 3** et **Repère de lecture : 4**. Donc O1 = 3 et O2 = 4, pair. Chaque carte affiche **simulation de terrain — valeurs fictives**.
 

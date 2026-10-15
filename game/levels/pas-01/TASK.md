@@ -1,8 +1,12 @@
 # PAS-01 — Les archives déclassées : fiche de réalisation
 
-**Statut :** prototype jouable à enrichir. **Responsable :** à attribuer. **Relecteur :** autre membre du binôme.
+**Statut :** prototype révision 2, dialogues intégrés ; recette humaine à faire. **Responsable :** à attribuer. **Relecteur :** autre membre du binôme.
 
 Cette fiche reprend la conception du README au 15 octobre 2026. Les textes et solutions ci-dessous sont la référence éditoriale du niveau ; `level.json` est sa version exécutée. Lors d’un changement de design, mettre à jour ces deux fichiers et signaler toute divergence avec le [README principal](../../../README.md). La fiche n’est pas chargée par le jeu.
+
+## Livraison phase 1 — contenu et interface
+
+Les répliques sont intégrées dans `level.json` et dans le fichier optionnel `presentation.json` (retours d’erreur contextualisés). Voir le [bilan de phase 1](../../../docs/implementation/PHASE-1-TEAMMATE.md) pour le format et la recette. La présence des répliques originales est vérifiée par les tests ; les cases de recette humaine restent à réaliser.
 
 ## Périmètre et autonomie
 
@@ -126,3 +130,5 @@ Le niveau ne dépend pas du déchiffrement de PAS-02. Les acronymes peuvent déj
 | Date | Décision | Auteur / relecture |
 |---|---|---|
 | 2026-10-15 | Contrats et dossier isolé créés ; statut ci-dessus | Socle initial |
+
+| 2026-10-15 | Phase 1 : textes intégraux et retours contextualisés, révision 2 ; adaptations ci-dessus | Lot contenu/interface, relecture humaine à faire |

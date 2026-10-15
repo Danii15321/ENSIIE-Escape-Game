@@ -1,6 +1,6 @@
 # 06 — Interface commune et direction artistique
 
-**État :** thème, tableaux, cartes et commandes accessibles en version sobre. **Propriétaire suggéré :** B. **Dépendance :** contrats des composants.
+**État :** cartes communes, focus d’ouverture/retour et contrôles responsive livrés en phase 1 ; recette humaine et contrastes à compléter. **Propriétaire suggéré :** B. **Dépendance :** contrats des composants.
 
 ## Direction
 
@@ -31,3 +31,16 @@ Le README définit un carnet d’archives scientifique, avec fond ardoise et acc
 - [ ] Une personne extérieure comprend ce qui est fiction, source ou reconstitution.
 
 **Livrables :** thème consolidé, composants communs et relevé de recette mobile/clavier. Éviter des CSS propres à chaque mission.
+
+## Relevé phase 1
+
+Les changements UI sont limités à `theme/`, `components/` et `src/app/App.tsx`. Les widgets restent inchangés. Voir [les composants et la recette détaillée](PHASE-1-TEAMMATE.md).
+
+| Largeur du viewport | EXT-EST, formulaire et documents ouverts |
+|---|---|
+| 360 px | Pas de débordement horizontal ; boutons ≥ 44 px |
+| 390 px | Pas de débordement horizontal ; boutons ≥ 44 px |
+| 768 px | Pas de débordement horizontal ; boutons ≥ 44 px |
+| 1280 px | Pas de débordement horizontal ; boutons ≥ 44 px |
+
+Le titre reçoit le focus à l’ouverture ; une saisie ne le déplace pas. Les cartes de campagne rendent leur état en texte et désactivent les dossiers verrouillés. Les vérifications automatisées ne remplacent pas une recette au lecteur d’écran ni les essais humains prévus ci-dessus.

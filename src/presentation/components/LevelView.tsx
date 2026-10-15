@@ -3,6 +3,8 @@ import type { Context, Evaluation, Level } from '../../core/contracts';
 import { isComplete, type Command, type Progress } from '../../core/session/engine';
 import { caesar } from '../../core/validation/mechanics';
 import { PuzzleWidget } from '../widgets/PuzzleWidget';
+import { DocumentCard, FocusedLevelTitle, MemoryCard, NarrativeCard, TextBlocks } from './Cards';
+import { feedbackLine, useEditorialCopy } from './EditorialCopy';
 
 type Props = {
   level: Level;
@@ -11,12 +13,8 @@ type Props = {
   evaluation?: Evaluation;
   message?: string;
   onCommand: (command: Command) => void;
+  onExit?: () => void;
   sources: Record<string, { title: string; url: string }>;
-};
-const badges = {
-  fact: 'Fait sourcé',
-  reconstruction: 'Reconstitution pédagogique',
-  fiction: 'Projection fictive / simulation',
 };
 
 export function LevelView({
@@ -26,14 +24,19 @@ export function LevelView({
   evaluation,
   message,
   onCommand,
+  onExit,
   sources,
 }: Props) {
   const [solutionVisible, setSolutionVisible] = useState(false);
-  const send = (command: Omit<Command, 'levelId'>) =>
-    onCommand({ ...command, levelId: level.id } as Command);
+  const { copy, interpolate } = useEditorialCopy(level.id);
   const done = isComplete(progress);
   const step = level.steps[progress.step];
   const dialogue = level.dialogue.nodes.find((node) => node.id === progress.dialogue);
+  const intro = step ? copy?.stepLines[step.id] : undefined;
+  const editorialError =
+    evaluation && evaluation.status !== 'correct' && step
+      ? feedbackLine(copy, step.id, progress.drafts[step.id] ?? {}, context)
+      : undefined;
   return (
     <article className={`level era-${level.era}`}>
       <header>
@@ -41,12 +44,10 @@ export function LevelView({
           {level.id.toUpperCase()} · {level.minutes} min ·{' '}
           {level.status === 'ready' ? 'Prêt' : 'Prototype'}
         </p>
-        <h2>{level.title}</h2>
+        <FocusedLevelTitle title={level.title} />
       </header>
       {dialogue && !done ? (
-        <section className="dialogue" aria-label="Dialogue">
-          <strong>{dialogue.speaker}</strong>
-          <p>{dialogue.text}</p>
+        <NarrativeCard speaker={dialogue.speaker} text={interpolate(dialogue.text)}>
           <div className="actions">
             {dialogue.choices.map((choice) => (
               <button
@@ -55,33 +56,37 @@ export function LevelView({
                   onCommand({ type: 'dialogue', levelId: level.id, choiceId: choice.id })
                 }
               >
-                {choice.label}
+                {interpolate(choice.label)}
               </button>
             ))}
           </div>
-        </section>
+        </NarrativeCard>
       ) : null}
       {Object.keys(context.inputs).length ? (
-        <details className="panel">
-          <summary>Fragments disponibles</summary>
+        <section className="fragment-tray" aria-label="Fragments disponibles">
+          <h3>Fragments disponibles</h3>
           {Object.entries(context.inputs).map(([port, fragment]) => (
-            <section key={port}>
-              <p>{fragment.summary}</p>
-            </section>
+            <MemoryCard key={port} summary={fragment.summary} />
           ))}
-        </details>
+        </section>
       ) : null}
       {done ? (
         <section className="success">
           <h3>
             {progress.status === 'assisted' ? 'Dossier restauré avec aide' : 'Dossier restauré'}
           </h3>
-          <p>{level.dialogue.success}</p>
-          <p>{level.capsule}</p>
+          <TextBlocks text={interpolate(level.dialogue.success)} />
+          <MemoryCard title="À retenir" summary={level.capsule} />
+          <TextBlocks text={interpolate(level.dialogue.return)} />
           <details>
             <summary>Revoir la démarche</summary>
-            <p>{level.solution}</p>
+            <TextBlocks text={level.solution} />
           </details>
+          {onExit ? (
+            <button className="primary" onClick={onExit}>
+              {copy?.exitLabel ?? 'Retour aux dossiers'}
+            </button>
+          ) : null}
         </section>
       ) : step ? (
         <>
@@ -89,7 +94,8 @@ export function LevelView({
             Étape {progress.step + 1}/{level.steps.length}
           </p>
           <h3>{step.title}</h3>
-          <p>{step.instruction}</p>
+          {intro ? <NarrativeCard speaker="ARIIE" text={interpolate(intro.text)} /> : null}
+          <TextBlocks text={step.instruction} />
           {level.observations.map((observation) => (
             <section className="observation" key={observation}>
               <strong>Carte {observation} · DEMO fictive</strong>
@@ -109,32 +115,18 @@ export function LevelView({
             </section>
           ))}
           <section aria-label="Documents">
-            {step.documentIds.map((id) => {
-              const document = level.documents.find((doc) => doc.id === id)!;
-              return (
-                <details className="document" key={id}>
-                  <summary>{document.title}</summary>
-                  <small>{badges[document.badge]}</small>
-                  <p>{document.body}</p>
-                  {document.sourceIds.map((sourceId) =>
-                    sources[sourceId] ? (
-                      <p key={sourceId}>
-                        <a href={sources[sourceId].url} target="_blank" rel="noreferrer">
-                          {sources[sourceId].title} ↗
-                        </a>
-                      </p>
-                    ) : (
-                      <p key={sourceId}>Source {sourceId} : référence à compléter</p>
-                    ),
-                  )}
-                </details>
-              );
-            })}
+            {step.documentIds.map((id) => (
+              <DocumentCard
+                key={id}
+                document={level.documents.find((doc) => doc.id === id)!}
+                sources={sources}
+              />
+            ))}
           </section>
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              send({ type: 'submit' });
+              onCommand({ type: 'submit', levelId: level.id });
             }}
           >
             <PuzzleWidget
@@ -146,6 +138,22 @@ export function LevelView({
               {step.mechanic.kind === 'program' ? 'Simuler et vérifier' : 'Vérifier cette étape'}
             </button>
           </form>
+          <div className="feedback-region" aria-live="polite" aria-atomic="true">
+            {evaluation && evaluation.status !== 'correct' ? (
+              <div className="feedback">
+                <strong>À vérifier</strong>
+                {editorialError ? <TextBlocks text={editorialError.text} /> : null}
+                <ul>
+                  {evaluation.messages
+                    .filter((text) => !editorialError || !text.includes(editorialError.text))
+                    .map((text) => (
+                      <li key={text}>{text}</li>
+                    ))}
+                </ul>
+                {evaluation.trace ? <p>Trace : {evaluation.trace.join(' → ')}</p> : null}
+              </div>
+            ) : null}
+          </div>
           <section className="hints" aria-label="Aide">
             <h3>Besoin d’un indice ?</h3>
             <ol>
@@ -154,7 +162,7 @@ export function LevelView({
               ))}
             </ol>
             {progress.hints < 3 ? (
-              <button onClick={() => send({ type: 'hint' })}>
+              <button onClick={() => onCommand({ type: 'hint', levelId: level.id })}>
                 Révéler l’indice {progress.hints + 1}/3
               </button>
             ) : (
@@ -162,7 +170,7 @@ export function LevelView({
             )}
             {solutionVisible && progress.hints === 3 ? (
               <section>
-                <p>{level.solution}</p>
+                <TextBlocks text={level.solution} />
                 <button
                   onClick={() => onCommand({ type: 'assist', levelId: level.id, confirmed: true })}
                 >
@@ -174,18 +182,8 @@ export function LevelView({
         </>
       ) : null}
       <div aria-live="polite" aria-atomic="true">
-        {message ? <p>{message}</p> : null}
-        {evaluation ? (
-          <div className={evaluation.status === 'correct' ? 'feedback success' : 'feedback'}>
-            <strong>{evaluation.status === 'correct' ? 'Étape validée.' : 'À vérifier'}</strong>
-            <ul>
-              {evaluation.messages.map((message) => (
-                <li key={message}>{message}</li>
-              ))}
-            </ul>
-            {evaluation.trace ? <p>Trace : {evaluation.trace.join(' → ')}</p> : null}
-          </div>
-        ) : null}
+        {message && message !== level.dialogue.return ? <p>{message}</p> : null}
+        {evaluation?.status === 'correct' ? <p className="success">Étape validée.</p> : null}
       </div>
     </article>
   );

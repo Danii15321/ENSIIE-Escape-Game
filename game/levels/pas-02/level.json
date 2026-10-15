@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "pas-02",
   "title": "Le nom perdu",
   "era": "past",
@@ -18,31 +18,65 @@
     }
   ],
   "dialogue": {
-    "entry": "entry",
+    "entry": "P2.ENTER",
     "nodes": [
       {
-        "id": "entry",
+        "id": "P2.ENTER",
         "speaker": "ARIIE",
         "text": "Trois mots se sont décalés dans mon alphabet. La clé de lecture a été associée à un repère que vous pouvez encore observer.",
         "choices": [
           {
-            "id": "start",
-            "label": "Examiner le dossier",
+            "id": "0",
+            "label": "Explique le chiffrement.",
+            "to": "P2.A"
+          },
+          {
+            "id": "1",
+            "label": "Nous allons observer.",
+            "to": "P2.DEMO"
+          }
+        ]
+      },
+      {
+        "id": "P2.A",
+        "speaker": "ARIIE",
+        "text": "Une lettre avance toujours du même nombre de positions. Pour déchiffrer, faites le trajet inverse. Les espaces ne changent pas.",
+        "choices": [
+          {
+            "id": "0",
+            "label": "Consulter le repère",
+            "to": "P2.DEMO"
+          },
+          {
+            "id": "1",
+            "label": "Revenir aux questions",
+            "to": "P2.ENTER"
+          }
+        ]
+      },
+      {
+        "id": "P2.DEMO",
+        "speaker": "ARIIE",
+        "text": "Nous sommes en démonstration : la carte fictive remplace l’observation. Elle ne décrit pas les locaux réels.",
+        "choices": [
+          {
+            "id": "0",
+            "label": "Lire la carte de démonstration",
             "to": null
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "IIE. Mon ancien nom tient dans trois lettres, mais vous avez restauré les mots qui leur donnent un sens.",
+    "return": "Je conserve le sigle et la page déchiffrée. Ma machine saura maintenant quelle archive chercher."
   },
   "hints": [
-    "La valeur observée déplace l’alphabet.",
-    "La lecture doit faire reculer les lettres.",
-    "INSTITUT INFORMATIQUE ENTREPRISE. Prenez les initiales."
+    "La valeur observée sert à déplacer l’alphabet, pas à compter les mots.",
+    "Le stockage a avancé les lettres. La lecture doit les faire reculer.",
+    "Avec le décalage observé, le premier mot devient INSTITUT. Les deux autres sont INFORMATIQUE et ENTREPRISE. Prenez les initiales."
   ],
   "solution": "Lire la valeur O1 du profil, reculer d’autant : INSTITUT INFORMATIQUE ENTREPRISE, sigle IIE.",
-  "capsule": "L’ancienne école portait le nom d’Institut d’informatique d’entreprise. DEMO : le repère ne décrit pas les locaux.",
+  "capsule": "L’ancienne école portait le nom d’Institut d’informatique d’entreprise. Le sigle IIE a été conservé dans ENSIIE.",
   "outputs": [
     {
       "id": "name",
@@ -70,7 +104,7 @@
               "observation": "O1"
             },
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Ce relevé ne correspond pas au repère enregistré. Vérifiez le périmètre ou utilisez la photo de secours si le lieu est inaccessible."
           },
           {
             "id": "shift",
@@ -80,7 +114,7 @@
               "observation": "O1"
             },
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Le sigle seul ne répare pas la page. Vérifiez le sens de rotation et les trois mots obtenus."
           },
           {
             "id": "direction",
@@ -97,7 +131,7 @@
                 "label": "Avancer dans l’alphabet"
               }
             ],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Le sigle seul ne répare pas la page. Vérifiez le sens de rotation et les trois mots obtenus."
           },
           {
             "id": "plaintext",
@@ -105,7 +139,7 @@
             "format": "text",
             "expected": "INSTITUT INFORMATIQUE ENTREPRISE",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Le sigle seul ne répare pas la page. Vérifiez le sens de rotation et les trois mots obtenus."
           },
           {
             "id": "acronym",
@@ -113,7 +147,7 @@
             "format": "text",
             "expected": "IIE",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Le sigle seul ne répare pas la page. Vérifiez le sens de rotation et les trois mots obtenus."
           }
         ]
       },

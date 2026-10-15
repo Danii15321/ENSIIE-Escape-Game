@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "pas-03",
   "title": "Le décret aux trois dates",
   "era": "past",
@@ -32,31 +32,53 @@
     }
   ],
   "dialogue": {
-    "entry": "entry",
+    "entry": "P3.ENTER",
     "nodes": [
       {
-        "id": "entry",
+        "id": "P3.ENTER",
         "speaker": "ARIIE",
-        "text": "J’ai trois dates possibles pour un changement. Vérifions si elles parlent vraiment de la même chose.",
+        "text": "J’ai trois dates possibles pour un changement. Avant de supprimer des doublons, je préfère vérifier si elles parlent vraiment de la même chose.",
         "choices": [
           {
-            "id": "start",
-            "label": "Examiner le dossier",
+            "id": "0",
+            "label": "Pourquoi changer de nom ?",
+            "to": "P3.A"
+          },
+          {
+            "id": "1",
+            "label": "Examinons les pièces.",
             "to": null
+          }
+        ]
+      },
+      {
+        "id": "P3.A",
+        "speaker": "ARIIE",
+        "text": "La FAQ de l’époque relie le nouveau nom à un nouveau statut et à davantage d’autonomie. Ici, nous cherchons quand le texte commence à s’appliquer.",
+        "choices": [
+          {
+            "id": "0",
+            "label": "Examiner les pièces",
+            "to": null
+          },
+          {
+            "id": "1",
+            "label": "Revenir aux questions",
+            "to": "P3.ENTER"
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "Trois dates, trois rôles. Transition restaurée : le 1er août 2006.",
+    "return": "Cette preuve restera accessible au contrôle final."
   },
   "hints": [
-    "Une pièce fournit une date, une autre une règle.",
-    "La règle part du Journal officiel.",
+    "Une pièce fournit une date, une autre fournit une règle.",
+    "La règle part du Journal officiel, pas du titre du décret.",
     "Le mois qui suit juillet est août. Prenez son premier jour en 2006."
   ],
   "solution": "Publication en juillet, application le 1er août 2006. Preuves : Publication + Règle.",
-  "capsule": "Le décret est daté du 5 juillet, publié le 7 juillet et applicable le 1er août 2006.",
+  "capsule": "Le décret est daté du 5 juillet 2006, publié le 7 juillet et applicable le 1er août. Le passage à l’ENSIIE est une évolution institutionnelle, pas seulement une nouvelle enseigne.",
   "outputs": [
     {
       "id": "transition",
@@ -83,7 +105,7 @@
             "format": "date",
             "expected": "2006-08-01",
             "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "Vérifiez le mois de publication et le premier jour du mois suivant."
           },
           {
             "id": "evidence",
@@ -104,7 +126,7 @@
                 "label": "Règle"
               }
             ],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "error": "La date convient. Montrez maintenant les pièces qui permettent de la déduire."
           }
         ]
       },

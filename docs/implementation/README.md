@@ -24,9 +24,9 @@ Node 22 recommandé (`.nvmrc`) ; Node 20.19+ compatible. Ouvrir http://localhost
 - Sauvegarde locale versionnée, export/import contrôlé, protection contre une écriture concurrente détectée et maintien en mémoire si le stockage échoue.
 - Cinq mécaniques : formulaire, classement, appariement, sélection sous contraintes et programme sur grille. Documents, dialogues, aide, observations DEMO et carnet partagés.
 - Atelier isolé utilisant les mêmes validateurs et composants, profils DEMO pair/impair et fixtures locales.
-- Sept prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, FUT-01, FUT-02. Le premier acte fonctionne en campagne ; les deux FUT se jouent dans l’atelier en attendant l’acte II.
+- Huit prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, FUT-01, FUT-02, EXT-EST. Le premier acte et EXT-EST fonctionnent en campagne ; les deux FUT se jouent dans l’atelier en attendant l’acte II.
 
-Le jeu complet n’est pas livré. Les six paquets `draft` restent volontairement non jouables. Les dialogues exécutés sont encore abrégés : les fiches conservent le script complet à intégrer. Pas encore de service worker, de chronomètre, de terrain réel, de roue graphique, de mur de mots, de circuit typé, de Conseil ni d’écran de fin.
+Le jeu complet n’est pas livré. Les cinq paquets `draft` restent volontairement non jouables. Les dialogues de l’acte I et d’EXT-EST sont intégrés avec les adaptations décrites dans le [bilan de phase 1](PHASE-1-TEAMMATE.md). Pas encore de service worker, de chronomètre, de terrain réel, de roue graphique, de mur de mots, de circuit typé, de Conseil ni d’écran de fin.
 
 ## Fiches des niveaux
 
@@ -46,7 +46,7 @@ Une personne réserve un dossier de niveau. L’autre peut travailler sur un aut
 | 10 | [FUT-02 — Le protocole incomplet](../../game/levels/fut-02/TASK.md) | Prototype | À attribuer | GridProgram disponible, trace et première erreur calculées par le moteur. |
 | 11 | [FUT-C — Le Conseil du futur](../../game/levels/fut-c/TASK.md) | À réaliser | À attribuer | NarrativeChoice, remplacement des réponses et thèmes de fin à construire dans le chantier 04-narration. |
 | 12 | [SYN-03 — Le contrôle du centenaire](../../game/levels/syn-03/TASK.md) | À réaliser | À attribuer | EvidenceChoice composé de décisions et preuves, puis cadran final à réaliser. |
-| 13 | [EXT-EST — L’antenne de l’Est](../../game/levels/ext-est/TASK.md) | À réaliser | À attribuer | AnswerForm et DocumentReader disponibles. Extension indépendante de la victoire. |
+| 13 | [EXT-EST — L’antenne de l’Est](../../game/levels/ext-est/TASK.md) | Prototype | À attribuer | AnswerForm et DocumentReader disponibles. Extension indépendante de la victoire. |
 | 14 | [END — Capsule et fins](../../game/endings/TASK.md) | À réaliser | À attribuer | Choix narratifs et composition de fin |
 
 ## Chantiers communs
@@ -75,11 +75,11 @@ Prendre une fiche entière ou ses sous-tâches. Les propriétaires ci-dessous so
 6. Relier ou modifier les bindings de campagne à un point de synchronisation. Changer un producteur ne change pas le consommateur si le type de fragment reste identique.
 7. Faire relire puis fusionner une étape qui passe ses cas d’acceptation ; ne pas attendre que l’autre ait terminé son acte.
 
-## Ordre conseillé pour la suite immédiate
+## Phase 1 en parallèle
 
-- Personne A : WordGrid + SYN-02, puis sorties de profil de PRE-02.
-- Personne B : PRE-01 (appariements puis ConnectionBoard), puis PRE-02.
-- Point commun : contrat des sorties calculées et règles de circuit/grille, avant de les implémenter.
-- Ensuite : Conseil, final et fins ; enfin terrain réel et cache.
+- Colonne noyau : EvidenceChoice puis SYN-03, choix révisables de FUT-C, fonction pure de sélection de fin.
+- Colonne contenu/interface : EXT-EST, dialogues de l’acte I et cartes communes livrés ; relevé O1 = 2 / O2 = 3 reçu et documenté, photos à ajouter plus tard.
+- Voir le [bilan détaillé et les limites](PHASE-1-TEAMMATE.md) avant intégration. Les contrats et le moteur n’ont pas été modifiés par le lot contenu/interface.
+- Point commun à venir : profil de site documenté, secours et sorties dérivées, à partir des observations reçues pour Évry 2026 (foyer et premier étage).
 
-Le premier acte fournit le modèle à suivre, et l’atelier permet d’avancer sans attendre la campagne complète.
+L’atelier permet de continuer chaque dossier sans attendre la campagne complète.
