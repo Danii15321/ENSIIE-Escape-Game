@@ -82,7 +82,8 @@ Prendre une fiche entière ou ses sous-tâches. Les propriétaires ci-dessous so
 
 - Fusionnés : acte II et ses briques, SYN-03, contrat narratif et calcul de fin ; EXT-EST, dialogues de l’acte I et cartes communes.
 - Évry 2026 activé : O1 = 2 / O2 = 3, trajets, secours textuel persisté, César +2 et mur impair ; photos à ajouter plus tard.
-- Suite : contenu de FUT-C, écran END, photos et recette sur place, puis cache hors ligne.
+- Fait : mode hors ligne (chantier 07), préparation explicite, reprise et mise à jour à la demande.
+- Suite : contenu de FUT-C, écran END, photos et recette sur place, essai hors ligne sur l’hébergement HTTPS.
 
 L’atelier permet de développer chaque dossier indépendamment.
 

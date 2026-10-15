@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { catalog, sourceRegistry } from './catalog';
 import { useGame } from './useGame';
+import { OfflinePanel } from './OfflinePanel';
 import {
   availability,
   choicesFrozen,
@@ -161,6 +162,7 @@ export function App() {
                 <button onClick={() => setResetConfirm(false)}>Annuler</button>
               </section>
             ) : null}
+            {tab !== 'memory' && !canOpen ? <OfflinePanel /> : null}
             {tab === 'memory' ? (
               <section className="panel">
                 <h2>Carnet de fragments</h2>
@@ -231,8 +233,8 @@ export function App() {
         )}
       </main>
       <footer>
-        ARIIE et 2068 appartiennent à la fiction. Les documents historiques sont sourcés. Aucun
-        cache hors ligne n’est encore installé.
+        ARIIE et 2068 appartiennent à la fiction. Les documents historiques sont sourcés. Le mode
+        hors ligne demande une préparation explicite avec le réseau.
       </footer>
     </EditorialProvider>
   );
