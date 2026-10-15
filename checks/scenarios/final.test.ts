@@ -86,7 +86,7 @@ const choose = (game: Catalog, session: Session, questionId: string, optionId: s
 describe('SYN-03 et campagne complète', () => {
   for (const siteId of ['demo', 'demo-odd'])
     it(`${siteId} : la campagne atteint 100 points et fige l’issue`, () => {
-      let session = playUntil(catalog, [...order, 'fut-02', 'fut-01'], siteId);
+      let session = playUntil(catalog, [...order, 'fut-01', 'fut-02'], siteId);
       expect(availability(session, catalog, 'syn-03')).toBe('available');
       expect(ending(session, catalog)).toBeNull();
       session = solve(catalog, session, 'syn-03');
@@ -184,7 +184,8 @@ describe('Choix narratifs remplaçables', () => {
 
   it('remplace une réponse, la retire, refuse les choix inconnus et toute validation', () => {
     const game = withCouncil();
-    let session = playUntil(game, order);
+    expect(availability(playUntil(game, [...order, 'fut-01']), game, 'fut-c')).toBe('locked');
+    let session = playUntil(game, [...order, 'fut-01', 'fut-02']);
     expect(availability(session, game, 'fut-c')).toBe('available');
     session = choose(game, session, 'c1', 'partage').session;
     session = choose(game, session, 'c1', 'lucidite').session;
@@ -198,13 +199,13 @@ describe('Choix narratifs remplaçables', () => {
     expect(dispatch(session, game, { type: 'hint', levelId: 'fut-c' }).session).toBe(session);
     session = choose(game, session, 'c1', null).session;
     expect(session.progress['fut-c']?.choices).toEqual({});
-    expect(integrity(session, game)).toBe(70);
+    expect(integrity(session, game)).toBe(90);
     expect(restoreSession(JSON.parse(JSON.stringify(session)), game)).toEqual(session);
   });
 
   it('refuse un choix sur un puzzle et une sauvegarde aux choix falsifiés', () => {
     const game = withCouncil();
-    let session = playUntil(game, order);
+    let session = playUntil(game, [...order, 'fut-01', 'fut-02']);
     expect(
       dispatch(session, game, {
         type: 'choose',

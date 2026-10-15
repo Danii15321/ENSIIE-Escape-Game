@@ -1,0 +1,230 @@
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 1rem;
+  margin: 0.25rem 0 0.5rem;
+}
+.fields > * {
+  min-width: 0;
+}
+.check,
+.project {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 52px;
+  margin: 0.4rem 0;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-sunk);
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color 200ms,
+    background-color 200ms,
+    transform 160ms var(--ease-out);
+}
+.check:hover,
+.project:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+.check:has(input:checked),
+.project:has(input:checked) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, var(--panel-sunk));
+}
+.check:has(input:focus-visible),
+.project:has(input:focus-visible) {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.project span {
+  display: grid;
+  gap: 0.15rem;
+}
+.project small {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.puzzle [role='status'] {
+  padding: 0.65rem 0.8rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel-sunk));
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+}
+.order {
+  margin: 0.5rem 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: card;
+}
+.order li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+  padding: 0.7rem 0.75rem 0.7rem 0.6rem;
+  border: 1px solid var(--paper-edge);
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-doc);
+  box-shadow: 0 10px 20px -14px rgb(0 0 0 / 0.8);
+  counter-increment: card;
+  animation: fade-up 450ms var(--ease-out) both;
+}
+.order li::before {
+  content: counter(card);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.order li > span {
+  flex: 1;
+}
+.order .row {
+  flex: none;
+  gap: 0.35rem;
+}
+.order .row button {
+  width: 46px;
+  min-height: 46px;
+  padding: 0;
+  border-color: var(--paper-edge);
+  background: var(--paper-deep);
+  color: var(--ink);
+}
+.table-scroll {
+  overflow-x: auto;
+  margin: 0.5rem 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel-sunk);
+}
+.table-scroll table th[scope='row'],
+.table-scroll table thead th {
+  font-family: var(--font-mono);
+  color: var(--muted);
+}
+.mechanic-program td,
+.mechanic-wordgrid td {
+  font-family: var(--font-mono);
+  text-align: center;
+}
+.word-grid td,
+.word-grid th {
+  padding: 2px;
+  border: 0;
+  text-align: center;
+}
+.word-grid td[aria-label] {
+  color: var(--line-strong);
+}
+.word-grid button {
+  width: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  border-color: var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+}
+.word-grid button.struck {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--faint);
+}
+.word-grid button s {
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 3px;
+}
+.word-grid button[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  animation: pop 380ms var(--ease-spring) both;
+}
+.mechanic-wordgrid ul,
+.mechanic-circuit ul {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+.mechanic-wordgrid ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.35rem 0.35rem 0.35rem 0.8rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel-sunk));
+  font-family: var(--font-mono);
+  animation: fade-up 350ms var(--ease-out) both;
+}
+.claims {
+  margin: 0.25rem 0;
+  padding: 0;
+  list-style: none;
+}
+.claims > li {
+  margin: 0.75rem 0;
+  animation: fade-up 450ms var(--ease-out) both;
+}
+.claims > li > fieldset {
+  margin: 0;
+  background: var(--panel-sunk);
+}
+.claims > li > fieldset > p {
+  margin: 0.4rem 0 0.6rem;
+  font-family: var(--font-doc);
+  font-size: 1.08rem;
+  font-style: italic;
+}
+.claims [role='radiogroup'] {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.claims [role='radiogroup'] .check {
+  justify-content: center;
+  margin: 0;
+  font-weight: 650;
+}
+.claims fieldset fieldset {
+  margin-top: 0.75rem;
+  background: transparent;
+}
+.claims fieldset fieldset legend {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.claims .check small {
+  display: block;
+  color: var(--faint);
+}
+section[aria-label='Choix narratifs'] fieldset {
+  background: var(--panel-sunk);
+  animation: fade-up 450ms var(--ease-out) both;
+}
+section[aria-label='Choix narratifs'] legend {
+  line-height: 1.3;
+}

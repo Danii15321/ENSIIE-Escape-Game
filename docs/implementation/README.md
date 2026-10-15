@@ -18,6 +18,8 @@ Node 22 recommandé (`.nvmrc`) ; Node 20.19+ compatible. Ouvrir http://localhost
 
 ## Ce qui fonctionne
 
+- Parcours linéaire du 15 octobre 2026 : écran d’accueil, carte du parcours avec un seul « Continuer », scène d’introduction par acte (`game/campaigns/chrono-iie/journey.json`), mission en plein écran, écran de récompense, carnet de collection, réglages et fin animée. Identité visuelle de la direction artistique : avatar d’ARIIE à trois arcs qui se referment avec l’intégrité, décors d’époque, polices intégrées, quatre sons synthétisés, animations désactivables.
+
 - Contrats TypeScript + validation Zod des paquets JSON, fragments, sites et campagne.
 - Découverte automatique des paquets, contrôle des prérequis, types de ports et cycles.
 - Moteur pur : brouillons par étape, validation, trois indices, assistance, dialogues, récompenses uniques et intégrité dérivée.

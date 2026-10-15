@@ -1,6 +1,6 @@
 {
   "id": "chrono-iie",
-  "revision": 1,
+  "revision": 2,
   "title": "La mémoire de demain",
   "finalLevel": "syn-03",
   "levels": [
@@ -18,19 +18,19 @@
     },
     {
       "id": "pas-02",
-      "requires": ["pro-00"],
+      "requires": ["pas-01"],
       "points": 10,
       "bindings": {}
     },
     {
       "id": "pas-03",
-      "requires": ["pro-00"],
+      "requires": ["pas-02"],
       "points": 10,
       "bindings": {}
     },
     {
       "id": "syn-01",
-      "requires": ["pas-01", "pas-02", "pas-03"],
+      "requires": ["pas-03"],
       "points": 10,
       "bindings": {
         "origin": {
@@ -55,13 +55,13 @@
     },
     {
       "id": "pre-02",
-      "requires": ["syn-01"],
+      "requires": ["pre-01"],
       "points": 10,
       "bindings": {}
     },
     {
       "id": "syn-02",
-      "requires": ["pre-01", "pre-02"],
+      "requires": ["pre-02"],
       "points": 10,
       "bindings": {
         "lexicon": {
@@ -86,19 +86,19 @@
     },
     {
       "id": "fut-02",
-      "requires": ["syn-02"],
+      "requires": ["fut-01"],
       "points": 10,
       "bindings": {}
     },
     {
       "id": "fut-c",
-      "requires": ["syn-02"],
+      "requires": ["fut-02"],
       "points": 0,
       "bindings": {}
     },
     {
       "id": "syn-03",
-      "requires": ["fut-01", "fut-02"],
+      "requires": ["fut-02"],
       "points": 10,
       "bindings": {
         "origin": {

@@ -145,13 +145,14 @@ it('la fin s’ouvre après le final restauré, le carnet et l’accueil restent
   window.localStorage.setItem(SAVE_KEY, JSON.stringify(finishedSession()));
   const user = userEvent.setup();
   render(<App />);
+  await user.click(screen.getByRole('button', { name: 'Ouvrir la capsule' }));
   expect(screen.getByRole('heading', { name: 'La capsule ouverte' })).toBeTruthy();
   expect(screen.getByRole('heading', { name: 'Une école à construire ensemble' })).toBeTruthy();
   await user.click(screen.getByRole('button', { name: 'Relire le carnet' }));
   expect(screen.getByRole('heading', { name: 'Carnet de fragments' })).toBeTruthy();
   await user.click(screen.getByRole('button', { name: 'La capsule' }));
   await user.click(screen.getByRole('button', { name: 'Revenir à l’accueil' }));
-  expect(screen.getByRole('region', { name: 'Dossiers de la campagne' })).toBeTruthy();
+  expect(screen.getByRole('list', { name: 'Dossiers de la campagne' })).toBeTruthy();
 });
 it('aucune ouverture de fin avant le final et les radios sont figées après', async () => {
   const user = userEvent.setup();
@@ -161,6 +162,7 @@ it('aucune ouverture de fin avant le final et les radios sont figées après', a
   const session = finishedSession();
   window.localStorage.setItem(SAVE_KEY, JSON.stringify(session));
   render(<App />);
+  await user.click(screen.getByRole('button', { name: 'Ouvrir la capsule' }));
   await user.click(screen.getByRole('button', { name: 'Revenir à l’accueil' }));
   await user.click(document.getElementById('open-fut-c')!);
   expect(screen.getAllByRole('radio').every((r) => (r as HTMLInputElement).disabled)).toBe(true);

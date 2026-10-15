@@ -51,11 +51,12 @@ describe('Acte II en campagne', () => {
     ['demo', 'forward'],
     ['demo-odd', 'reverse'],
   ] as const)
-    it(`${siteId} : PRE-01 et PRE-02 dans un ordre libre, puis CAPSULE`, () => {
+    it(`${siteId} : PRE-01 puis PRE-02 dans l’ordre, puis CAPSULE`, () => {
       let session = throughActOne(siteId);
-      session = solve(session, 'pre-02');
-      expect(availability(session, catalog, 'syn-02')).toBe('locked');
+      expect(availability(session, catalog, 'pre-02')).toBe('locked');
       session = solve(session, 'pre-01');
+      expect(availability(session, catalog, 'syn-02')).toBe('locked');
+      session = solve(session, 'pre-02');
       const inputs = resolveInputs(session, catalog, 'syn-02');
       expect(inputs.orientation?.data).toEqual({
         observed: catalog.sites[siteId]!.observations.O2,
@@ -64,7 +65,7 @@ describe('Acte II en campagne', () => {
       session = solve(session, 'syn-02');
       expect(integrity(session, catalog)).toBe(70);
       expect(availability(session, catalog, 'fut-01')).toBe('available');
-      expect(availability(session, catalog, 'fut-02')).toBe('available');
+      expect(availability(session, catalog, 'fut-02')).toBe('locked');
       const key = inventory(session, catalog).find((item) => item.rewardId === 'syn-02:key');
       expect(key?.data).toEqual({ word: 'CAPSULE' });
       const orientation = inventory(session, catalog).find(
@@ -100,7 +101,7 @@ describe('Acte II en campagne', () => {
   });
 
   it('PRE-02 garde les réponses justes et refuse un relevé ou une parité faux', () => {
-    const session = throughActOne('demo');
+    const session = solve(throughActOne('demo'), 'pre-01');
     const [nominal] = acceptance('pre-02').answers as [Answer];
     const observation = submit(session, 'pre-02', { ...nominal, observation: '5' });
     expect(observation.evaluation?.status).toBe('partial');

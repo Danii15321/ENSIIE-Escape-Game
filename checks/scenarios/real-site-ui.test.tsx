@@ -45,6 +45,7 @@ it('sauvegarde le secours en campagne et le retrouve après remontage', async ()
   window.localStorage.setItem(SAVE_KEY, JSON.stringify(session));
   const user = userEvent.setup();
   const view = render(<App />);
+  await user.click(screen.getByRole('button', { name: 'Reprendre' }));
   await user.click(document.getElementById('open-pas-02')!);
   await user.click(screen.getByRole('button', { name: 'Utiliser le secours textuel O1' }));
   expect(
@@ -52,6 +53,7 @@ it('sauvegarde le secours en campagne et le retrouve après remontage', async ()
   ).toEqual(['O1']);
   view.unmount();
   render(<App />);
+  await user.click(screen.getByRole('button', { name: 'Reprendre' }));
   await user.click(document.getElementById('open-pas-02')!);
   expect(screen.getByText(/Saisissez 2 comme valeur/)).toBeTruthy();
 });
@@ -62,6 +64,7 @@ it('préserve une partie DEMO et change de profil seulement à la création conf
   );
   const user = userEvent.setup();
   render(<App />);
+  await user.click(screen.getByRole('button', { name: 'Réglages' }));
   expect(screen.getByText('Profil : DEMO — observations fictives')).toBeTruthy();
   await user.click(screen.getByRole('button', { name: 'Nouvelle partie' }));
   await user.selectOptions(
@@ -69,7 +72,14 @@ it('préserve une partie DEMO et change de profil seulement à la création conf
     'evry-2026',
   );
   expect(JSON.parse(window.localStorage.getItem(SAVE_KEY)!).siteId).toBe('demo');
-  await user.click(screen.getByRole('button', { name: 'Créer la nouvelle partie' }));
+  await user.click(screen.getByRole('button', { name: 'Annuler' }));
+  expect(JSON.parse(window.localStorage.getItem(SAVE_KEY)!).siteId).toBe('demo');
+  await user.click(screen.getByRole('button', { name: 'Nouvelle partie' }));
+  await user.selectOptions(
+    screen.getByRole('combobox', { name: 'Profil de la nouvelle partie' }),
+    'evry-2026',
+  );
+  await user.click(screen.getByRole('button', { name: 'Recommencer' }));
   expect(JSON.parse(window.localStorage.getItem(SAVE_KEY)!).siteId).toBe('evry-2026');
-  expect(screen.getByText('Profil : Évry 2026 — parcours dans l’école')).toBeTruthy();
+  expect(screen.getByRole('heading', { name: 'Le Signal' })).toBeTruthy();
 });

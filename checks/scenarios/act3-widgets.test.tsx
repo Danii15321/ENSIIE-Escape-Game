@@ -65,15 +65,15 @@ it('SYN-03 se résout au clavier : décisions, preuves, piège 2106 puis 2068', 
     const box = screen.getByRole('group', { name: `Preuves pour l’affirmation ${index + 1}` });
     for (const proof of proofs) await user.click(within(box).getByLabelText(new RegExp(proof)));
   }
-  await user.click(screen.getByRole('button', { name: 'Vérifier cette étape' }));
+  await user.click(screen.getByRole('button', { name: 'Vérifier' }));
   expect(screen.getByText('Étape 2/2')).toBeTruthy();
   const year = screen.getByLabelText('Année du centenaire');
   await user.type(year, '2106');
-  await user.click(screen.getByRole('button', { name: 'Vérifier cette étape' }));
+  await user.click(screen.getByRole('button', { name: 'Vérifier' }));
   expect(screen.getByText(/cent ans à 2006/)).toBeTruthy();
   await user.clear(year);
   await user.type(year, '2068');
-  await user.click(screen.getByRole('button', { name: 'Vérifier cette étape' }));
+  await user.click(screen.getByRole('button', { name: 'Vérifier' }));
   expect(screen.getByRole('heading', { name: 'Dossier restauré' })).toBeTruthy();
 });
 
@@ -110,7 +110,7 @@ const council = levelSchema.parse({
 it('le Conseil remplace une réponse, la retire et affiche la conclusion', async () => {
   const user = userEvent.setup();
   render(<Play level={council} />);
-  expect(screen.queryByRole('button', { name: 'Vérifier cette étape' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'Vérifier' })).toBeNull();
   await user.click(screen.getByLabelText('Les sources'));
   expect(screen.getByText('Réponse A')).toBeTruthy();
   expect(screen.getByText('Vos engagements sont enregistrés.')).toBeTruthy();

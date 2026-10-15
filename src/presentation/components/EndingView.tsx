@@ -25,6 +25,7 @@ export type EndingModel = {
   hints: number;
   observationsAssisted: number;
   badges: string[];
+  activeMinutes?: number;
 };
 type Props = {
   copy: EndingCopy;
@@ -57,6 +58,11 @@ export function EndingView({
   const interpolate = (text: string) => text.replaceAll('{equipe}', model.team);
   return (
     <article className="level ending">
+      <div className="capsule-opening" aria-hidden="true">
+        <span className="capsule-light" />
+        <span className="capsule-half is-top" />
+        <span className="capsule-half is-bottom" />
+      </div>
       <header>
         <p className="eyebrow">2068 · {model.team}</p>
         <FocusedLevelTitle title={copy.title} />
@@ -127,7 +133,11 @@ export function EndingView({
           </div>
           <div>
             <dt>Durée active</dt>
-            <dd>Non mesurée dans cette version</dd>
+            <dd>
+              {model.activeMinutes === undefined
+                ? 'Non mesurée dans cette version'
+                : `${model.activeMinutes} min`}
+            </dd>
           </div>
         </dl>
         <ul aria-label="Badges du parcours">

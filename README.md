@@ -162,36 +162,31 @@ Le nom d’équipe est facultatif, limité à 24 caractères ; défaut : « Équ
 | SYN-03 | Le contrôle du centenaire | Dialogue avec preuves | 5 min |
 | END | La capsule ouverte | Fin personnalisée | 2 min |
 
-Environ 65 minutes d’interaction et de narration, plus 5 à 10 minutes de marche et les pauses. Les missions d’un acte sont disponibles dans n’importe quel ordre ; les durées restent à tester.
+Environ 65 minutes d’interaction et de narration, plus 5 à 10 minutes de marche et les pauses. Le parcours est linéaire : chaque mission ouvre la suivante, dans l’ordre du tableau. Les durées restent à tester.
 
 ```mermaid
 flowchart TD
-  PRO[Le Signal] --> A1[Acte I]
-  A1 --> P1[PAS-01 Archives]
-  A1 --> P2[PAS-02 Nom perdu]
-  A1 --> P3[PAS-03 Décret]
-  P1 --> S1[SYN-01 Machine temporelle]
-  P2 --> S1
-  P3 --> S1
-  S1 --> A2[Acte II]
-  A2 --> R1[PRE-01 Compétences]
-  A2 --> R2[PRE-02 Terrain et associations]
-  R1 --> S2[SYN-02 Mur des mots]
-  R2 --> S2
-  S2 --> A3[Acte III]
-  A3 --> F1[FUT-01 Projets]
-  A3 --> F2[FUT-02 Protocole]
-  A3 --> C[FUT-C Conseil facultatif]
-  F1 --> S3[SYN-03 Contrôle du centenaire]
-  F2 --> S3
+  PRO[Prologue : Le Signal] --> P1[PAS-01 Archives]
+  P1 --> P2[PAS-02 Nom perdu]
+  P2 --> P3[PAS-03 Décret]
+  P3 --> S1[SYN-01 Machine temporelle]
+  S1 -. bonus .-> EXT[EXT-EST Antenne de l’Est]
+  S1 --> R1[PRE-01 Compétences]
+  R1 --> R2[PRE-02 Terrain et associations]
+  R2 --> S2[SYN-02 Mur des mots]
+  S2 --> F1[FUT-01 Projets]
+  F1 --> F2[FUT-02 Protocole]
+  F2 -. facultatif .-> C[FUT-C Conseil]
+  F2 --> S3[SYN-03 Contrôle du centenaire]
   C -. personnalisation .-> FIN[Capsule ouverte]
   S3 --> FIN
 ```
 
 ### Règles de déblocage
 
-- Actes séquentiels ; missions indépendantes à l’intérieur de chaque acte.
-- Une synthèse apparaît dès l’ouverture de l’acte avec ses fragments manquants ; elle exige toutes les missions requises.
+- Parcours linéaire : chaque mission exige la précédente. Un seul bouton « Continuer » mène à la suite ; les missions déjà restaurées restent consultables.
+- Chaque acte s’ouvre sur une courte scène d’introduction. La synthèse ferme l’acte et réunit les fragments des missions précédentes.
+- Les micro-étapes d’une mission (relevé, associations, preuves) peuvent se répartir entre joueurs ; elles restent indépendantes à l’intérieur de la mission.
 - Chaque réussite attribue une seule fois un fragment et une capsule de savoir.
 - `2101` et `CAPSULE` sont des résultats narratifs ; les saisir sans les missions accomplies ne saute pas un acte.
 - Les missions résolues restent consultables ; leurs récompenses ne peuvent pas être attribuées deux fois.
@@ -245,8 +240,8 @@ Le contraste des combinaisons réellement utilisées devra être mesuré à la r
 
 ### Typographie et composition
 
-- Corps sans empattement : police système au prototype ; Inter ou équivalent intégré localement avec licence si nécessaire.
-- Codes et coordonnées en monospace système ; IBM Plex Mono est une alternative à intégrer localement.
+- Polices intégrées localement, licence SIL OFL 1.1 : Inter pour le texte, Space Grotesk pour les titres, IBM Plex Mono pour les codes, coordonnées et étiquettes, Source Serif 4 pour les documents d’archive.
+- Seuls les jeux de caractères latins sont embarqués, pour limiter la préparation hors ligne.
 - Base mobile 18 px, interligne autour de 1,5 ; titres 26–32 px ; métadonnées utiles au moins 14 px.
 - Commandes tactiles d’au moins 44 × 44 px, espacées, avec verbes explicites.
 - Une colonne pour les documents et une action principale par écran.
@@ -297,7 +292,7 @@ Les photographies ajoutées auront une provenance et des droits vérifiés. Des 
 | Résultat | Réaction, savoir et récompense | Retour à l’acte |
 | Fin | Frise, texte personnalisé, durée et aides | Relire / Exporter |
 
-Navigation basse : **Mission**, **Conversation**, **Mémoire**, **Réglages**. Les saisies restent présentes lors d’un changement d’onglet.
+Navigation basse : **Parcours**, **Carnet**, **La capsule** (après la fin) et **Réglages**. Une mission s’ouvre en plein écran avec « Retour à l’acte » ; la conversation avec ARIIE fait partie de la mission. Les saisies restent présentes lors d’un changement d’écran.
 
 ### Indices et assistance
 
@@ -398,7 +393,7 @@ Les identifiants de réplique servent à l’écriture, pas à l’interface. Un
 
 ### Entrée de l’acte
 
-**A1.ENTER — ARIIE :** « J’ai retrouvé trois dossiers : une chronologie, un nom chiffré et un changement de statut. Vous pouvez commencer par celui que vous voulez. Les documents sont accessibles dans chaque dossier ; vous n’avez pas besoin de connaître les réponses à l’avance. »
+**A1.ENTER — ARIIE :** « J’ai retrouvé trois dossiers : une chronologie, un nom chiffré et un changement de statut. Ouvrons-les dans l’ordre : chacun prépare le suivant, puis la machine temporelle les réunira. » Puis : « Les documents sont accessibles dans chaque dossier ; vous n’avez pas besoin de connaître les réponses à l’avance. »
 
 **A1.WAIT — synthèse verrouillée :** « La machine attend les trois dossiers restaurés. Les emplacements vides indiquent ce qui lui manque. » Le nom des dossiers manquants est affiché, sans faux bouton actif.
 
@@ -594,7 +589,7 @@ Clé **2101**, lieu **Château de Chamarande**, année du rendez-vous **2005**. 
 <a id="acte2"></a>
 ## 9. Acte II et ses dialogues
 
-**A2.ENTER — ARIIE :** « J’ai retrouvé les dates. Il me manque maintenant la vie entre les dates : les compétences, les projets et les activités. Deux missions peuvent avancer séparément. »
+**A2.ENTER — ARIIE :** « J’ai retrouvé les dates. Il me manque maintenant la vie entre les dates : les compétences, les projets et les activités. » Puis : « Deux missions vous attendent, puis le mur de mémoire réunira tout ce que vous aurez restauré. »
 
 ### PRE-01 — L’atelier des compétences
 

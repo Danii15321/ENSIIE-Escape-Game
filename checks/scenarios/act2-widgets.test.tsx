@@ -87,7 +87,7 @@ for (const siteId of ['demo', 'demo-odd'] as const)
     const read = siteId === 'demo' ? remaining : [...remaining].reverse();
     expect(read.join('')).toBe('CAPSULE');
     await user.type(screen.getByLabelText('Message des cases restantes'), 'capsule');
-    await user.click(screen.getByRole('button', { name: 'Vérifier cette étape' }));
+    await user.click(screen.getByRole('button', { name: 'Vérifier' }));
     expect(screen.getByRole('heading', { name: 'Dossier restauré' })).toBeTruthy();
   }, 15_000); // Full grid interactions can exceed 5 s when UI suites run in parallel.
 
@@ -114,7 +114,7 @@ it('PRE-01 enchaîne les domaines puis le circuit au clavier', async () => {
   };
   for (const [module, domain] of Object.entries(domains))
     await user.selectOptions(screen.getByLabelText(new RegExp(`^${module} :`)), domain);
-  await user.click(screen.getByRole('button', { name: 'Vérifier cette étape' }));
+  await user.click(screen.getByRole('button', { name: 'Vérifier' }));
   expect(screen.getByText('Étape 2/2')).toBeTruthy();
   const links: [string, string][] = [
     ['Besoin', 'Modéliser (entrée BESOIN)'],
@@ -122,7 +122,7 @@ it('PRE-01 enchaîne les domaines puis le circuit au clavier', async () => {
   ];
   for (const [from, to] of links)
     await user.selectOptions(screen.getByLabelText(new RegExp(`« ${from} »`)), to);
-  await user.click(screen.getByRole('button', { name: 'Vérifier cette étape' }));
+  await user.click(screen.getByRole('button', { name: 'Vérifier' }));
   expect(screen.getByText(/même type de donnée/)).toBeTruthy();
   const fixed: [string, string][] = [
     ['Modéliser', 'Vérifier (entrée MODELE)'],
@@ -132,6 +132,6 @@ it('PRE-01 enchaîne les domaines puis le circuit au clavier', async () => {
   ];
   for (const [from, to] of fixed)
     await user.selectOptions(screen.getByLabelText(new RegExp(`« ${from} »`)), to);
-  await user.click(screen.getByRole('button', { name: 'Vérifier cette étape' }));
+  await user.click(screen.getByRole('button', { name: 'Vérifier' }));
   expect(screen.getByRole('heading', { name: 'Dossier restauré' })).toBeTruthy();
 });

@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "chapters": [
+    {
+      "id": "prologue",
+      "label": "Prologue",
+      "title": "Le Signal",
+      "era": "prologue",
+      "years": {
+        "from": 2068,
+        "to": 2026
+      },
+      "roll": {
+        "from": 2068,
+        "to": 2026
+      },
+      "icon": "signal",
+      "lines": [
+        {
+          "speaker": "Système",
+          "text": "Transmission entrante. Origine : 2068. Destination : votre équipe, en 2026."
+        }
+      ],
+      "questions": [],
+      "levels": ["pro-00"]
+    },
+    {
+      "id": "acte-1",
+      "label": "Acte I",
+      "title": "Les origines",
+      "era": "past",
+      "years": {
+        "from": 1968,
+        "to": 2006
+      },
+      "roll": {
+        "from": 2026,
+        "to": 1968
+      },
+      "icon": "folder",
+      "lines": [
+        {
+          "speaker": "ARIIE",
+          "text": "J’ai retrouvé trois dossiers : une chronologie, un nom chiffré et un changement de statut. Ouvrons-les dans l’ordre : chacun prépare le suivant, puis la machine temporelle les réunira."
+        },
+        {
+          "speaker": "ARIIE",
+          "text": "Les documents sont accessibles dans chaque dossier ; vous n’avez pas besoin de connaître les réponses à l’avance."
+        }
+      ],
+      "questions": [],
+      "image": "cnam-1890",
+      "levels": ["pas-01", "pas-02", "pas-03", "syn-01"]
+    },
+    {
+      "id": "acte-2",
+      "label": "Acte II",
+      "title": "L’école vivante",
+      "era": "present",
+      "years": {
+        "from": 2006,
+        "to": 2026
+      },
+      "roll": {
+        "from": 1968,
+        "to": 2026
+      },
+      "icon": "network",
+      "lines": [
+        {
+          "speaker": "ARIIE",
+          "text": "J’ai retrouvé les dates. Il me manque maintenant la vie entre les dates : les compétences, les projets et les activités."
+        },
+        {
+          "speaker": "ARIIE",
+          "text": "Deux missions vous attendent, puis le mur de mémoire réunira tout ce que vous aurez restauré."
+        }
+      ],
+      "questions": [],
+      "levels": ["pre-01", "pre-02", "syn-02"]
+    },
+    {
+      "id": "acte-3",
+      "label": "Acte III",
+      "title": "La transmission",
+      "era": "future",
+      "years": {
+        "from": 2026,
+        "to": 2068
+      },
+      "roll": {
+        "from": 2026,
+        "to": 2068
+      },
+      "icon": "seed",
+      "lines": [
+        {
+          "speaker": "ARIIE",
+          "text": "Canal de transmission retrouvé. Le prochain message appartient à notre fiction de 2068. Son autrice s’appelle Nora."
+        },
+        {
+          "speaker": "Nora",
+          "text": "Bonjour, équipe de 2026. Je suis une ancienne élève de la promotion 2045… dans l’histoire que nous construisons ensemble. Vous avez retrouvé des faits. Il faut maintenant choisir ce qui mérite d’être transmis."
+        }
+      ],
+      "questions": [
+        {
+          "label": "Pourquoi une ancienne élève ?",
+          "speaker": "Nora",
+          "text": "Une école continue aussi à travers les personnes qui en sortent. Le réseau des anciens relie des promotions et des expériences. Ici, je suis un personnage fictif qui porte cette idée de transmission."
+        },
+        {
+          "label": "Que devons-nous construire ?",
+          "speaker": "Nora",
+          "text": "Un dispositif de mémoire utile, accessible et suffisamment sobre pour durer. Vous choisirez ses projets, puis vous réparerez son programme."
+        }
+      ],
+      "closing": {
+        "speaker": "ARIIE",
+        "text": "Deux missions vous attendent, puis un Conseil facultatif et le contrôle du centenaire. Le Conseil exprime vos priorités : il n’a pas de mauvaise réponse."
+      },
+      "levels": ["fut-01", "fut-02", "fut-c", "syn-03"]
+    }
+  ],
+  "bonus": [
+    {
+      "level": "ext-est",
+      "after": "syn-01",
+      "label": "Dossier bonus",
+      "image": "isu-illkirch-2011"
+    }
+  ],
+  "teasers": {
+    "pro-00": "Un message de 2068 tente de joindre votre équipe.",
+    "pas-01": "Remettre dans l’ordre la chronologie des origines.",
+    "pas-02": "Déchiffrer un nom grâce à un repère du bâtiment.",
+    "pas-03": "Démêler trois dates autour du changement de nom.",
+    "syn-01": "Réunir les preuves pour remonter jusqu’en 2004.",
+    "pre-01": "Relier des compétences pour faire fonctionner un simulateur.",
+    "pre-02": "Observer l’école et rendre leurs destinataires aux invitations.",
+    "syn-02": "Retirer les mots retrouvés pour lire un message caché.",
+    "fut-01": "Choisir trois projets sans dépasser les limites.",
+    "fut-02": "Réparer le programme qui transmettra la capsule.",
+    "fut-c": "Exprimer les priorités de votre équipe, sans mauvaise réponse.",
+    "syn-03": "Séparer les faits de la fiction avant d’ouvrir la capsule.",
+    "ext-est": "Une page d’histoire à Illkirch, de 2009 à 2017."
+  }
+}

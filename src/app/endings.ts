@@ -7,7 +7,11 @@ import { evaluate } from '../core/validation/mechanics';
 import type { EndingCopy, EndingModel } from '../presentation/components/EndingView';
 
 export const endingCopy = parseEndingCopy(raw, catalog.levels['fut-c']!, sourceRegistry);
-export function endingModel(session: Session, game: Catalog): EndingModel | null {
+export function endingModel(
+  session: Session,
+  game: Catalog,
+  activeSeconds?: number,
+): EndingModel | null {
   const result = ending(session, game);
   if (!result) return null;
   const theme =
@@ -36,6 +40,8 @@ export function endingModel(session: Session, game: Catalog): EndingModel | null
     hints: progress.reduce((sum, p) => sum + p.hints, 0),
     observationsAssisted: progress.reduce((sum, p) => sum + p.fallbackObservations.length, 0),
     badges,
+    activeMinutes:
+      activeSeconds === undefined ? undefined : Math.max(1, Math.round(activeSeconds / 60)),
   };
 }
 export function souvenirText(copy: EndingCopy, model: EndingModel, contribution: string) {
@@ -54,7 +60,9 @@ export function souvenirText(copy: EndingCopy, model: EndingModel, contribution:
     `Missions accompagnées : ${model.missionsAssisted}`,
     `Indices consultés : ${model.hints}`,
     `Observations avec secours : ${model.observationsAssisted}`,
-    'Durée active : non mesurée',
+    model.activeMinutes === undefined
+      ? 'Durée active : non mesurée'
+      : `Durée active : ${model.activeMinutes} min`,
     `Badges : ${model.badges.join(', ')}`,
     ...(contribution ? ['Contribution privée conservée', contribution] : []),
     copy.closing.text.replaceAll('{equipe}', model.team),

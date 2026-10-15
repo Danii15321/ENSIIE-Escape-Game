@@ -10,6 +10,13 @@ Le README définit un carnet d’archives scientifique, avec fond ardoise et acc
 
 `src/presentation/theme/`, `src/presentation/components/`, `src/presentation/widgets/`. L’assemblage application et ses adaptateurs restent dans `src/app/`.
 
+## Livraison du 15 octobre 2026
+
+- Parcours linéaire et écrans : accueil, carte du parcours, introductions d’actes, mission, récompense, carnet, réglages, pause et fin. Le contenu des chapitres est dans `game/campaigns/chrono-iie/journey.json`, validé avec la campagne par `check:content`.
+- Thème découpé dans `src/presentation/theme/` : jetons, base, mouvements, mise en page, composants, briques et écrans. Les époques changent l’accent et le décor (papier et archive pour le passé, plan schématique pour le présent, aurore pour l’avenir).
+- Accessibilité : focus placé sur le titre de chaque écran et rendu à la carte du parcours au retour, feuille d’indices modale avec Échap et retour du focus, interrupteurs au clavier, texte agrandi, animations réduites selon le système ou le réglage. L’effet machine à écrire garde la taille finale du texte pour ne pas déplacer les commandes.
+- Vérifié par captures dans Chrome à 390 px et 1280 px, sans erreur de console. Reste à tester sur téléphones réels et avec un lecteur d’écran.
+
 ## Étapes
 
 1. Tester 360, 390, 768 et 1280 px ; réduire les colonnes plutôt que les tailles de contrôle.

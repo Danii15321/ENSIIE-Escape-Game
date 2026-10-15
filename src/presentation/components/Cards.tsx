@@ -1,5 +1,12 @@
 import { useEffect, useRef, type ReactNode } from 'react';
+import { ExternalLink, FileText, Lock, Radio } from 'lucide-react';
 import type { Level } from '../../core/contracts';
+import { AriieAvatar } from './AriieAvatar';
+import { useAmbience } from './Ambience';
+import { TextBlocks } from './Text';
+import { TypedText } from './TypedText';
+
+export { TextBlocks } from './Text';
 
 export function FocusedLevelTitle({ title }: { title: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -13,23 +20,28 @@ export function FocusedLevelTitle({ title }: { title: string }) {
   );
 }
 
-export function TextBlocks({ text }: { text: string }) {
+export function SpeakerBadge({ speaker }: { speaker: string }) {
+  const { integrity } = useAmbience();
+  if (speaker === 'ARIIE')
+    return (
+      <span className="speaker-badge is-ariie">
+        <AriieAvatar integrity={integrity} size={40} speaking />
+      </span>
+    );
+  if (speaker === 'Nora')
+    return (
+      <span className="speaker-badge is-nora" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="40" height="40">
+          <circle cx="20" cy="20" r="18" className="nora-ring" />
+          <path d="M20 29c0-7 0-11 6-15M20 23c-1-4-4-6-8-6" className="nora-sprout" />
+          <circle cx="26" cy="14" r="2.2" className="nora-seed" />
+        </svg>
+      </span>
+    );
   return (
-    <>
-      {text.split('\n\n').map((paragraph, i) => (
-        <p key={i}>
-          {paragraph.split(/(\[[A-Z]\])/).map((part, j) =>
-            /^\[[A-Z]\]$/.test(part) ? (
-              <span className="letter-frame" key={j} aria-label={`Lettre encadrée ${part[1]}`}>
-                {part[1]}
-              </span>
-            ) : (
-              part
-            ),
-          )}
-        </p>
-      ))}
-    </>
+    <span className="speaker-badge is-system" aria-hidden="true">
+      <Radio size={20} strokeWidth={1.8} />
+    </span>
   );
 }
 
@@ -42,11 +54,18 @@ export function NarrativeCard({
   text: string;
   children?: ReactNode;
 }) {
+  const slug = speaker === 'ARIIE' ? 'ariie' : speaker === 'Nora' ? 'nora' : 'system';
   return (
-    <section className="dialogue" aria-label="Dialogue">
-      <strong>{speaker}</strong>
-      <TextBlocks text={text} />
-      {children}
+    <section className={`dialogue speaker-${slug}`} aria-label="Dialogue">
+      <SpeakerBadge speaker={speaker} />
+      <div className="dialogue-bubble">
+        <strong className="dialogue-speaker">
+          {speaker}
+          {speaker === 'Nora' ? <small> · correspondante fictive, 2068</small> : null}
+        </strong>
+        <TypedText text={text} />
+        {children}
+      </div>
     </section>
   );
 }
@@ -64,26 +83,34 @@ export function DocumentCard({
   sources: Record<string, { title: string; url: string }>;
 }) {
   return (
-    <details className="document">
-      <summary>{document.title}</summary>
-      <span className="document-badge">{badges[document.badge]}</span>
-      <TextBlocks text={document.body} />
-      {document.sourceIds.length ? (
-        <ul className="source-list" aria-label="Sources du document">
-          {document.sourceIds.map((id) => (
-            <li key={id}>
-              {sources[id] ? (
-                <a href={sources[id].url} target="_blank" rel="noreferrer">
-                  {sources[id].title}
-                  <span className="sr-only"> (nouvel onglet)</span> ↗
-                </a>
-              ) : (
-                <span>Source {id} à compléter</span>
-              )}
-            </li>
-          ))}
-        </ul>
-      ) : null}
+    <details className={`document badge-${document.badge}`}>
+      <summary>
+        <FileText aria-hidden="true" size={20} strokeWidth={1.8} />
+        <span className="document-title">{document.title}</span>
+      </summary>
+      <div className="document-sheet">
+        <span className="document-badge">{badges[document.badge]}</span>
+        <div className="document-body">
+          <TextBlocks text={document.body} />
+        </div>
+        {document.sourceIds.length ? (
+          <ul className="source-list" aria-label="Sources du document">
+            {document.sourceIds.map((id) => (
+              <li key={id}>
+                {sources[id] ? (
+                  <a href={sources[id].url} target="_blank" rel="noreferrer">
+                    {sources[id].title}
+                    <span className="sr-only"> (nouvel onglet)</span>
+                    <ExternalLink aria-hidden="true" size={14} />
+                  </a>
+                ) : (
+                  <span>Source {id} à compléter</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
     </details>
   );
 }
@@ -130,9 +157,11 @@ export function MissionCard({
 }) {
   return (
     <article className={`mission era-${level.era}`}>
-      <p className="eyebrow">{level.id.toUpperCase()}</p>
       <h2>{level.title}</h2>
-      <p className="mission-status">{statusText[status]}</p>
+      <p className="mission-status">
+        {status === 'locked' ? <Lock aria-hidden="true" size={16} /> : null}
+        {statusText[status]}
+      </p>
       {status === 'locked' ? (
         <small>Prérequis : {requirements.map((id) => id.toUpperCase()).join(', ')}</small>
       ) : null}

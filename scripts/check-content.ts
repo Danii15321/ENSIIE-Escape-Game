@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { catalog, readJson, levelIds } from './load-content';
+import { catalog, readJson, levelIds, journey } from './load-content';
 import { validateFixture } from '../src/core/content/catalog';
 import { answerSchema } from '../src/core/contracts';
 import { evaluate } from '../src/core/validation/mechanics';
@@ -64,5 +64,5 @@ for (const level of Object.values(catalog.levels).filter(
   executable++;
 }
 console.log(
-  `Contenus valides : ${executable} prototypes exécutables, ${drafts} dossiers à réaliser. Graphe et bindings vérifiés.`,
+  `Contenus valides : ${executable} prototypes exécutables, ${drafts} dossiers à réaliser. Graphe, bindings et parcours linéaire (${journey.chapters.length} chapitres) vérifiés.`,
 );

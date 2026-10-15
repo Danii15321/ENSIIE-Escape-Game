@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { build, type Plugin, type ResolvedConfig } from 'vite';
-import { OFFLINE_MANIFEST } from '../src/core/ports/offline';
+import { OFFLINE_MANIFEST } from '../src/core/ports/offline.ts';
 
 export const WORKER_FILE = 'sw.js';
 

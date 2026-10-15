@@ -38,10 +38,19 @@ describe('Campagne et sauvegarde', () => {
     ).toBe(session);
     expect(availability(session, catalog, 'pas-01')).toBe('locked');
   });
-  it('traverse le premier acte dans un ordre libre, reprend et attribue une seule fois', () => {
+  it('impose l’ordre du premier acte, reprend et attribue une seule fois', () => {
     let session = solve(create(), 'pro-00');
     expect(integrity(session, catalog)).toBe(0);
-    for (const id of ['pas-03', 'pas-02', 'pas-01']) session = solve(session, id);
+    expect(availability(session, catalog, 'pas-01')).toBe('available');
+    for (const id of ['pas-02', 'pas-03', 'syn-01'])
+      expect(availability(session, catalog, id)).toBe('locked');
+    const skipped = dispatch(session, catalog, { type: 'open', levelId: 'pas-03' });
+    expect(skipped.session).toBe(session);
+    expect(skipped.message).toContain('prérequis');
+    for (const id of ['pas-01', 'pas-02', 'pas-03']) {
+      session = solve(session, id);
+      expect(availability(session, catalog, id)).toBe('succeeded');
+    }
     expect(availability(session, catalog, 'syn-01')).toBe('available');
     expect(resolveInputs(session, catalog, 'syn-01').origin?.data.year).toBe(1968);
     session = solve(session, 'syn-01');
@@ -98,7 +107,8 @@ describe('Campagne et sauvegarde', () => {
     modified.progress['pro-00']!.drafts.signal = { name: 'FAUX' };
     expect(() => restoreSession(modified, catalog)).toThrow('Preuve');
     const invalid: Answer = { date: '31/02/2006', evidence: ['publication', 'rule'] };
-    const draft = dispatch(session, catalog, {
+    const ready = solve(solve(session, 'pas-01'), 'pas-02');
+    const draft = dispatch(ready, catalog, {
       type: 'draft',
       levelId: 'pas-03',
       answer: invalid,

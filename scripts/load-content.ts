@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { parseCatalog } from '../src/core/content/catalog';
+import { parseJourney } from '../src/core/session/journey';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
 export const readJson = (path: string): unknown =>
@@ -19,3 +20,4 @@ export const catalog = parseCatalog({
     )
     .map((entry) => readJson(`game/sites/${entry.name}/site.json`)),
 });
+export const journey = parseJourney(readJson('game/campaigns/chrono-iie/journey.json'), catalog);

@@ -47,7 +47,7 @@ it('place le focus sur le titre à l’ouverture, sans le voler pendant une sais
   const input = screen.getByLabelText('Date d’entrée en vigueur');
   await user.type(input, '05/07/2006');
   expect(document.activeElement).toBe(input);
-  await user.click(screen.getByRole('button', { name: 'Vérifier cette étape' }));
+  await user.click(screen.getByRole('button', { name: 'Vérifier' }));
   expect(
     screen.getByText('C’est la date du décret. Cherchez le début de son application.'),
   ).toBeTruthy();
@@ -87,10 +87,14 @@ it('rend le focus à la carte de campagne quand on referme son dossier', async (
   window.history.replaceState({}, '', '/');
   const user = userEvent.setup();
   render(<App />);
-  const button = document.getElementById('open-pro-00')!;
-  await user.click(button);
+  await user.click(screen.getByRole('button', { name: 'Commencer l’enquête' }));
+  await user.click(screen.getByRole('button', { name: 'Recevoir le signal' }));
   expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Le Signal' }));
-  await user.click(screen.getByRole('button', { name: '← Retour aux dossiers' }));
+  await user.click(screen.getByRole('button', { name: 'Retour à l’acte' }));
+  expect(document.activeElement).toBe(document.getElementById('open-pro-00'));
+  await user.click(document.getElementById('open-pro-00')!);
+  expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Le Signal' }));
+  await user.click(screen.getByRole('button', { name: 'Retour à l’acte' }));
   expect(document.activeElement).toBe(document.getElementById('open-pro-00'));
   window.localStorage.clear();
 });
