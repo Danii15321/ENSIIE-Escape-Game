@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import {
   answerSchema,
+  observationIdSchema,
+  type ObservationId,
   type Answer,
   type Context,
   type Evaluation,
@@ -19,6 +21,7 @@ export const progressSchema = z.object({
   hints: z.number().int().min(0).max(3),
   dialogue: z.string().nullable(),
   choices: z.record(z.string(), z.string()).default({}),
+  fallbackObservations: z.array(observationIdSchema).default([]),
 });
 export type Progress = z.infer<typeof progressSchema>;
 export const sessionSchema = z.object({
@@ -36,6 +39,7 @@ export const sessionSchema = z.object({
 export type Session = z.infer<typeof sessionSchema>;
 export type Command =
   | { type: 'open'; levelId: string }
+  | { type: 'fallback'; levelId: string; observation: ObservationId }
   | { type: 'draft'; levelId: string; answer: Answer }
   | { type: 'submit'; levelId: string }
   | { type: 'hint'; levelId: string }
@@ -55,6 +59,7 @@ export function initialProgress(level: Level): Progress {
     hints: 0,
     dialogue: level.dialogue.entry,
     choices: {},
+    fallbackObservations: [],
   };
 }
 export const choicesFrozen = (session: Session, catalog: Catalog) =>
@@ -152,6 +157,7 @@ export function inventory(session: Session, catalog: Catalog) {
           ...materialize(output, site),
           rewardId: `${entry.id}:${output.id}`,
           provenance: entry.id,
+          fallbackObservations: session.progress[entry.id]?.fallbackObservations ?? [],
           version: session.levelRevisions[entry.id],
         }))
       : [],
@@ -169,6 +175,17 @@ export function advance(
   if (isComplete(progress)) return { progress, message: level.dialogue.return };
   const next = structuredClone(progress);
   if (command.type === 'open') return { progress: next };
+  if (command.type === 'fallback') {
+    if (
+      context.site.mode !== 'real' ||
+      !context.site.landmarks?.[command.observation] ||
+      !level.observations.includes(command.observation)
+    )
+      return { progress, message: 'Ce secours ne correspond pas à une observation de ce dossier.' };
+    if (progress.fallbackObservations.includes(command.observation)) return { progress };
+    next.fallbackObservations.push(command.observation);
+    return { progress: next, message: `Secours ${command.observation} consulté, sans pénalité.` };
+  }
   if (command.type === 'dialogue') {
     const choice = level.dialogue.nodes
       .find((node) => node.id === next.dialogue)
@@ -284,6 +301,16 @@ export function restoreSession(raw: unknown, catalog: Catalog): Session {
       !level.dialogue.nodes.some((node) => node.id === progress.dialogue)
     )
       throw new Error(`Dialogue absent : ${id}`);
+    if (
+      new Set(progress.fallbackObservations).size !== progress.fallbackObservations.length ||
+      progress.fallbackObservations.some(
+        (observation) =>
+          site.mode !== 'real' ||
+          !site.landmarks?.[observation] ||
+          !level.observations.includes(observation),
+      )
+    )
+      throw new Error(`Secours incompatible : ${id}`);
     if (level.narrative) {
       const questions = level.narrative.questions;
       if (

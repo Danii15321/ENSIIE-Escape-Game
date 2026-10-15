@@ -20,11 +20,13 @@ Node 22 recommandé. Dans ce workspace WSL, exécuter ces commandes dans Ubuntu,
 - [Contrat d’auteur](src/authoring/README.md) : format des paquets, réponses, fixtures et ajout de briques.
 - Atelier isolé : ouvrir `/?level=syn-01`, ou choisir **Atelier des niveaux** dans l’application.
 
-**Livré :** moteur indépendant de React, contrats validés, progression, aide, dialogues détaillés de l’acte I, sauvegarde/export/import, cartes communes accessibles et huit prototypes. Le premier acte et EXT-EST se jouent en campagne ; FUT-01 et FUT-02 se testent isolément. Les autres paquets sont explicitement `draft`, avec leur conception complète dans `TASK.md`.
+**Livré :** moteur indépendant de React, contrats validés, progression, aide, dialogues détaillés de l’acte I, sauvegarde/export/import, cartes communes accessibles et douze prototypes. Le parcours principal est jouable jusqu’à SYN-03 ; EXT-EST est facultatif. Le profil réel Évry 2026 utilise O1 = 2 et O2 = 3, avec trajets et secours textuel. Les autres paquets sont explicitement `draft`, avec leur conception complète dans `TASK.md`.
 
-**À poursuivre :** dialogues des actes suivants, circuit typé, grille de mots, choix narratifs, contrôle final, fins, terrain réel, chronomètre et préparation hors ligne. Les fiches indiquent précisément les dépendances communes de chaque niveau.
+**À poursuivre :** contenu de FUT-C, écran de fin, photos et recette terrain, chronomètre et préparation hors ligne. Les fiches indiquent précisément les dépendances communes de chaque niveau.
 
-Le [bilan de la phase 1 — contenu et interface](docs/implementation/PHASE-1-TEAMMATE.md) décrit les adaptations du prototype : code postal seul pour EXT-EST, nom d’équipe conservé et directions réelles à brancher. Le [relevé Évry 2026](game/sites/evry-2026/README.md) documente O1 = 2 baby-foot dans le foyer et O2 = 3 salles de TP au premier étage, d’après les informations du porteur du projet. Les photos seront ajoutées plus tard.
+Le [bilan de la phase 1 — contenu et interface](docs/implementation/PHASE-1-TEAMMATE.md) décrit les adaptations du prototype : code postal seul pour EXT-EST, nom d’équipe conservé et directions réelles désormais intégrées. Le [relevé Évry 2026](game/sites/evry-2026/README.md) documente O1 = 2 baby-foot dans le foyer et O2 = 3 salles de TP au premier étage, d’après les informations du porteur du projet. Les photos seront ajoutées plus tard.
+
+Pour jouer sur place, une nouvelle partie utilise **Évry 2026** par défaut ; les profils DEMO restent disponibles dans le sélecteur de nouvelle partie. L’atelier accepte `/?level=pas-02&site=evry-2026`. Les sauvegardes conservent leur profil ; les révisions devenues incompatibles peuvent être exportées avant de recommencer.
 
 ## Sommaire
 
@@ -334,7 +336,7 @@ Une observation ne prouve pas techniquement la présence ; un coéquipier peut t
 
 ### Profil DEMO
 
-**Relevé réel Évry 2026 reçu le 15 octobre 2026 :** O1 = **2**, baby-foot du foyer (tourner à droite en entrant) ; O2 = **3**, salles de TP du premier étage (rejoindre le premier étage depuis l’entrée). Les deux zones sont déclarées toujours accessibles par le porteur du projet. Le profil réel doit donc utiliser un César +2 et la grille impaire. Les consignes et secours textuels sont prêts dans la [fiche de site](game/sites/evry-2026/README.md) ; activation technique à faire, photos à ajouter plus tard.
+**Relevé réel Évry 2026 reçu le 15 octobre 2026 :** O1 = **2**, baby-foot du foyer (tourner à droite en entrant) ; O2 = **3**, salles de TP du premier étage (rejoindre le premier étage depuis l’entrée). Les deux zones sont déclarées toujours accessibles par le porteur du projet. Le profil réel doit donc utiliser un César +2 et la grille impaire. Les consignes et secours textuels sont prêts dans la [fiche de site](game/sites/evry-2026/README.md) ; profil activé dans le jeu, photos à ajouter plus tard.
 
 Pour tester sans inventer le bâtiment, deux cartes fictives sont fournies : **Repère d’archive : 3** et **Repère de lecture : 4**. Donc O1 = 3 et O2 = 4, pair. Chaque carte affiche **simulation de terrain — valeurs fictives**.
 
@@ -487,7 +489,7 @@ La validation demande le bon relevé, le décalage appliqué dans le bon sens et
 | ID | Déclencheur | Texte |
 |---|---|---|
 | P2.ENTER | Ouverture | « Trois mots se sont décalés dans mon alphabet. La clé de lecture a été associée à un repère que vous pouvez encore observer. » |
-| P2.GO | Terrain réel | « Rendez-vous à {O1.lieu}. {O1.direction} Relevez ceci : {O1.question} Vous pouvez revenir à la mission sans perdre votre progression. » |
+| P2.GO | Terrain réel | « Rendez-vous dans {O1.lieu}. {O1.direction} Relevez ceci : {O1.question} Vous pouvez revenir à la mission sans perdre votre progression. » |
 | P2.DEMO | Terrain simulé | « Nous sommes en démonstration : la carte fictive remplace l’observation. Elle ne décrit pas les locaux réels. » |
 | P2.Q | Choix | « Explique le chiffrement. » → P2.A ; « Nous allons observer. » → terrain |
 | P2.A | Explication | « Une lettre avance toujours du même nombre de positions. Pour déchiffrer, faites le trajet inverse. Les espaces ne changent pas. » Puis puzzle. |

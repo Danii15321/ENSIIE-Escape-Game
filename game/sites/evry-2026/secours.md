@@ -1,6 +1,6 @@
 # Évry 2026 — supports textuels de secours
 
-Textes éditoriaux prêts à intégrer au bouton de secours du profil réel. Ils ne sont pas encore chargés dans le jeu. Source : observations communiquées par le porteur du projet le 15 octobre 2026. Les photos seront ajoutées ultérieurement.
+Textes intégrés dans `site.json`, affichés par le bouton de secours du repère correspondant et enregistrés dans la progression. Source : observations communiquées par le porteur du projet le 15 octobre 2026. Les photos seront ajoutées ultérieurement.
 
 Afficher la fiche concernée seulement lorsque l’équipe choisit le secours. Ne pas afficher les réponses dans la consigne initiale de recherche. Conserver les mêmes valeurs et n’appliquer aucune pénalité.
 

@@ -23,7 +23,7 @@ Node 22 recommandé (`.nvmrc`) ; Node 20.19+ compatible. Ouvrir http://localhost
 - Moteur pur : brouillons par étape, validation, trois indices, assistance, dialogues, récompenses uniques et intégrité dérivée.
 - Sauvegarde locale versionnée, export/import contrôlé, protection contre une écriture concurrente détectée et maintien en mémoire si le stockage échoue.
 - Mécaniques : formulaire, classement, appariement, sélection sous contraintes, programme sur grille, circuit typé, mur de mots et choix de preuves. Documents, dialogues, aide, observations DEMO et carnet partagés.
-- Atelier isolé utilisant les mêmes validateurs et composants, profils DEMO pair/impair et fixtures locales.
+- Atelier isolé utilisant les mêmes validateurs et composants, profils DEMO pair/impair et Évry 2026, fixtures locales.
 - Douze prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, PRE-01, PRE-02, SYN-02, FUT-01, FUT-02, SYN-03 et EXT-EST. Le parcours principal permet d’atteindre 100 points ; EXT-EST reste facultatif.
 - Circuit typé, mur de mots, parité et sorties dérivées du profil ; preuves de SYN-03, choix narratifs révisables et calcul de fin disponibles.
 
@@ -38,7 +38,7 @@ Une personne réserve un dossier de niveau. L’autre peut travailler sur un aut
 |---|---|---|---|---|
 | 01 | [PRO-00 — Le Signal](../../game/levels/pro-00/TASK.md) | Prototype | À attribuer | Aucune brique bloquante. Dialogue linéaire et choix de retour déjà disponibles. |
 | 02 | [PAS-01 — Les archives déclassées](../../game/levels/pas-01/TASK.md) | Prototype | À attribuer | OrderBoard et AnswerForm disponibles. |
-| 03 | [PAS-02 — Le nom perdu](../../game/levels/pas-02/TASK.md) | Prototype | À attribuer | ObservationCard DEMO et validation César disponibles. Roue graphique et profil réel à ajouter. |
+| 03 | [PAS-02 — Le nom perdu](../../game/levels/pas-02/TASK.md) | Prototype | À attribuer | ObservationCard réel/DEMO, secours persisté et César selon O1 disponibles. Roue graphique facultative. |
 | 04 | [PAS-03 — Le décret aux trois dates](../../game/levels/pas-03/TASK.md) | Prototype | À attribuer | AnswerForm date et sélection de preuves disponibles. |
 | 05 | [SYN-01 — La machine temporelle](../../game/levels/syn-01/TASK.md) | Prototype | À attribuer | Deux étapes persistées, formulaires et injections de fragments disponibles ; SlotBoard graphique facultatif. |
 | 06 | [PRE-01 — L’atelier des compétences](../../game/levels/pre-01/TASK.md) | Prototype | gitvonBS | MatchBoard avec retour éditorial et ConnectionBoard (`circuit`) disponibles. |
@@ -81,8 +81,8 @@ Prendre une fiche entière ou ses sous-tâches. Les propriétaires ci-dessous so
 ## Phase 1 en parallèle
 
 - Fusionnés : acte II et ses briques, SYN-03, contrat narratif et calcul de fin ; EXT-EST, dialogues de l’acte I et cartes communes.
-- Relevé Évry 2026 reçu : O1 = 2 / O2 = 3, trajets et secours textuel ; photos à ajouter plus tard.
-- Suite : intégration du profil réel, contenu de FUT-C, écran END, puis cache hors ligne.
+- Évry 2026 activé : O1 = 2 / O2 = 3, trajets, secours textuel persisté, César +2 et mur impair ; photos à ajouter plus tard.
+- Suite : contenu de FUT-C, écran END, photos et recette sur place, puis cache hors ligne.
 
 L’atelier permet de développer chaque dossier indépendamment.
 

@@ -80,7 +80,7 @@ Une sortie peut porter `derive: { rule: "orientation-parity", observation: "O2" 
 
 ## Étapes et sauvegarde
 
-Le moteur reçoit des commandes `open`, `draft`, `submit`, `hint`, `dialogue`, `assist` et, pour un niveau narratif, `choose`. La vue émet une intention ; elle ne change jamais un statut elle-même. `draft` remplace le brouillon complet de l’étape courante. `submit` valide cette étape puis avance. La réussite finale n’arrive qu’après la dernière étape. Les étapes précédentes et leurs réponses restent sauvegardées ; l’UI actuelle ne les réédite pas après validation.
+Le moteur reçoit des commandes `open`, `draft`, `submit`, `hint`, `dialogue`, `assist`, `fallback` et, pour un niveau narratif, `choose`. La vue émet une intention ; elle ne change jamais un statut elle-même. `draft` remplace le brouillon complet de l’étape courante. `submit` valide cette étape puis avance. La réussite finale n’arrive qu’après la dernière étape. Les étapes précédentes et leurs réponses restent sauvegardées ; l’UI actuelle ne les réédite pas après validation.
 
 La mécanique retourne `format`, `incorrect`, `partial` ou `correct`, avec des messages textuels et éventuellement une trace. Les erreurs sont aujourd’hui des textes directs ; le catalogue de codes éditoriaux spécifique au README est à compléter dans le chantier 04. Pas de HTML ni d’expression exécutable dans les données.
 
@@ -104,3 +104,11 @@ L’atelier réinitialise le niveau lorsque le profil change. Ses données ne pe
 6. Faire passer `npm run check` et seulement ensuite l’utiliser dans un niveau.
 
 Les sources techniques utilisées pour ce socle : [Vite](https://vite.dev/guide/), [React](https://react.dev/learn), [Zod](https://zod.dev/basics), [Vitest](https://vitest.dev/guide/). Les règles métier restent celles du README du jeu.
+
+## Profil réel et secours
+
+Un fichier `game/sites/<id>/site.json` contient les valeurs numériques et, pour `mode: "real"`, les deux `landmarks` et la provenance `testimony`. `mode` vaut `demo` par défaut pour préserver les anciens profils. Voir Évry 2026 pour un exemple complet sans photos.
+
+`dialogue.nodes[].realText` remplace la réplique DEMO sur un site réel. Les variables `{O1.lieu}`, `{O1.direction}`, `{O1.question}` et leurs équivalents O2 sont résolues par la présentation ; le moteur garde les mêmes transitions. La commande `{ type: "fallback", levelId, observation: "O1" | "O2" }` révèle le secours et conserve son usage dans `fallbackObservations`, sans modifier la réussite ni les indices. La valeur numérique reste à saisir et l’énigme reste à résoudre.
+
+Pour tester un niveau : `/?level=pas-02&site=evry-2026`. Ajouter une variante `acceptance.variants["evry-2026"]` lorsqu’une réponse change, et une fixture `sites["evry-2026"]` pour les entrées dérivées du site. Changer de profil dans une campagne exige une nouvelle partie ; l’atelier peut en changer librement en réinitialisant son état isolé.

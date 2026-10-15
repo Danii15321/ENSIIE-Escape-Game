@@ -48,8 +48,8 @@ function IsolatedLevel({
         <summary>Réponses de référence (auteur)</summary>
         <pre>{JSON.stringify(referenceFor(level.id), null, 2)}</pre>
         <p>
-          Les valeurs de référence sont celles du profil DEMO pair. Pour O1, utilisez la valeur du
-          profil choisi.
+          Utilisez les réponses de la variante correspondant au profil choisi, lorsqu’elle existe.
+          Les réponses principales correspondent au profil DEMO pair.
         </p>
       </details>
       {level.status === 'draft' ? (
@@ -88,7 +88,10 @@ export function Preview({
   const [levelId, setLevelId] = useState(
     requested && catalog.levels[requested] ? requested : 'pro-00',
   );
-  const [siteId, setSiteId] = useState('demo');
+  const [siteId, setSiteId] = useState(() => {
+    const requestedSite = new URLSearchParams(location.search).get('site');
+    return requestedSite && catalog.sites[requestedSite]?.verified ? requestedSite : 'demo';
+  });
   return (
     <section>
       <header className="panel">

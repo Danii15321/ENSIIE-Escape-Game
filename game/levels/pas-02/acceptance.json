@@ -16,5 +16,16 @@
     "Reprise après saisie",
     "Assistance après trois indices",
     "Aucune double récompense"
-  ]
+  ],
+  "variants": {
+    "evry-2026": [
+      {
+        "observation": "2",
+        "shift": "2",
+        "direction": "back",
+        "plaintext": "INSTITUT INFORMATIQUE ENTREPRISE",
+        "acronym": "IIE"
+      }
+    ]
+  }
 }

@@ -1,8 +1,10 @@
 # Évry 2026 — observations réelles O1 et O2
 
-**État au 15 octobre 2026 : observations communiquées par le porteur du projet, textes prêts pour intégration.** Les valeurs, lieux et trajets ci-dessous proviennent de son message ; ils ne sont pas issus d’une visite effectuée par l’agent. Les deux zones sont indiquées comme toujours accessibles. Les photos seront ajoutées plus tard par le porteur du projet.
+**État au 15 octobre 2026 : observations communiquées par le porteur du projet, profil réel intégré au jeu.** Les valeurs, lieux et trajets ci-dessous proviennent de son message ; ils ne sont pas issus d’une visite effectuée par l’agent. Les deux zones sont indiquées comme toujours accessibles. Les photos seront ajoutées plus tard par le porteur du projet.
 
-Aucun `site.json` réel n’est encore activé : le branchement des lieux, itinéraires et secours attend le chantier terrain commun. Les profils DEMO restent distincts et conservent leurs valeurs fictives.
+Le fichier `site.json` (révision 1) est chargé par le catalogue. Les nouvelles campagnes utilisent Évry 2026 par défaut ; le sélecteur de « Nouvelle partie » permet aussi de choisir un profil DEMO. Une sauvegarde conserve son profil et sa révision, sans bascule implicite.
+
+Dans l’atelier : `/?level=pas-02&site=evry-2026`, `/?level=pre-02&site=evry-2026` ou `/?level=syn-02&site=evry-2026`. Le changement de profil y réinitialise uniquement le niveau isolé. `verified: true` signifie ici que les données communiquées par le porteur du projet sont acceptées pour ce parcours ; la provenance du témoignage est enregistrée et ne prétend pas à une visite indépendante.
 
 ## Synthèse pour le binôme
 
@@ -27,13 +29,13 @@ Référence temporelle : **2026**. Ne pas remplacer ce millésime par une mentio
 | Photo | À ajouter plus tard ; aucun fichier ni droit de diffusion reçu pour le moment |
 | Secours textuel | [Fiche de secours O1](secours.md#o1--foyer) : valeur communiquée **2** |
 
-### Réplique prête pour PAS-02
+### Réplique intégrée pour PAS-02
 
 **P2.GO, variante Évry 2026 :** « Rendez-vous dans le foyer de l’ENSIIE. Entrez dans l’école, tournez à droite et rejoignez le foyer. Relevez ceci : en 2026, combien de baby-foot se trouvent dans le foyer ? Vous pouvez revenir à la mission sans perdre votre progression. »
 
-Cette réplique doit être activée uniquement pour le profil réel, jamais sur les cartes DEMO. La réponse n’est pas affichée dans la consigne de recherche.
+Cette réplique est activée uniquement pour le profil réel via `dialogue.nodes[].realText`, jamais sur les cartes DEMO. La réponse n’est pas affichée dans la consigne de recherche.
 
-### Support chiffré à préparer
+### Support chiffré généré
 
 Texte clair : `INSTITUT INFORMATIQUE ENTREPRISE`.
 
@@ -62,7 +64,7 @@ Le joueur relève **2**, recule de deux lettres et retrouve le texte clair, puis
 
 La position de l’escalier ou de l’ascenseur, les numéros de salles et leurs panneaux ne sont pas fournis : ne pas les inventer. Lors de l’ajout des photos, préciser si besoin comment un visiteur reconnaît une salle de TP. Le trajet direct du foyer au premier étage n’a pas été décrit ; les consignes fournies prennent l’entrée de l’école comme point de départ.
 
-### Réplique prête pour PRE-02
+### Réplique intégrée pour PRE-02
 
 **R2.GO, variante Évry 2026 :** « Destination : le premier étage de l’ENSIIE. Depuis l’entrée de l’école, rejoignez le premier étage. Relevez : en 2026, combien de salles de TP se trouvent à cet étage ? »
 
@@ -76,7 +78,7 @@ La lecture est **du bas vers le haut et de droite à gauche**. Dans les sept pos
 
 Les deux lieux sont **toujours accessibles selon le porteur du projet** : aucun scénario habituel de fermeture n’est annoncé. Une [fiche textuelle de secours](secours.md) est néanmoins prête pour un empêchement exceptionnel ou une partie à distance, sans attendre les photos. Elle donne explicitement les valeurs du témoignage ; elle n’est pas présentée comme une observation faite par le joueur.
 
-L’interface devra proposer ce secours sur demande et conserver les mêmes valeurs **2 et 3**, sans pénalité. L’enregistrement de son usage dans la session relève du chantier 05 et reste à implémenter. Les durées de marche et l’itinéraire sans escalier n’ont pas été précisés ; « toujours accessible » décrit ici l’accès déclaré, pas une vérification d’accessibilité motrice.
+L’interface propose ce secours sur demande et conserve les mêmes valeurs **2 et 3**, sans pénalité. La commande `fallback` conserve son usage dans `progress[levelId].fallbackObservations` ; export/import et reprise le préservent. Le carnet indique les secours consultés sur les fragments du dossier. Ce secours ne valide pas l’énigme et ne consomme aucun indice. Les durées de marche et l’itinéraire sans escalier n’ont pas été précisés ; « toujours accessible » décrit ici l’accès déclaré, pas une vérification d’accessibilité motrice.
 
 ## Photos à ajouter plus tard
 
@@ -94,8 +96,12 @@ Le texte alternatif sera rédigé d’après les photos effectivement reçues. L
 - [x] Secours textuel préparé à partir des valeurs communiquées.
 - [ ] Photos reçues, légendées et droits documentés (ajout ultérieur prévu).
 - [ ] Recette par une seconde personne : repérage, comptage et compréhension des consignes.
-- [ ] Schéma Site et interface enrichis pour les lieux, trajets et secours.
-- [ ] PRE-02 produit l’orientation depuis O2 ; SYN-02 exploite la variante impaire.
-- [ ] Profil réel versionné et activé après vérification du parcours et de la reprise.
+- [x] Schéma Site et interface enrichis pour les lieux, trajets et secours.
+- [x] PRE-02 produit l’orientation depuis O2 ; SYN-02 exploite la variante impaire.
+- [x] Profil réel versionné et activé ; parcours automatisé jusqu’à 100 points avec et sans secours, reprise à chaque étape.
 
-Voir [le chantier terrain](../../../docs/implementation/05-terrain.md). Les informations du relevé sont désormais disponibles ; le travail restant porte sur leur intégration et la recette, ainsi que sur l’ajout différé des photos.
+Voir [le chantier terrain](../../../docs/implementation/05-terrain.md). L’intégration est livrée. Restent la recette humaine sur place et l’ajout différé des photos.
+
+## Recette technique
+
+`npm run check` : 92 tests, catalogue et frontières valides, build réussi. `format:check` et `git diff --check` passent. Le scénario réel atteint 100 points avec et sans secours et restaure chaque étape depuis un export JSON ; il vérifie aussi la clé CAPSULE et le refus d’une révision de site différente. PAS-02 et PRE-02 ont été résolus dans le navigateur sur Évry 2026. Les tests automatisés ne remplacent pas la recette humaine sur place indiquée ci-dessus.

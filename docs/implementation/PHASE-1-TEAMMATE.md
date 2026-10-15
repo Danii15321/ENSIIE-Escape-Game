@@ -1,6 +1,6 @@
 # Phase 1 — contenu, interface et préparation du relevé
 
-État au 15 octobre 2026. Ce lot couvre la colonne « Teammate ». Les contrats, le moteur, les validateurs, les widgets et les niveaux de la colonne « core code » ne sont pas modifiés.
+État au 15 octobre 2026. Ce lot couvre la colonne « Teammate ». Le lot initial préservait les contrats et le moteur de la colonne « core code ». Le prolongement demandé par le porteur du projet intègre maintenant le profil réel après fusion des travaux du noyau.
 
 ## Livré
 
@@ -19,9 +19,9 @@
 
 1. **EXT-EST demande le code postal `67400` et l’étiquette « implantation historique ».** La conception autorisait aussi deux graphies d’Illkirch. Le formulaire actuel valide une valeur scalaire unique : la consigne est donc resserrée sur le code postal pour ce prototype. Les deux informations restent obligatoires. Ajouter des alias plus tard relève d’une décision commune sur la brique formulaire.
 2. **PRO-00 conserve le nom d’équipe existant.** La réplique intégrale proposant un nom est conservée, mais le bouton propose de garder le nom courant. L’édition et la persistance du nom nécessitent une commande moteur à convenir avec son propriétaire.
-3. **P2.GO est conservée comme réplique réservée.** Le lieu et le trajet réels sont maintenant documentés (foyer, à droite en entrant), mais le schéma de site ne décrit pas encore les itinéraires. La variante complète est prête dans la fiche Évry 2026. Le branchement terrain reste à faire dans le chantier 05 ; les profils DEMO restent fictifs.
+3. **P2.GO est maintenant branchée sur le site réel.** Les nœuds peuvent définir `realText`, affiché avec les lieux/itinéraires/questions du site. Les profils DEMO conservent leurs répliques de simulation.
 4. Pas de carte géographique illustrée ni d’AR dans EXT-EST : les deux documents textuels suffisent à sa résolution 2D. La carte reste un enrichissement visuel.
-5. Les niveaux restent `prototype`. Une recette humaine indépendante et le branchement des observations communiquées restent nécessaires ; ni le terrain réel ni toute la campagne ne sont déclarés terminés.
+5. Les niveaux restent `prototype`. Une recette humaine indépendante reste nécessaire ; l’ajout des photos et la finition de toute la campagne restent à faire.
 
 ## Écrire les textes sans modifier le moteur
 
@@ -56,8 +56,14 @@ Le parseur vérifie le format au chargement. Les tests de contenu vérifient les
 - Contrôle complémentaire des vues initiales PAS-01, SYN-01 et FUT-02 aux quatre largeurs : pas de débordement horizontal, boutons d’au moins 44 px et titre recevant le focus.
 - À compléter : recette humaine extérieure, lecteur d’écran, mesure exhaustive des contrastes, vrais trajets et fermeture des zones.
 
-Les six paquets édités passent en **révision 2**. Les sauvegardes portant une ancienne révision peuvent être refusées par le contrôle existant : exporter l’original puis créer une nouvelle partie de test. Aucune sauvegarde utilisateur n’est effacée automatiquement. L’atelier reste isolé de la campagne.
+Les six paquets du lot initial passent en **révision 2**, puis PAS-02 et PRE-02 passent en **révision 3** lors de l’intégration du site réel. Les sauvegardes portant une ancienne révision peuvent être refusées par le contrôle existant : exporter l’original puis créer une nouvelle partie de test. Aucune sauvegarde utilisateur n’est effacée automatiquement. L’atelier reste isolé de la campagne.
 
 ## Répartition à poursuivre
 
-Le propriétaire du noyau poursuit EvidenceChoice/SYN-03, les choix révisables de FUT-C et la fonction de fin. Le propriétaire contenu peut retravailler chaque `level.json` et `presentation.json` dans son dossier. Les valeurs du relevé O1/O2 sont désormais reçues : O1 = 2 et O2 = 3 (impair). Le chantier terrain commun peut préparer ce profil ; les photos seront ajoutées ultérieurement. Voir la fiche Évry 2026 pour les textes et la variante de grille à utiliser.
+Le propriétaire du noyau poursuit EvidenceChoice/SYN-03, les choix révisables de FUT-C et la fonction de fin. Le propriétaire contenu peut retravailler chaque `level.json` et `presentation.json` dans son dossier. Les valeurs du relevé O1/O2 sont désormais reçues : O1 = 2 et O2 = 3 (impair). Le chantier terrain commun a intégré ce profil ; les photos seront ajoutées ultérieurement. Voir la fiche Évry 2026 pour les textes et la variante de grille à utiliser.
+
+## Intégration sur main — profil réel
+
+Les commits de l’acte II, du final et du contrat narratif ont été fusionnés avec ce lot. Le catalogue contient désormais 12 prototypes et un dossier draft (FUT-C). Évry 2026 est le profil par défaut des nouvelles campagnes, sélectionnable aussi dans l’atelier. La commande `fallback`, le composant `ObservationCard` et le contrat Site enrichi couvrent les trajets et secours sans photo. Voir le [chantier terrain](05-terrain.md) pour le détail.
+
+Validation après fusion et intégration terrain : **92 tests passent**, contrôle du catalogue (12 prototypes), frontières, build et formatage réussis. PAS-02 et PRE-02 ont aussi été résolus dans le navigateur avec le profil Évry 2026 et les secours textuels.

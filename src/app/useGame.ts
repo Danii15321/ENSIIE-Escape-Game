@@ -19,7 +19,11 @@ type State = {
   message?: string;
 };
 export function useGame(catalog: Catalog) {
-  const fresh = () => createSession(catalog, catalog.sites.demo!, crypto.randomUUID());
+  const fresh = (siteId = 'evry-2026') => {
+    const site = catalog.sites[siteId];
+    if (!site?.verified) throw new Error('Profil de site indisponible.');
+    return createSession(catalog, site, crypto.randomUUID());
+  };
   const [state, setState] = useState<State>(() => {
     let raw: string | null = null;
     try {
@@ -102,8 +106,8 @@ export function useGame(catalog: Catalog) {
       const result = dispatch(current.current.session, catalog, command);
       persist(result.session, false, result.evaluation, result.message);
     },
-    reset() {
-      persist(fresh(), true);
+    reset(siteId: string) {
+      persist(fresh(siteId), true);
     },
     importSave(raw: string) {
       try {

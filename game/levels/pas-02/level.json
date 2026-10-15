@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "revision": 2,
+  "revision": 3,
   "id": "pas-02",
   "title": "Le nom perdu",
   "era": "past",
@@ -61,10 +61,11 @@
         "choices": [
           {
             "id": "0",
-            "label": "Lire la carte de démonstration",
+            "label": "Revenir à l’énigme",
             "to": null
           }
-        ]
+        ],
+        "realText": "Rendez-vous dans {O1.lieu}. {O1.direction} Relevez ceci : {O1.question} Vous pouvez revenir à la mission sans perdre votre progression."
       }
     ],
     "success": "IIE. Mon ancien nom tient dans trois lettres, mais vous avez restauré les mots qui leur donnent un sens.",
@@ -92,7 +93,7 @@
     {
       "id": "decode",
       "title": "Restaurer le nom",
-      "instruction": "Relevez O1 sur la carte de démonstration. Reculez de ce nombre de lettres, puis restituez le texte et son sigle.",
+      "instruction": "Relevez O1 au repère indiqué, ou utilisez le secours textuel. Reculez de ce nombre de lettres, puis restituez le texte et son sigle.",
       "mechanic": {
         "kind": "form",
         "fields": [
@@ -104,7 +105,7 @@
               "observation": "O1"
             },
             "options": [],
-            "error": "Ce relevé ne correspond pas au repère enregistré. Vérifiez le périmètre ou utilisez la photo de secours si le lieu est inaccessible."
+            "error": "Ce relevé ne correspond pas au repère enregistré. Vérifiez le périmètre ou utilisez le secours textuel si le lieu est inaccessible."
           },
           {
             "id": "shift",

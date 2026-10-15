@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Context, Evaluation, Level } from '../../core/contracts';
 import { isComplete, type Command, type Progress } from '../../core/session/engine';
-import { caesar } from '../../core/validation/mechanics';
+import { ObservationCard } from './ObservationCard';
 import { NarrativeChoice } from '../widgets/NarrativeChoice';
 import { PuzzleWidget } from '../widgets/PuzzleWidget';
 import { DocumentCard, FocusedLevelTitle, MemoryCard, NarrativeCard, TextBlocks } from './Cards';
@@ -50,7 +50,22 @@ export function LevelView({
         <FocusedLevelTitle title={level.title} />
       </header>
       {dialogue && !done ? (
-        <NarrativeCard speaker={dialogue.speaker} text={interpolate(dialogue.text)}>
+        <NarrativeCard
+          speaker={dialogue.speaker}
+          text={interpolate(
+            context.site.mode === 'real' ? (dialogue.realText ?? dialogue.text) : dialogue.text,
+          ).replace(
+            /\{(O[12])\.(lieu|direction|question)\}/g,
+            (token, id: 'O1' | 'O2', field: 'lieu' | 'direction' | 'question') => {
+              const landmark = context.site.landmarks?.[id];
+              return landmark
+                ? landmark[
+                    ({ lieu: 'location', direction: 'route', question: 'question' } as const)[field]
+                  ]
+                : token;
+            },
+          )}
+        >
           <div className="actions">
             {dialogue.choices.map((choice) => (
               <button
@@ -111,22 +126,13 @@ export function LevelView({
           {intro ? <NarrativeCard speaker="ARIIE" text={interpolate(intro.text)} /> : null}
           <TextBlocks text={step.instruction} />
           {level.observations.map((observation) => (
-            <section className="observation" key={observation}>
-              <strong>Carte {observation} · DEMO fictive</strong>
-              <p>
-                Valeur affichée : <b>{context.site.observations[observation]}</b>. Cette carte ne
-                décrit pas le bâtiment.
-              </p>
-              {observation === 'O1' ? (
-                <>
-                  <p>Document chiffré :</p>
-                  <code>
-                    {caesar('INSTITUT INFORMATIQUE ENTREPRISE', context.site.observations.O1)}
-                  </code>
-                  <p className="alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-                </>
-              ) : null}
-            </section>
+            <ObservationCard
+              key={observation}
+              observation={observation}
+              site={context.site}
+              fallbackUsed={progress.fallbackObservations.includes(observation)}
+              onFallback={() => onCommand({ type: 'fallback', levelId: level.id, observation })}
+            />
           ))}
           <section aria-label="Documents">
             {step.documentIds.map((id) => (

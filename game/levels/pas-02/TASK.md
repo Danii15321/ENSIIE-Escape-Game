@@ -1,6 +1,6 @@
 # PAS-02 — Le nom perdu : fiche de réalisation
 
-**Statut :** prototype révision 2, dialogues intégrés ; recette humaine à faire. **Responsable :** à attribuer. **Relecteur :** autre membre du binôme.
+**Statut :** prototype révision 3, dialogues et profil réel intégrés ; recette humaine à faire. **Responsable :** à attribuer. **Relecteur :** autre membre du binôme.
 
 Cette fiche reprend la conception du README au 15 octobre 2026. Les textes et solutions ci-dessous sont la référence éditoriale du niveau ; `level.json` est sa version exécutée. Lors d’un changement de design, mettre à jour ces deux fichiers et signaler toute divergence avec le [README principal](../../../README.md). La fiche n’est pas chargée par le jeu.
 
@@ -8,7 +8,7 @@ Cette fiche reprend la conception du README au 15 octobre 2026. Les textes et so
 
 Les répliques sont intégrées dans `level.json` et dans le fichier optionnel `presentation.json` (retours d’erreur contextualisés). Voir le [bilan de phase 1](../../../docs/implementation/PHASE-1-TEAMMATE.md) pour le format et la recette. La présence des répliques originales est vérifiée par les tests ; les cases de recette humaine restent à réaliser.
 
-P2.GO est conservée dans `reservedLines` avec sa dépendance documentée. Elle ne s’affiche pas en DEMO : le branchement du profil réel reste à faire. Le relevé reçu indique deux baby-foot dans le foyer, à droite en entrant ; la variante de P2.GO et le César +2 sont prêts dans la [fiche Évry 2026](../../sites/evry-2026/README.md).
+P2.GO est intégrée dans `realText` du nœud P2.DEMO et utilise le profil Évry 2026. Les cartes DEMO conservent leur propre réplique. Voir la [fiche Évry 2026](../../sites/evry-2026/README.md).
 
 ## Périmètre et autonomie
 
@@ -101,11 +101,11 @@ La validation demande le bon relevé, le décalage appliqué dans le bon sens et
 | ID | Déclencheur | Texte |
 |---|---|---|
 | P2.ENTER | Ouverture | « Trois mots se sont décalés dans mon alphabet. La clé de lecture a été associée à un repère que vous pouvez encore observer. » |
-| P2.GO | Terrain réel | « Rendez-vous à {O1.lieu}. {O1.direction} Relevez ceci : {O1.question} Vous pouvez revenir à la mission sans perdre votre progression. » |
+| P2.GO | Terrain réel | « Rendez-vous dans {O1.lieu}. {O1.direction} Relevez ceci : {O1.question} Vous pouvez revenir à la mission sans perdre votre progression. » |
 | P2.DEMO | Terrain simulé | « Nous sommes en démonstration : la carte fictive remplace l’observation. Elle ne décrit pas les locaux réels. » |
 | P2.Q | Choix | « Explique le chiffrement. » → P2.A ; « Nous allons observer. » → terrain |
 | P2.A | Explication | « Une lettre avance toujours du même nombre de positions. Pour déchiffrer, faites le trajet inverse. Les espaces ne changent pas. » Puis puzzle. |
-| P2.OBSERROR | Relevé incorrect | « Ce relevé ne correspond pas au repère enregistré. Vérifiez le périmètre ou utilisez la photo de secours si le lieu est inaccessible. » |
+| P2.OBSERROR | Relevé incorrect | « Ce relevé ne correspond pas au repère enregistré. Vérifiez le périmètre ou utilisez le secours textuel si le lieu est inaccessible. » |
 | P2.ERROR | Déchiffrement incorrect | « Le sigle seul ne répare pas la page. Vérifiez le sens de rotation et les trois mots obtenus. » |
 | P2.H1 | Indice 1 | « La valeur observée sert à déplacer l’alphabet, pas à compter les mots. » |
 | P2.H2 | Indice 2 | « Le stockage a avancé les lettres. La lecture doit les faire reculer. » |
@@ -122,3 +122,7 @@ La validation demande le bon relevé, le décalage appliqué dans le bon sens et
 | 2026-10-15 | Contrats et dossier isolé créés ; statut ci-dessus | Socle initial |
 
 | 2026-10-15 | Phase 1 : textes intégraux et retours contextualisés, révision 2 ; adaptations ci-dessus | Lot contenu/interface, relecture humaine à faire |
+
+## Intégration terrain Évry 2026
+
+Révision 3 : profil réel activé avec trajets et secours textuel persisté. O1 = 2 (baby-foot du foyer), O2 = 3 (salles de TP du premier étage). La réplique `realText` remplace celle de simulation uniquement sur un site réel. Les photos restent à ajouter. Prévisualiser avec `?level=pas-02&site=evry-2026` ; les variantes de recette utilisent les valeurs du profil réel.

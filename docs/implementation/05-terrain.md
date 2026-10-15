@@ -1,6 +1,6 @@
 # 05 — Profils de site et observation physique
 
-**État :** DEMO pair et impair disponibles ; relevé réel communiqué par le porteur du projet, intégration à faire. **Propriétaire suggéré :** A, relevé relu ensemble.
+**État :** DEMO pair et impair disponibles ; profil Évry 2026 intégré, avec trajets, secours textuels persistés et orientation dérivée ; photos et recette humaine à compléter. **Propriétaire suggéré :** A, relevé relu ensemble.
 
 ## Préparation
 
@@ -19,11 +19,11 @@ Ne pas inventer les observations du bâtiment. O1 doit donner un entier de 1 à 
 
 ## Recette
 
-- [ ] O1 de 1 à 9 produit un César qui se déchiffre exactement.
-- [ ] Un profil pair et un profil impair produisent tous deux CAPSULE.
-- [ ] Changer de profil ou de révision ne réinterprète pas une ancienne partie.
-- [ ] Une zone fermée n’empêche pas d’avancer avec le secours vérifié.
-- [ ] Un profil DEMO ne présente aucune direction comme réelle.
+- [x] O1 de 1 à 9 produit un César qui se déchiffre exactement.
+- [x] Un profil pair et un profil impair produisent tous deux CAPSULE.
+- [x] Changer de profil ou de révision ne réinterprète pas une ancienne partie.
+- [x] Une zone fermée n’empêche pas d’avancer avec le secours vérifié.
+- [x] Un profil DEMO ne présente aucune direction comme réelle.
 - [ ] Un relevé réel non vérifié empêche sa publication.
 
 **Livrables :** profil documenté, ressources locales, preuves de relevé et scénarios pair/impair/fermeture.
@@ -37,4 +37,12 @@ Source : message du porteur du projet du 15 octobre 2026. [Fiche complète](../.
 - Les deux lieux sont déclarés toujours accessibles. Les photos seront ajoutées plus tard ; un [secours textuel](../../game/sites/evry-2026/secours.md) est préparé avec les mêmes valeurs.
 - La date exacte du comptage, les durées de marche et le trajet sans escalier ne sont pas précisés. Aucune vérification indépendante n’est prétendue.
 
-L’absence de photos n’empêche pas de travailler avec ces données et les supports textuels. L’activation dans le catalogue attend les lieux/itinéraires/secours, les sorties dérivées et la recette de la variante impaire ; ne pas renommer les cartes DEMO en observations réelles.
+L’absence de photos n’empêche pas de travailler avec ces données et les supports textuels. Le profil réel est activé dans le catalogue. Les cartes DEMO conservent leur mode fictif ; les données et les sauvegardes des profils restent séparées. Le parcours réel est testé jusqu’à 100 points avec et sans recours aux secours.
+
+## Livraison technique du 15 octobre 2026
+
+`Site.mode` distingue `real` de `demo` (valeur par défaut pour les anciens profils). Un site réel exige les deux `landmarks` (lieu, trajet, question, périmètre, accès et secours) et `testimony` (source, millésime, date de réception). Les réponses numériques restent dans `observations`.
+
+La commande `fallback` ne s’applique qu’aux observations déclarées par un niveau sur un site réel. Elle ne donne ni point ni réussite, ne consomme pas d’indice et mémorise l’usage une seule fois. La restauration refuse un secours étranger au niveau ou à un profil DEMO. Le carnet ajoute cette provenance à ses cartes.
+
+PAS-02 et PRE-02 passent en révision 3 pour leurs textes adaptés au site. Les anciennes révisions de sauvegarde restent refusées avec possibilité d’exporter l’original ; aucune donnée utilisateur n’est supprimée automatiquement. FUT-C reste à rédiger et l’écran END reste à construire.

@@ -37,6 +37,17 @@
         },
         "summary": "Repère O2 = 3, impair : lecture inverse, du bas vers le haut et de droite à gauche."
       }
+    },
+    "evry-2026": {
+      "orientation": {
+        "id": "orientation",
+        "type": "OrientationLecture",
+        "data": {
+          "observed": 3,
+          "direction": "reverse"
+        },
+        "summary": "Repère O2 = 3, impair : lecture inverse, du bas vers le haut et de droite à gauche."
+      }
     }
   }
 }

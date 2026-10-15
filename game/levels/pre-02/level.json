@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "revision": 2,
+  "revision": 3,
   "id": "pre-02",
   "title": "Les yeux d’ARIIE",
   "era": "present",
@@ -66,7 +66,8 @@
             "label": "Commençons.",
             "to": null
           }
-        ]
+        ],
+        "realText": "Destination : {O2.lieu}. {O2.direction} Relevez : {O2.question}"
       },
       {
         "id": "why",
@@ -111,7 +112,7 @@
     "Muzzik’ correspond à la musique et LudIIE aux jeux de société.",
     "Associez ORiGiNe au robot et RealitIIE au monde virtuel. Conservez ensuite le nombre observé et sa parité."
   ],
-  "solution": "Relever le nombre du repère O2 (DEMO : 4), constater qu’il est pair, donc lecture normale. Invitations : la répétition va à Muzzik’, la soirée de plateau à LudIIE, l’atelier de machine mobile à ORiGiNe, l’exploration immersive à RealitIIE. Mots obtenus : MUSIQUE, JEUX, ROBOTIQUE, VIRTUEL.",
+  "solution": "Relever le nombre du repère O2. S’il est pair, choisir la lecture normale ; s’il est impair, choisir la lecture inverse. Évry 2026 : 3, impair, lecture inverse. DEMO pair : 4, lecture normale. Invitations : la répétition va à Muzzik’, la soirée de plateau à LudIIE, l’atelier de machine mobile à ORiGiNe, l’exploration immersive à RealitIIE. Mots obtenus : MUSIQUE, JEUX, ROBOTIQUE, VIRTUEL.",
   "capsule": "Musique, jeux, robotique et réalité virtuelle illustrent la diversité des activités étudiantes présentées par l’école.",
   "outputs": [
     {
@@ -153,7 +154,7 @@
             "expected": {
               "observation": "O2"
             },
-            "error": "Vérifiez le repère exact, pas une inscription voisine. La photo de secours est disponible si le lieu est fermé."
+            "error": "Vérifiez le repère exact, pas une inscription voisine. Le secours textuel est disponible si le lieu est fermé."
           },
           {
             "id": "parity",
@@ -202,10 +203,22 @@
             "label": "Une répétition",
             "format": "choice",
             "options": [
-              { "id": "muzzik", "label": "Muzzik’" },
-              { "id": "ludiie", "label": "LudIIE" },
-              { "id": "origine", "label": "ORiGiNe" },
-              { "id": "realitiie", "label": "RealitIIE" }
+              {
+                "id": "muzzik",
+                "label": "Muzzik’"
+              },
+              {
+                "id": "ludiie",
+                "label": "LudIIE"
+              },
+              {
+                "id": "origine",
+                "label": "ORiGiNe"
+              },
+              {
+                "id": "realitiie",
+                "label": "RealitIIE"
+              }
             ],
             "expected": "muzzik",
             "error": "Cherchez l’activité décrite dans chaque invitation. Le nom de l’association peut être moins explicite que sa fiche."
@@ -215,10 +228,22 @@
             "label": "Une soirée autour d’un plateau",
             "format": "choice",
             "options": [
-              { "id": "muzzik", "label": "Muzzik’" },
-              { "id": "ludiie", "label": "LudIIE" },
-              { "id": "origine", "label": "ORiGiNe" },
-              { "id": "realitiie", "label": "RealitIIE" }
+              {
+                "id": "muzzik",
+                "label": "Muzzik’"
+              },
+              {
+                "id": "ludiie",
+                "label": "LudIIE"
+              },
+              {
+                "id": "origine",
+                "label": "ORiGiNe"
+              },
+              {
+                "id": "realitiie",
+                "label": "RealitIIE"
+              }
             ],
             "expected": "ludiie",
             "error": "Cherchez l’activité décrite dans chaque invitation. Le nom de l’association peut être moins explicite que sa fiche."
@@ -228,10 +253,22 @@
             "label": "Un atelier de machine mobile",
             "format": "choice",
             "options": [
-              { "id": "muzzik", "label": "Muzzik’" },
-              { "id": "ludiie", "label": "LudIIE" },
-              { "id": "origine", "label": "ORiGiNe" },
-              { "id": "realitiie", "label": "RealitIIE" }
+              {
+                "id": "muzzik",
+                "label": "Muzzik’"
+              },
+              {
+                "id": "ludiie",
+                "label": "LudIIE"
+              },
+              {
+                "id": "origine",
+                "label": "ORiGiNe"
+              },
+              {
+                "id": "realitiie",
+                "label": "RealitIIE"
+              }
             ],
             "expected": "origine",
             "error": "Cherchez l’activité décrite dans chaque invitation. Le nom de l’association peut être moins explicite que sa fiche."
@@ -241,10 +278,22 @@
             "label": "Une exploration immersive",
             "format": "choice",
             "options": [
-              { "id": "muzzik", "label": "Muzzik’" },
-              { "id": "ludiie", "label": "LudIIE" },
-              { "id": "origine", "label": "ORiGiNe" },
-              { "id": "realitiie", "label": "RealitIIE" }
+              {
+                "id": "muzzik",
+                "label": "Muzzik’"
+              },
+              {
+                "id": "ludiie",
+                "label": "LudIIE"
+              },
+              {
+                "id": "origine",
+                "label": "ORiGiNe"
+              },
+              {
+                "id": "realitiie",
+                "label": "RealitIIE"
+              }
             ],
             "expected": "realitiie",
             "error": "Cherchez l’activité décrite dans chaque invitation. Le nom de l’association peut être moins explicite que sa fiche."

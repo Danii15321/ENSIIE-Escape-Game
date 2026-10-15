@@ -1,0 +1,34 @@
+{
+  "id": "evry-2026",
+  "revision": 1,
+  "title": "Évry 2026 — parcours dans l’école",
+  "mode": "real",
+  "verified": true,
+  "testimony": {
+    "receivedOn": "2026-10-15",
+    "source": "Observations communiquées par le porteur du projet ; pas de vérification indépendante sur place.",
+    "year": 2026
+  },
+  "observations": {
+    "O1": 2,
+    "O2": 3
+  },
+  "landmarks": {
+    "O1": {
+      "location": "le foyer de l’ENSIIE",
+      "route": "Entrez dans l’école, tournez à droite et rejoignez le foyer.",
+      "question": "En 2026, combien de baby-foot se trouvent dans le foyer de l’ENSIIE ?",
+      "scope": "Comptez les tables de baby-foot du foyer, pas les joueurs ni les barres.",
+      "access": "Le foyer est toujours accessible selon le porteur du projet.",
+      "fallback": "Le relevé communiqué pour 2026 indique deux baby-foot dans le foyer de l’ENSIIE. Saisissez 2 comme valeur d’observation, puis poursuivez le déchiffrement."
+    },
+    "O2": {
+      "location": "le premier étage de l’ENSIIE",
+      "route": "Depuis l’entrée de l’école, rejoignez le premier étage.",
+      "question": "En 2026, combien de salles de TP se trouvent au premier étage de l’ENSIIE ?",
+      "scope": "Comptez les salles de travaux pratiques du premier étage, sans compter les autres types de salles.",
+      "access": "Le premier étage est toujours accessible selon le porteur du projet.",
+      "fallback": "Le relevé communiqué pour 2026 indique trois salles de TP au premier étage de l’ENSIIE. Saisissez 3 comme valeur d’observation, puis déterminez si ce nombre est pair ou impair."
+    }
+  }
+}

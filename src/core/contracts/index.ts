@@ -204,6 +204,7 @@ const dialogueNode = z.object({
   id,
   speaker: speakerSchema,
   text,
+  realText: text.optional(),
   choices: z.array(z.object({ id, label: text, to: id.nullable() })).default([]),
 });
 export const questionSchema = z.object({
@@ -279,16 +280,39 @@ export const campaignSchema = z.object({
     .min(1),
 });
 export type Campaign = z.infer<typeof campaignSchema>;
-export const siteSchema = z.object({
-  id,
-  revision: z.number().int().positive(),
-  title: text,
-  verified: z.boolean(),
-  observations: z.object({
-    O1: z.number().int().min(1).max(9),
-    O2: z.number().int().nonnegative(),
-  }),
+export const observationIdSchema = z.enum(['O1', 'O2']);
+export type ObservationId = z.infer<typeof observationIdSchema>;
+const landmarkSchema = z.object({
+  location: text,
+  route: text,
+  question: text,
+  scope: text,
+  access: text,
+  fallback: text,
 });
+export const siteSchema = z
+  .object({
+    id,
+    revision: z.number().int().positive(),
+    title: text,
+    verified: z.boolean(),
+    mode: z.enum(['demo', 'real']).default('demo'),
+    testimony: z
+      .object({ receivedOn: z.iso.date(), source: text, year: z.number().int() })
+      .optional(),
+    landmarks: z.object({ O1: landmarkSchema, O2: landmarkSchema }).optional(),
+    observations: z.object({
+      O1: z.number().int().min(1).max(9),
+      O2: z.number().int().nonnegative(),
+    }),
+  })
+  .superRefine((site, ctx) => {
+    if (site.mode === 'real' && (!site.landmarks || !site.testimony))
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Un site réel décrit ses deux repères et la provenance du relevé.',
+      });
+  });
 export type Site = z.infer<typeof siteSchema>;
 const inputsSchema = z.record(z.string(), fragmentSchema);
 export const fixtureSchema = z.object({

@@ -27,6 +27,7 @@ export function App() {
   );
   const [selected, setSelected] = useState<string>();
   const [resetConfirm, setResetConfirm] = useState(false);
+  const [newSiteId, setNewSiteId] = useState('evry-2026');
   const game = useGame(catalog);
   const returnFocus = useRef<string | undefined>(undefined);
   const [fileError, setFileError] = useState('');
@@ -54,7 +55,11 @@ export function App() {
           <h1>Chrono-IIE</h1>
           <p>La mémoire de demain</p>
         </div>
-        <span className="tag">Socle de développement · DEMO</span>
+        <span className="tag">
+          {tab === 'author'
+            ? 'Atelier · profil au choix'
+            : catalog.sites[game.session.siteId]?.title}
+        </span>
       </header>
       <nav aria-label="Navigation principale">
         {[
@@ -81,6 +86,7 @@ export function App() {
                 <strong>{game.session.team}</strong>
                 <span>Intégrité : {score}/100</span>
               </div>
+              <p>Profil : {catalog.sites[game.session.siteId]?.title}</p>
               <progress max={100} value={score} aria-label="Intégrité d’ARIIE" />
               <p>
                 Les actes I et II sont jouables en version sobre. Les dossiers « À réaliser »
@@ -131,9 +137,21 @@ export function App() {
                   Une nouvelle partie remplacera la sauvegarde locale. Vous pouvez d’abord
                   l’exporter.
                 </p>
+                <label>
+                  Profil de la nouvelle partie
+                  <select value={newSiteId} onChange={(event) => setNewSiteId(event.target.value)}>
+                    {Object.values(catalog.sites)
+                      .filter((site) => site.verified)
+                      .map((site) => (
+                        <option key={site.id} value={site.id}>
+                          {site.title}
+                        </option>
+                      ))}
+                  </select>
+                </label>
                 <button
                   onClick={() => {
-                    game.reset();
+                    game.reset(newSiteId);
                     setSelected(undefined);
                     setResetConfirm(false);
                   }}
@@ -152,7 +170,7 @@ export function App() {
                       key={fragment.rewardId}
                       title={catalog.levels[fragment.provenance]?.title ?? 'Fragment restauré'}
                       summary={fragment.summary}
-                      provenance={`Dossier ${fragment.provenance.toUpperCase()}`}
+                      provenance={`Dossier ${fragment.provenance.toUpperCase()}${fragment.fallbackObservations.length ? ` · Secours textuel ${fragment.fallbackObservations.join(', ')} consulté` : ''}`}
                     />
                   ))
                 ) : (

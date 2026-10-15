@@ -22,6 +22,17 @@
         "robot": "origine",
         "immersive": "realitiie"
       }
+    ],
+    "evry-2026": [
+      {
+        "observation": "3",
+        "parity": "odd",
+        "reading": "reverse",
+        "rehearsal": "muzzik",
+        "board": "ludiie",
+        "robot": "origine",
+        "immersive": "realitiie"
+      }
     ]
   },
   "status": "executable",

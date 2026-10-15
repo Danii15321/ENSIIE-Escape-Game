@@ -102,7 +102,7 @@ DEMO : **4, pair, lecture normale**. Invitations : **Muzzik’**, **LudIIE**, **
 | R2.Q | Choix | « Pourquoi ce nombre ? » → R2.A ; « Que sont ces collectifs ? » → R2.B ; « Commençons. » → puzzle |
 | R2.A | Question | « Sa parité indique le sens de lecture de mon mur de mémoire. L’observation vous servira après cette mission. » Puis puzzle. |
 | R2.B | Question | « Les fiches présentent quatre exemples de vie associative. Elles ne constituent pas la liste complète des activités de l’école. » Puis puzzle. |
-| R2.OBSERROR | Relevé incorrect | « Vérifiez le repère exact, pas une inscription voisine. La photo de secours est disponible si le lieu est fermé. » |
+| R2.OBSERROR | Relevé incorrect | « Vérifiez le repère exact, pas une inscription voisine. Le secours textuel est disponible si le lieu est fermé. » |
 | R2.PARITY | Parité incorrecte | « Un nombre pair peut se partager en deux parts entières égales. Vérifiez votre choix. » |
 | R2.ERROR | Association incorrecte | « Cherchez l’activité décrite dans chaque invitation. Le nom de l’association peut être moins explicite que sa fiche. » |
 | R2.H1 | Indice 1 | « Traitez le relevé et les invitations comme deux petits dossiers séparés. » |
@@ -118,4 +118,8 @@ DEMO : **4, pair, lecture normale**. Invitations : **Muzzik’**, **LudIIE**, **
 | Date | Décision | Auteur / relecture |
 |---|---|---|
 | 2026-10-15 | Contrats et dossier isolé créés ; statut ci-dessus | Socle initial |
-| 2026-10-15 | Prototype jouable (révision 2). Les deux sous-objectifs sont réunis dans une seule étape de formulaire : ils se remplissent dans n’importe quel ordre et les réponses justes restent dans le brouillon pendant la correction des autres. Champs : relevé O2, parité, sens de lecture, quatre invitations (R2.OBSERROR, R2.PARITY, R2.ERROR). La sortie `orientation` est dérivée du profil par la règle `orientation-parity` ; les profils DEMO pair et impair sont testés. Simplifications à valider : R2.GO attend la description réelle du repère dans le profil de site (chantier 05) ; la photo de secours citée par R2.OBSERROR n’existe pas encore. | gitvonBS, relecture à faire |
+| 2026-10-15 | Prototype jouable (révision 2). Les deux sous-objectifs sont réunis dans une seule étape de formulaire : ils se remplissent dans n’importe quel ordre et les réponses justes restent dans le brouillon pendant la correction des autres. Champs : relevé O2, parité, sens de lecture, quatre invitations (R2.OBSERROR, R2.PARITY, R2.ERROR). La sortie `orientation` est dérivée du profil par la règle `orientation-parity` ; les profils DEMO pair et impair sont testés. Simplifications à valider : R2.GO attend la description réelle du repère dans le profil de site (chantier 05) ; le secours textuel citée par R2.OBSERROR n’existe pas encore. | gitvonBS, relecture à faire |
+
+## Intégration terrain Évry 2026
+
+Révision 3 : profil réel activé avec trajets et secours textuel persisté. O1 = 2 (baby-foot du foyer), O2 = 3 (salles de TP du premier étage). La réplique `realText` remplace celle de simulation uniquement sur un site réel. Les photos restent à ajouter. Prévisualiser avec `?level=pre-02&site=evry-2026` ; les variantes de recette utilisent les valeurs du profil réel.
