@@ -1,6 +1,6 @@
 # FUT-C — Le Conseil du futur : fiche de réalisation
 
-**Statut :** contenu à implémenter ; maquette exclue du jeu. **Responsable :** à attribuer. **Relecteur :** autre membre du binôme.
+**Statut :** prototype narratif jouable, révision 2 ; recette humaine à faire. **Responsable :** à attribuer. **Relecteur :** autre membre du binôme.
 
 Cette fiche reprend la conception du README au 15 octobre 2026. Les textes et solutions ci-dessous sont la référence éditoriale du niveau ; `level.json` est sa version exécutée. Lors d’un changement de design, mettre à jour ces deux fichiers et signaler toute divergence avec le [README principal](../../../README.md). La fiche n’est pas chargée par le jeu.
 
@@ -11,7 +11,7 @@ Cette fiche reprend la conception du README au 15 octobre 2026. Les textes et so
 - L’atelier injecte les entrées simulées de `fixtures.json`. Il ne modifie jamais la sauvegarde de campagne.
 - Prérequis dans la vraie campagne : **SYN-02**. Points attribués : **0**.
 - Ne pas importer un niveau voisin. Ne pas modifier les contrats, les widgets communs ou les bindings de campagne en parallèle sans convenir d’un propriétaire temporaire.
-- Briques : NarrativeChoice, remplacement des réponses et thèmes de fin à construire dans le chantier 04-narration.
+- Briques : NarrativeChoice, remplacement des réponses et calcul de fin disponibles et utilisés.
 
 ## Fichiers à prendre en charge
 
@@ -39,28 +39,25 @@ Cette fiche reprend la conception du README au 15 octobre 2026. Les textes et so
 
 Le moteur attribue les sorties après la réussite de **toutes** les étapes. Le widget ne donne jamais de points. Le schéma 1 sait produire des sorties statiques ; les sorties calculées depuis le site nécessitent le chantier commun 03/05 avant activation du niveau concerné.
 
-## Travail restant dans l’ordre
+## Livraison phase 2
 
-1. Créer un contrat narratif dédié sans notion de réponse fausse ni trois indices obligatoires ; le schéma actuel des puzzles doit être étendu proprement.
-2. Stocker une seule option par question et remplacer la réponse lors d’un changement.
-3. Calculer la majorité des thèmes ; égalité ou absence → Horizon commun.
-4. Permettre Décider plus tard et la modification jusqu’à la capsule ; aucun point ni prérequis pour SYN-03.
+Les trois questions et leurs neuf options sont intégrées exactement dans `level.json` : thèmes, réponses immédiates de Nora et engagements. Le niveau déclare `narrative`, sans étape, solution, indice ni sortie de fragment. Aucun point et aucun prérequis ajouté pour SYN-03.
 
-## Recette à cocher
+« Décider plus tard » affiche C.SKIP et le bouton « Retour aux dossiers » permet de quitter. Les réponses déjà choisies sont conservées ; leur remplacement ou retrait reste possible jusqu’à l’ouverture de la capsule. Une fois le final réussi ou accompagné, la vue désactive les choix et le moteur refuse les changements.
 
-- [ ] Chaque consigne et chaque document nécessaire est lisible dans le niveau.
-- [ ] Les dialogues d’entrée, de question, d’erreur, d’indice, de réussite et de retour ci-dessous sont intégrés, ou une simplification est explicitement acceptée dans cette fiche.
-- [ ] La solution nominale passe ; une réponse fausse et une réponse proche ne terminent pas le niveau.
-- [ ] Les preuves et sous-objectifs sont exigés, pas seulement le mot de sortie.
-- [ ] Une interruption après saisie conserve le brouillon et les étapes validées en campagne.
-- [ ] Les indices et l’aide complète permettent de reprendre sans retirer de points (sauf Conseil narratif : aucune bonne/mauvaise réponse).
-- [ ] Les références documentaires sont enregistrées dans le registre partagé et leur identifiant existe.
-- [ ] Le niveau fonctionne au clavier et sans glisser-déposer ; aucun sens transmis seulement par la couleur.
-- [ ] Les variantes de site utiles sont testées, sans déclarer les repères fictifs réels.
-- [ ] Une seconde validation ne duplique ni récompense ni points.
-- [ ] `npm run check:content -- fut-c` puis `npm run check` passent.
-- [ ] Une autre personne joue la prévisualisation sans explication orale du concepteur.
-- [ ] Le statut passe de `draft` à `prototype`, puis à `ready` après recette et dialogues complets. Augmenter `revision` si le contenu joué change.
+Les engagements sont également rangés dans `game/endings/content.json`. Leur égalité avec les neuf options du Conseil est contrôlée par `check:content` ; éditer les deux fichiers ensemble lors d’un changement de rédaction. La fin utilise `ending(session, catalog)` existant, sans modifier le calcul de majorité.
+
+## Recette
+
+- [x] Trois questions, trois options chacune, répliques exactes des tableaux ci-dessous.
+- [x] Aucun indice, aucune bonne/mauvaise réponse, aucun point ni fragment.
+- [x] Choix remplaçables et retirables ; dix clics ne deviennent pas dix votes.
+- [x] Absence, choix partiels et égalités aboutissent à une fin définie.
+- [x] Report et reprise conservent les réponses sans bloquer le final.
+- [x] Choix figés lorsque SYN-03 est réussi ou accompagné.
+- [x] Toutes les combinaisons de trois choix ou abstentions sont testées (64 cas).
+- [x] Lecture clavier et noms accessibles ; atelier isolé de la campagne.
+- [ ] Recette indépendante par l’autre membre du binôme.
 
 ## Conception, supports, dialogues et solutions
 
@@ -106,3 +103,5 @@ Chaque question stocke une option, remplaçable. Le thème final est celui qui a
 |---|---|---|
 | 2026-10-15 | Contrats et dossier isolé créés ; statut ci-dessus | Socle initial |
 | 2026-10-15 | Contrat narratif disponible : champ `narrative` (speaker, questions, options avec theme, reply, commitment, texte done), commande `choose` remplaçable, gel au final, calcul `ending`/`outcome` (majorité, sinon `null` pour Horizon commun). Voir `src/authoring/README.md`, section Niveau narratif. Le contenu de ce niveau reste à saisir. | gitvonBS |
+
+| 2026-10-15 | Phase 2 : trois questions et neuf options intégrées, révision 2 ; fin et engagements contrôlés comme données, sans modification du moteur | Lot Teammate |

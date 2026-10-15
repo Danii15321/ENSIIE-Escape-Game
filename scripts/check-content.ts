@@ -3,6 +3,7 @@ import { catalog, readJson, levelIds } from './load-content';
 import { validateFixture } from '../src/core/content/catalog';
 import { answerSchema } from '../src/core/contracts';
 import { evaluate } from '../src/core/validation/mechanics';
+import { parseEndingCopy } from '../src/app/endingContent';
 
 const acceptanceSchema = z.object({
   siteId: z.string(),
@@ -14,6 +15,7 @@ const acceptanceSchema = z.object({
 const sources = z
   .record(z.string(), z.object({ title: z.string(), url: z.url() }))
   .parse(readJson('game/shared/sources/index.json'));
+parseEndingCopy(readJson('game/endings/content.json'), catalog.levels['fut-c']!, sources);
 let executable = 0;
 let drafts = 0;
 const requested = process.argv[2];

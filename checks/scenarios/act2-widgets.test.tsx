@@ -89,7 +89,7 @@ for (const siteId of ['demo', 'demo-odd'] as const)
     await user.type(screen.getByLabelText('Message des cases restantes'), 'capsule');
     await user.click(screen.getByRole('button', { name: 'Vérifier cette étape' }));
     expect(screen.getByRole('heading', { name: 'Dossier restauré' })).toBeTruthy();
-  });
+  }, 15_000); // Full grid interactions can exceed 5 s when UI suites run in parallel.
 
 it('SYN-02 permet de retirer un segment choisi', async () => {
   const user = userEvent.setup();

@@ -1,6 +1,6 @@
 # 04 — Dialogues, Conseil et fins
 
-**État :** graphe simple et textes de réussite livrés ; script complet à intégrer. **Propriétaire suggéré :** B. **Dépendance :** accord sur le contrat narratif avec A.
+**État :** Conseil complet et écran END intégrés ; recette humaine à compléter. **Propriétaire suggéré :** B. **Dépendance :** contrat narratif et calcul de fin existants réutilisés.
 
 ## Périmètre
 
@@ -27,3 +27,9 @@ Les textes de chaque niveau restent dans son dossier. Les composants et règles 
 - [ ] La contribution finale est privée et ne fait aucun appel réseau.
 
 **Livrables :** données narratives, tests de composition, écran de fin et mise à jour des fiches PRO/FUT-C/SYN-03/END.
+
+## Phase 2 livrée
+
+FUT-C contient trois questions avec trois options chacune ; les quatre fins et neuf engagements sont dans [`game/endings/content.json`](../../game/endings/content.json). Voir le [guide des fins](../../game/endings/README.md) pour les fichiers à modifier ensemble.
+
+L’écran END s’ouvre après SYN-03, affiche les engagements ordonnés, une frise sourcée, le bilan et une contribution privée locale (500 caractères). Export texte du souvenir et retour au carnet/accueil disponibles. Le chronomètre reste à faire ; le bilan l’annonce sans inventer de durée. Le noyau de choix et de calcul des fins n’est pas modifié par ce lot.

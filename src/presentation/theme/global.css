@@ -21,7 +21,8 @@ body {
 }
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 button,
@@ -49,7 +50,8 @@ button.primary {
   border-color: #70d6e7;
 }
 input,
-select {
+select,
+textarea {
   width: 100%;
   min-height: 46px;
   border: 1px solid #748697;
@@ -58,7 +60,8 @@ select {
   color: #f4f1e8;
   padding: 0.6rem;
 }
-input[type='checkbox'] {
+input[type='checkbox'],
+input[type='radio'] {
   width: 24px;
   height: 24px;
   min-height: 24px;
@@ -351,7 +354,8 @@ footer {
   max-width: 100%;
 }
 input,
-select {
+select,
+textarea {
   min-width: 0;
   max-width: 100%;
 }
@@ -493,4 +497,29 @@ select {
 }
 .word-grid button[aria-pressed='true'] {
   outline: 3px solid #70d6e7;
+}
+
+.ending textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  resize: vertical;
+}
+.ending section {
+  margin-block: 1.6rem;
+}
+.ending-timeline > li {
+  padding-block: 0.6rem;
+}
+.ending-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 1rem;
+}
+.ending-summary dd {
+  margin: 0.3rem 0 0;
+  font-weight: 600;
+}
+.ending .dialogue {
+  overflow-wrap: anywhere;
 }

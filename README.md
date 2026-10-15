@@ -20,9 +20,11 @@ Node 22 recommandé. Dans ce workspace WSL, exécuter ces commandes dans Ubuntu,
 - [Contrat d’auteur](src/authoring/README.md) : format des paquets, réponses, fixtures et ajout de briques.
 - Atelier isolé : ouvrir `/?level=syn-01`, ou choisir **Atelier des niveaux** dans l’application.
 
-**Livré :** moteur indépendant de React, contrats validés, progression, aide, dialogues détaillés de l’acte I, sauvegarde/export/import, cartes communes accessibles et douze prototypes. Le parcours principal est jouable jusqu’à SYN-03 ; EXT-EST est facultatif. Le profil réel Évry 2026 utilise O1 = 2 et O2 = 3, avec trajets et secours textuel. Les autres paquets sont explicitement `draft`, avec leur conception complète dans `TASK.md`.
+**Livré :** moteur indépendant de React, contrats validés, progression, aide, dialogues détaillés de l’acte I, sauvegarde/export/import, cartes communes accessibles et treize prototypes. Le parcours principal est jouable jusqu’à SYN-03 ; EXT-EST est facultatif. Le profil réel Évry 2026 utilise O1 = 2 et O2 = 3, avec trajets et secours textuel. Les autres paquets sont explicitement `draft`, avec leur conception complète dans `TASK.md`.
 
-**À poursuivre :** contenu de FUT-C, écran de fin, photos et recette terrain, chronomètre et préparation hors ligne. Les fiches indiquent précisément les dépendances communes de chaque niveau.
+**Phase 2 livrée :** Conseil facultatif à trois questions et quatre fins, engagements, frise sourcée, contribution privée locale et export du souvenir. Voir le [guide des fins](game/endings/README.md).
+
+**À poursuivre :** photos et recette terrain, chronomètre et préparation hors ligne. Les fiches indiquent précisément les dépendances communes de chaque niveau.
 
 Le [bilan de la phase 1 — contenu et interface](docs/implementation/PHASE-1-TEAMMATE.md) décrit les adaptations du prototype : code postal seul pour EXT-EST, nom d’équipe conservé et directions réelles désormais intégrées. Le [relevé Évry 2026](game/sites/evry-2026/README.md) documente O1 = 2 baby-foot dans le foyer et O2 = 3 salles de TP au premier étage, d’après les informations du porteur du projet. Les photos seront ajoutées plus tard.
 

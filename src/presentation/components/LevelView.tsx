@@ -89,16 +89,19 @@ export function LevelView({
         </section>
       ) : null}
       {level.narrative ? (
-        <NarrativeChoice
-          speaker={level.narrative.speaker}
-          questions={level.narrative.questions}
-          choices={progress.choices}
-          done={level.narrative.done}
-          frozen={frozen}
-          onChoose={(questionId, optionId) =>
-            onCommand({ type: 'choose', levelId: level.id, questionId, optionId })
-          }
-        />
+        <>
+          <NarrativeChoice
+            speaker={level.narrative.speaker}
+            questions={level.narrative.questions}
+            choices={progress.choices}
+            done={level.narrative.done}
+            frozen={frozen}
+            onChoose={(questionId, optionId) =>
+              onCommand({ type: 'choose', levelId: level.id, questionId, optionId })
+            }
+          />
+          {onExit ? <button onClick={onExit}>Retour aux dossiers</button> : null}
+        </>
       ) : done ? (
         <section className="success">
           <h3>

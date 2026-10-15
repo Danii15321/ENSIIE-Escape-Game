@@ -1,12 +1,13 @@
 {
   "siteId": "demo",
   "answers": [],
-  "status": "todo",
+  "status": "executable",
   "cases": [
-    "Solution nominale",
-    "Réponse incorrecte",
-    "Reprise après saisie",
-    "Assistance après trois indices",
-    "Aucune double récompense"
+    "Trois questions, trois options chacune, sans indice ni réponse fausse.",
+    "Changer ou retirer une réponse remplace le vote, sans point ni fragment.",
+    "Décider plus tard conserve les choix partiels et ne bloque pas SYN-03.",
+    "Reprise et export/import conservent les choix.",
+    "SYN-03 réussi ou accompagné fige les choix.",
+    "Lucidité, Sobriété, Partage, égalité, absence et choix partiels ont une fin."
   ]
 }

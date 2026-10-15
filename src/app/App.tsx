@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { catalog, sourceRegistry } from './catalog';
 import { useGame } from './useGame';
+import { endingModel } from './endings';
+import { EndingPanel } from './EndingPanel';
 import {
   availability,
   choicesFrozen,
@@ -31,6 +33,16 @@ export function App() {
   const game = useGame(catalog);
   const returnFocus = useRef<string | undefined>(undefined);
   const [fileError, setFileError] = useState('');
+  const capsule = endingModel(game.session, catalog);
+  const finalReady = capsule !== null;
+  const shownEnding = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (finalReady && tab !== 'author' && shownEnding.current !== game.session.id) {
+      shownEnding.current = game.session.id;
+      setSelected(undefined);
+      setTab('ending');
+    }
+  }, [finalReady, game.session.id, tab]);
   useEffect(() => {
     if (tab === 'game' && !selected && returnFocus.current) {
       document.getElementById(`open-${returnFocus.current}`)?.focus();
@@ -66,6 +78,7 @@ export function App() {
           ['game', 'Parcours'],
           ['memory', 'Carnet'],
           ['author', 'Atelier des niveaux'],
+          ...(finalReady ? [['ending', 'La capsule']] : []),
         ].map(([id, label]) => (
           <button
             key={id}
@@ -79,6 +92,17 @@ export function App() {
       <main id="main">
         {tab === 'author' ? (
           <Preview catalog={catalog} sources={sourceRegistry} />
+        ) : tab === 'ending' && capsule ? (
+          <EndingPanel
+            key={game.session.id}
+            sessionId={game.session.id}
+            model={capsule}
+            onMemory={() => setTab('memory')}
+            onHome={() => {
+              setSelected(undefined);
+              setTab('game');
+            }}
+          />
         ) : (
           <>
             <section className="panel">
@@ -89,8 +113,8 @@ export function App() {
               <p>Profil : {catalog.sites[game.session.siteId]?.title}</p>
               <progress max={100} value={score} aria-label="Intégrité d’ARIIE" />
               <p>
-                Les actes I et II sont jouables en version sobre. Les dossiers « À réaliser »
-                disposent de leur fiche de travail et n’ouvrent pas encore la suite.
+                Le parcours est jouable jusqu’à la capsule. Le Conseil du futur est facultatif ; ses
+                choix restent modifiables jusqu’à l’ouverture.
               </p>
             </section>
             {game.notice ? (
@@ -217,7 +241,10 @@ export function App() {
                         inputs: resolveInputs(game.session, catalog, level.id),
                       }}
                       onCommand={game.send}
-                      onExit={() => setSelected(undefined)}
+                      onExit={() => {
+                        setSelected(undefined);
+                        if (level.id === catalog.campaign.finalLevel && capsule) setTab('ending');
+                      }}
                       evaluation={game.evaluation}
                       message={game.message}
                       sources={sourceRegistry}

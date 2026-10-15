@@ -11,8 +11,8 @@ export function localStorageAdapter(storage: Pick<Storage, 'getItem' | 'setItem'
 export function downloadSave(session: Session) {
   downloadText(JSON.stringify(session, null, 2), `chrono-iie-${session.id}.json`);
 }
-export function downloadText(text: string, filename: string) {
-  const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+export function downloadText(text: string, filename: string, mimeType = 'application/json') {
+  const url = URL.createObjectURL(new Blob([text], { type: mimeType }));
   const link = document.createElement('a');
   link.href = url;
   link.download = filename;

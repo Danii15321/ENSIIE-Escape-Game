@@ -24,10 +24,10 @@ Node 22 recommandé (`.nvmrc`) ; Node 20.19+ compatible. Ouvrir http://localhost
 - Sauvegarde locale versionnée, export/import contrôlé, protection contre une écriture concurrente détectée et maintien en mémoire si le stockage échoue.
 - Mécaniques : formulaire, classement, appariement, sélection sous contraintes, programme sur grille, circuit typé, mur de mots et choix de preuves. Documents, dialogues, aide, observations DEMO et carnet partagés.
 - Atelier isolé utilisant les mêmes validateurs et composants, profils DEMO pair/impair et Évry 2026, fixtures locales.
-- Douze prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, PRE-01, PRE-02, SYN-02, FUT-01, FUT-02, SYN-03 et EXT-EST. Le parcours principal permet d’atteindre 100 points ; EXT-EST reste facultatif.
+- Treize prototypes : PRO-00, PAS-01, PAS-02, PAS-03, SYN-01, PRE-01, PRE-02, SYN-02, FUT-01, FUT-02, SYN-03, FUT-C et EXT-EST. Le parcours principal permet d’atteindre 100 points ; EXT-EST reste facultatif.
 - Circuit typé, mur de mots, parité et sorties dérivées du profil ; preuves de SYN-03, choix narratifs révisables et calcul de fin disponibles.
 
-Le contenu de FUT-C reste `draft`. Les dialogues de l’acte I et d’EXT-EST sont intégrés avec les adaptations du [bilan de phase 1](PHASE-1-TEAMMATE.md). Service worker, chronomètre, roue graphique et écran de fin restent à réaliser.
+Tous les dossiers sont jouables en prototype. Le Conseil facultatif et les quatre fins sont intégrés. Les dialogues de l’acte I et d’EXT-EST sont intégrés avec les adaptations du [bilan de phase 1](PHASE-1-TEAMMATE.md). Service worker, chronomètre, roue graphique restent à réaliser.
 
 
 ## Fiches des niveaux
@@ -46,10 +46,10 @@ Une personne réserve un dossier de niveau. L’autre peut travailler sur un aut
 | 08 | [SYN-02 — Le mur des mots](../../game/levels/syn-02/TASK.md) | Prototype | gitvonBS | WordGrid (`wordgrid`) et extraction orientée disponibles ; pair et impair testés. |
 | 09 | [FUT-01 — Le campus sous contraintes](../../game/levels/fut-01/TASK.md) | Prototype | À attribuer | ConstraintSelector disponible avec totaux en direct et liste ordonnée des contraintes. |
 | 10 | [FUT-02 — Le protocole incomplet](../../game/levels/fut-02/TASK.md) | Prototype | À attribuer | GridProgram disponible, trace et première erreur calculées par le moteur. |
-| 11 | [FUT-C — Le Conseil du futur](../../game/levels/fut-c/TASK.md) | À réaliser | À attribuer | Contrat `narrative`, commande `choose` et calcul de l’issue disponibles ; contenu à saisir. |
+| 11 | [FUT-C — Le Conseil du futur](../../game/levels/fut-c/TASK.md) | Prototype | À attribuer | Contrat `narrative`, commande `choose` et calcul de l’issue disponibles ; trois questions et neuf options intégrées. |
 | 12 | [SYN-03 — Le contrôle du centenaire](../../game/levels/syn-03/TASK.md) | Prototype | gitvonBS | Brique `evidence` et pièges de saisie (`traps`) disponibles. |
 | 13 | [EXT-EST — L’antenne de l’Est](../../game/levels/ext-est/TASK.md) | Prototype | À attribuer | AnswerForm et DocumentReader disponibles. Extension indépendante de la victoire. |
-| 14 | [END — Capsule et fins](../../game/endings/TASK.md) | À réaliser | À attribuer | `ending(session, catalog)` disponible ; écran et textes à réaliser. |
+| 14 | [END — Capsule et fins](../../game/endings/TASK.md) | Intégré | À attribuer | `ending(session, catalog)` disponible ; écran, quatre variantes et neuf engagements intégrés. |
 
 
 ## Chantiers communs
@@ -82,7 +82,10 @@ Prendre une fiche entière ou ses sous-tâches. Les propriétaires ci-dessous so
 
 - Fusionnés : acte II et ses briques, SYN-03, contrat narratif et calcul de fin ; EXT-EST, dialogues de l’acte I et cartes communes.
 - Évry 2026 activé : O1 = 2 / O2 = 3, trajets, secours textuel persisté, César +2 et mur impair ; photos à ajouter plus tard.
-- Suite : contenu de FUT-C, écran END, photos et recette sur place, puis cache hors ligne.
+- Phase 2 Teammate livrée : FUT-C et END, contribution privée et export local.
+- Suite : photos et recette sur place, chronomètre et cache hors ligne (colonne noyau).
 
 L’atelier permet de développer chaque dossier indépendamment.
 
+
+Voir le [bilan détaillé de phase 2](PHASE-2-TEAMMATE.md) pour la contribution locale, les fichiers de données, les 107 tests et les limites de la recette.

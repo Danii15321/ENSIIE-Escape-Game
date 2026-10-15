@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "title": "La capsule ouverte",
+  "fictionNotice": "2068 — projection fictive de votre équipe. Ces choix ne constituent pas une politique officielle de l’ENSIIE.",
+  "opening": [
+    {
+      "id": "END.01",
+      "speaker": "ARIIE",
+      "text": "2068. Identité restaurée. Chronologie vérifiée. Transmission prête."
+    },
+    {
+      "id": "END.02",
+      "speaker": "Nora",
+      "text": "Vous n’avez pas seulement retrouvé des réponses. Vous avez appris à relier des traces, à demander des preuves et à travailler avec les informations des autres."
+    },
+    {
+      "id": "END.03",
+      "speaker": "ARIIE",
+      "text": "La capsule peut s’ouvrir. Voici l’avenir que votre équipe a choisi d’imaginer."
+    }
+  ],
+  "variants": {
+    "lucidite": {
+      "title": "Une école qui explique",
+      "lines": [
+        {
+          "speaker": "Nora",
+          "text": "Dans votre projection de 2068, les systèmes numériques doivent rendre leurs sources, leurs limites et leurs décisions compréhensibles. Les élèves apprennent autant à interroger un résultat qu’à le produire."
+        },
+        {
+          "speaker": "ARIIE",
+          "text": "Je conserverai aussi mes incertitudes. Une mémoire utile n’a pas besoin de prétendre tout savoir."
+        }
+      ]
+    },
+    "sobriete": {
+      "title": "Une école qui fait durer",
+      "lines": [
+        {
+          "speaker": "Nora",
+          "text": "Dans votre projection de 2068, on commence par examiner les besoins, les usages et les ressources disponibles. On entretient, on répare et on mesure pour choisir ce qui mérite d’être développé."
+        },
+        {
+          "speaker": "ARIIE",
+          "text": "Je transmettrai les connaissances avec les moyens nécessaires, en laissant aux suivants de quoi faire durer le dispositif."
+        }
+      ]
+    },
+    "partage": {
+      "title": "Une école qui transmet",
+      "lines": [
+        {
+          "speaker": "Nora",
+          "text": "Dans votre projection de 2068, l’école relie les générations, les compétences et les manières d’apprendre. Les projets sont documentés pour que d’autres puissent les comprendre, les reprendre et les transformer."
+        },
+        {
+          "speaker": "ARIIE",
+          "text": "Ma mémoire restera ouverte aux contributions. Aucun dossier ne remplacera la communauté qui le fait vivre."
+        }
+      ]
+    },
+    "horizon-commun": {
+      "title": "Une école à construire ensemble",
+      "lines": [
+        {
+          "speaker": "Nora",
+          "text": "Votre équipe laisse plusieurs voies ouvertes. Comprendre, économiser les ressources et partager ne se résument pas à une seule priorité. L’avenir restera un travail de discussion et de choix."
+        },
+        {
+          "speaker": "ARIIE",
+          "text": "Je conserverai vos questions avec vos réponses. Les prochaines générations auront leur mot à dire."
+        }
+      ]
+    }
+  },
+  "commitments": [
+    {
+      "questionId": "c1",
+      "optionId": "lucidite",
+      "theme": "lucidite",
+      "text": "Nous rendrons les sources et les limites des informations compréhensibles."
+    },
+    {
+      "questionId": "c1",
+      "optionId": "sobriete",
+      "theme": "sobriete",
+      "text": "Nous expliquerons les ressources nécessaires et les moyens de les économiser."
+    },
+    {
+      "questionId": "c1",
+      "optionId": "partage",
+      "theme": "partage",
+      "text": "Nous proposerons plusieurs façons d’accéder aux contenus et de contribuer."
+    },
+    {
+      "questionId": "c2",
+      "optionId": "lucidite",
+      "theme": "lucidite",
+      "text": "Nous apprendrons à vérifier les résultats plutôt qu’à seulement les accepter."
+    },
+    {
+      "questionId": "c2",
+      "optionId": "sobriete",
+      "theme": "sobriete",
+      "text": "Nous prolongerons la vie des équipements quand cela répond aux besoins."
+    },
+    {
+      "questionId": "c2",
+      "optionId": "partage",
+      "theme": "partage",
+      "text": "Nous organiserons la transmission entre élèves, personnels et anciens."
+    },
+    {
+      "questionId": "c3",
+      "optionId": "lucidite",
+      "theme": "lucidite",
+      "text": "Nous documenterons les raisons de nos décisions."
+    },
+    {
+      "questionId": "c3",
+      "optionId": "sobriete",
+      "theme": "sobriete",
+      "text": "Nous réévaluerons nos usages avant de multiplier les dispositifs."
+    },
+    {
+      "questionId": "c3",
+      "optionId": "partage",
+      "theme": "partage",
+      "text": "Nous laisserons une documentation que les suivants pourront reprendre."
+    }
+  ],
+  "timeline": [
+    {
+      "year": 1968,
+      "text": "Origine au Cnam",
+      "sourceIds": ["S04", "S05"]
+    },
+    {
+      "year": 1973,
+      "text": "Association des anciens",
+      "sourceIds": ["S15"]
+    },
+    {
+      "year": 1984,
+      "text": "Installation à Évry",
+      "sourceIds": ["S04", "S05"]
+    },
+    {
+      "year": 2006,
+      "text": "Passage à l’ENSIIE",
+      "sourceIds": ["S06", "S07"]
+    }
+  ],
+  "projection": "2068 — projection fictive de votre équipe",
+  "message": {
+    "speaker": "Nora",
+    "text": "Une dernière trace, si vous le souhaitez : quelle idée aimeriez-vous transmettre aux élèves de demain ?",
+    "maxLength": 500,
+    "saveLabel": "Conserver sur cet appareil",
+    "skipLabel": "Ne rien ajouter",
+    "privacy": "Votre contribution reste sur cet appareil. Aucun envoi à l’école ni publication n’est effectué."
+  },
+  "closing": {
+    "speaker": "ARIIE",
+    "text": "Merci, {equipe}. Vous avez retrouvé d’où nous venons, observé ce qui nous rassemble et choisi comment transmettre. La mémoire peut continuer."
+  },
+  "actions": {
+    "memory": "Relire le carnet",
+    "export": "Exporter le souvenir",
+    "home": "Revenir à l’accueil"
+  },
+  "exportNotice": "Souvenir local de Chrono-IIE — projection fictive, sans valeur de diplôme officiel."
+}

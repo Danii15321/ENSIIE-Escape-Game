@@ -1,60 +1,140 @@
 {
   "contractVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "id": "fut-c",
   "title": "Le Conseil du futur",
   "era": "future",
-  "status": "draft",
+  "status": "prototype",
   "minutes": 3,
   "inputs": [],
   "observations": [],
   "documents": [],
   "dialogue": {
-    "entry": "entry",
+    "entry": "C.ENTER",
     "nodes": [
       {
-        "id": "entry",
+        "id": "C.ENTER",
         "speaker": "Nora",
-        "text": "Ce dossier est en préparation. Sa fiche de réalisation contient la conception détaillée.",
+        "text": "Le dispositif fonctionne. Mais ce qu’il transmettra dépend aussi de vos priorités. Je vous propose trois décisions. Aucune ne vous fera perdre la partie.",
         "choices": [
           {
-            "id": "start",
-            "label": "Examiner le dossier",
+            "id": "discuss",
+            "label": "Discuter les trois décisions",
+            "to": null
+          },
+          {
+            "id": "defer",
+            "label": "Décider plus tard",
+            "to": "C.SKIP"
+          }
+        ]
+      },
+      {
+        "id": "C.SKIP",
+        "speaker": "Nora",
+        "text": "Bien sûr. La capsule s’ouvrira aussi sans ce choix. Nous laisserons alors l’avenir ouvert.",
+        "choices": [
+          {
+            "id": "return",
+            "label": "Revenir aux décisions",
             "to": null
           }
         ]
       }
     ],
-    "success": "Dossier restauré.",
-    "return": "Ce dossier est déjà restauré. Consultez sa capsule dans le carnet."
+    "success": "Vos engagements sont enregistrés. Vous pourrez les relire avant l’ouverture. Ils décrivent votre projection, pas une politique officielle de l’école.",
+    "return": "Vous pouvez modifier vos réponses jusqu’à l’ouverture de la capsule."
   },
-  "hints": [
-    "Relisez la consigne.",
-    "Comparez les documents.",
-    "La démarche complète est disponible après cet indice."
-  ],
-  "solution": "La solution complète figure dans TASK.md ; le validateur de production reste à intégrer.",
-  "capsule": "Prototype en cours de réalisation.",
+  "hints": [],
+  "solution": "",
+  "capsule": "Vos décisions imaginent une projection fictive de 2068 ; elles ne décrivent pas une politique officielle de l’école.",
   "outputs": [],
-  "steps": [
-    {
-      "id": "placeholder",
-      "title": "Maquette à remplacer",
-      "instruction": "Lisez TASK.md dans le dossier de ce niveau. Cette maquette ne peut pas être validée dans la campagne.",
-      "mechanic": {
-        "kind": "form",
-        "fields": [
+  "steps": [],
+  "narrative": {
+    "speaker": "Nora",
+    "done": "Vos engagements sont enregistrés. Vous pourrez les relire avant l’ouverture. Ils décrivent votre projection, pas une politique officielle de l’école.",
+    "questions": [
+      {
+        "id": "c1",
+        "prompt": "Que doit comprendre une personne qui utilise votre dispositif ?",
+        "options": [
           {
-            "id": "placeholder",
-            "label": "Champ de maquette",
-            "format": "text",
-            "expected": "NON-JOUABLE",
-            "options": [],
-            "error": "Consultez les documents et vérifiez votre réponse."
+            "id": "lucidite",
+            "label": "D’où viennent les informations et comment les vérifier.",
+            "theme": "lucidite",
+            "reply": "Vous rendez visibles les sources et les limites. Une mémoire doit pouvoir être discutée.",
+            "commitment": "Nous rendrons les sources et les limites des informations compréhensibles."
+          },
+          {
+            "id": "sobriete",
+            "label": "Quelles ressources il consomme et comment les réduire.",
+            "theme": "sobriete",
+            "reply": "Vous voulez que le fonctionnement matériel reste visible, même derrière une interface simple.",
+            "commitment": "Nous expliquerons les ressources nécessaires et les moyens de les économiser."
+          },
+          {
+            "id": "partage",
+            "label": "Comment y accéder et contribuer, quel que soit son profil.",
+            "theme": "partage",
+            "reply": "Vous placez la participation au centre, avec plusieurs manières d’apprendre et de contribuer.",
+            "commitment": "Nous proposerons plusieurs façons d’accéder aux contenus et de contribuer."
           }
         ]
       },
-      "documentIds": []
-    }
-  ]
+      {
+        "id": "c2",
+        "prompt": "Quelle première action lanceriez-vous ?",
+        "options": [
+          {
+            "id": "lucidite",
+            "label": "Un atelier pour vérifier les résultats des systèmes numériques.",
+            "theme": "lucidite",
+            "reply": "Vous choisissez d’apprendre à demander des preuves avant de faire confiance.",
+            "commitment": "Nous apprendrons à vérifier les résultats plutôt qu’à seulement les accepter."
+          },
+          {
+            "id": "sobriete",
+            "label": "Un atelier pour prolonger la vie des équipements.",
+            "theme": "sobriete",
+            "reply": "Vous choisissez de comprendre, entretenir et réparer avant de remplacer.",
+            "commitment": "Nous prolongerons la vie des équipements quand cela répond aux besoins."
+          },
+          {
+            "id": "partage",
+            "label": "Un atelier associant élèves, personnels et anciens.",
+            "theme": "partage",
+            "reply": "Vous faites circuler les expériences entre les générations et les rôles.",
+            "commitment": "Nous organiserons la transmission entre élèves, personnels et anciens."
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "prompt": "Quel engagement laisser dans la capsule ?",
+        "options": [
+          {
+            "id": "lucidite",
+            "label": "Expliquer nos décisions, même quand elles sont difficiles.",
+            "theme": "lucidite",
+            "reply": "Une décision expliquée peut être réexaminée quand le contexte change.",
+            "commitment": "Nous documenterons les raisons de nos décisions."
+          },
+          {
+            "id": "sobriete",
+            "label": "Réévaluer nos usages avant d’ajouter de nouveaux moyens.",
+            "theme": "sobriete",
+            "reply": "Vous donnez une place à la mesure et à la remise en question des besoins.",
+            "commitment": "Nous réévaluerons nos usages avant de multiplier les dispositifs."
+          },
+          {
+            "id": "partage",
+            "label": "Laisser aux suivants les moyens de transformer notre travail.",
+            "theme": "partage",
+            "reply": "Vous transmettez une capacité d’agir, pas seulement un résultat figé.",
+            "commitment": "Nous laisserons une documentation que les suivants pourront reprendre."
+          }
+        ]
+      }
+    ]
+  }
 }
