@@ -310,64 +310,27 @@ p { margin: 0; }
 .tile h3 { font-size: 22px; }
 .tile p { color: var(--muted); font-size: 16px; }
 
-/* Technique */
-.tech { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; width: 100%; }
-.points { display: grid; gap: 18px; padding: 0; margin: 0; list-style: none; }
-.points li { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; font-size: 21px; line-height: 1.4; }
-.points .icon { margin-top: 2px; color: var(--accent); }
-.points small { display: block; font-size: 16px; color: var(--faint); }
-
-.flow { display: grid; gap: 12px; }
-.flow-row { display: flex; align-items: center; gap: 10px; }
-.flow-row .box { white-space: nowrap; font-size: 15px; padding: 14px 16px; }
-.box {
-  flex: 1;
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: var(--panel-sunk);
-  border: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 16px;
-  line-height: 1.35;
+/* Démo */
+.demo-title { margin: 0; font-size: 120px; line-height: 1; letter-spacing: -0.04em; }
+.demo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 34px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #0b141b;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 650;
+  text-decoration: none;
+  box-shadow: 0 20px 60px -18px color-mix(in srgb, var(--present) 70%, transparent);
+  transition: translate 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
 }
-.box span { display: block; }
-.box b { display: block; font-family: var(--font-display); font-size: 19px; color: var(--text); }
-.box span { color: var(--faint); }
-.box.is-accent { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 10%, var(--panel-sunk)); }
-.arrow { color: var(--accent); }
-.arrow .icon { width: 22px; height: 22px; }
-.flow-down { display: grid; justify-items: center; color: var(--accent); }
-
-.badges { display: flex; gap: 10px; flex-wrap: wrap; }
-.tag { padding: 6px 14px; border-radius: 999px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.06em; border: 1px solid currentColor; }
-
-.stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.tech-card { display: grid; gap: 6px; padding: 18px 20px; border-radius: 14px; background: var(--panel-sunk); border: 1px solid var(--line); }
-.tech-card b { font-family: var(--font-display); font-size: 22px; }
-.tech-card span { font-size: 15px; color: var(--muted); }
-.layers { display: grid; gap: 10px; }
-.layer { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel-sunk); font-size: 18px; }
-.layer code { font-family: var(--font-mono); font-size: 15px; color: var(--accent); }
-.layer.is-core { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 10%, var(--panel-sunk)); }
-.big-number { display: flex; align-items: baseline; gap: 12px; margin-top: 28px; }
-.big-number b { font-family: var(--font-display); font-size: 56px; line-height: 1; background: var(--brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.big-number span { font-size: 18px; color: var(--muted); }
-
-.save {
-  margin: 0;
-  padding: 18px 22px;
-  border-radius: 12px;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: 15px;
-  line-height: 1.55;
-  white-space: pre;
-  box-shadow: 0 18px 42px -20px rgb(0 0 0 / 0.75);
-  rotate: -1.2deg;
-}
-.save .k { color: #7a4b12; }
-.save .v { color: #1f5f6b; }
+.demo-link:hover { translate: 0 -3px; box-shadow: 0 26px 70px -16px color-mix(in srgb, var(--present) 85%, transparent); }
+.demo-link:focus-visible { outline: 2px solid #fff4d6; outline-offset: 4px; }
+.demo-link .icon { width: 30px; height: 30px; stroke-width: 2.2; }
+.title-slide .url { margin-top: 0; }
 
 /* Merci */
 .thanks { flex: 1; display: grid; grid-template-columns: 1fr auto; gap: 72px; align-items: center; }
@@ -393,7 +356,7 @@ p { margin: 0; }
   gap: 18px;
   z-index: 2;
 }
-.progress { flex: 1; display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px; }
+.progress { flex: 1; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; }
 .progress button { height: 22px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
 .progress button::before { content: ''; position: absolute; left: 0; right: 0; top: 9px; height: 4px; border-radius: 4px; background: var(--line); transition: background 400ms var(--ease-out); }
 .progress button.is-done::before { background: var(--brand); background-size: 1000% 100%; background-position: var(--pos) 0; }
@@ -536,101 +499,12 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
     </div>
   </section>
 
-  <section class="slide era-past" aria-label="Game design">
+  <section class="slide era-present title-slide is-centered" aria-label="Démo">
     <div class="backdrop"><svg class="dial" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96"/><circle r="78"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(0)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(6)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(12)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(18)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(24)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(30)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(36)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(42)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(48)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(54)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(60)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(66)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(72)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(78)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(84)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(90)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(96)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(102)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(108)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(114)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(120)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(126)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(132)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(138)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(144)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(150)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(156)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(162)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(168)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(174)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(180)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(186)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(192)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(198)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(204)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(210)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(216)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(222)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(228)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(234)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(240)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(246)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(252)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(258)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(264)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(270)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(276)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(282)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(288)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(294)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(300)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(306)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(312)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(318)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(324)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(330)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(336)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(342)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(348)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(354)"/></svg></div>
-    <p class="eyebrow in">Technique · game design</p>
-    <h2 class="in" style="--d:1">Chaque mission nourrit la suivante</h2>
-    <div class="body">
-      <div class="tech">
-        <ul class="points">
-          <li class="in" style="--d:2"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg><span>Un niveau = un fichier JSON<small>Contrat validé, testé, indépendant</small></span></li>
-          <li class="in" style="--d:3"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg><span>Les réponses deviennent des preuves<small>Fragments transmis d’un niveau à l’autre</small></span></li>
-          <li class="in" style="--d:4"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m16 9-5.5 5.5L8 12"/></svg><span>Vrai et inventé bien séparés<small>Chaque document porte son étiquette</small></span></li>
-        </ul>
-        <div class="flow in" style="--d:3">
-          <div class="flow-row"><p class="box">PAS-01<span>chronologie</span></p><span class="arrow"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><p class="box">PAS-02<span>nom chiffré</span></p><span class="arrow"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><p class="box">PAS-03<span>dates</span></p></div>
-          <div class="flow-down"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
-          <p class="box is-accent"><b>SYN-01 · machine temporelle</b><span>réunit les trois fragments</span></p>
-          <div class="badges" style="margin-top:14px">
-            <span class="tag c-present">Fait</span>
-            <span class="tag c-past">Reconstitution</span>
-            <span class="tag c-future">Fiction</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide era-present" aria-label="Technologies">
-    <div class="backdrop"><svg class="dial" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96"/><circle r="78"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(0)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(6)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(12)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(18)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(24)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(30)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(36)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(42)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(48)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(54)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(60)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(66)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(72)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(78)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(84)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(90)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(96)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(102)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(108)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(114)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(120)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(126)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(132)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(138)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(144)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(150)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(156)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(162)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(168)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(174)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(180)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(186)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(192)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(198)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(204)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(210)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(216)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(222)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(228)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(234)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(240)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(246)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(252)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(258)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(264)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(270)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(276)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(282)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(288)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(294)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(300)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(306)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(312)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(318)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(324)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(330)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(336)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(342)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(348)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(354)"/></svg></div>
-    <p class="eyebrow in">Technique · technologies</p>
-    <h2 class="in" style="--d:1">Un moteur séparé de l’interface</h2>
-    <div class="body">
-      <div class="tech">
-        <div class="stack">
-          <p class="tech-card in" style="--d:2"><b>TypeScript</b><span>Tout le code</span></p>
-          <p class="tech-card in" style="--d:3"><b>React 19</b><span>Interface</span></p>
-          <p class="tech-card in" style="--d:4"><b>Vite</b><span>Build</span></p>
-          <p class="tech-card in" style="--d:5"><b>Zod</b><span>Contrats</span></p>
-          <p class="tech-card in" style="--d:6"><b>Vitest</b><span>Tests</span></p>
-          <p class="tech-card in" style="--d:7"><b>Web Audio</b><span>Sons générés</span></p>
-        </div>
-        <div class="in" style="--d:4">
-          <div class="layers">
-            <p class="layer"><span>Interface</span><code>presentation/</code></p>
-            <p class="layer"><span>Stockage, hors ligne</span><code>adapters/</code></p>
-            <p class="layer is-core"><span>Moteur et règles</span><code>core/</code></p>
-          </div>
-          <p class="big-number"><b>142</b><span>tests automatiques à chaque push</span></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide era-present" aria-label="Hébergement">
-    <div class="backdrop"><svg class="dial" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96"/><circle r="78"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(0)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(6)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(12)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(18)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(24)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(30)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(36)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(42)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(48)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(54)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(60)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(66)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(72)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(78)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(84)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(90)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(96)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(102)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(108)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(114)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(120)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(126)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(132)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(138)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(144)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(150)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(156)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(162)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(168)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(174)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(180)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(186)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(192)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(198)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(204)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(210)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(216)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(222)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(228)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(234)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(240)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(246)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(252)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(258)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(264)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(270)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(276)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(282)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(288)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(294)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(300)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(306)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(312)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(318)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(324)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(330)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(336)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(342)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(348)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(354)"/></svg></div>
-    <p class="eyebrow in">Technique · hébergement</p>
-    <h2 class="in" style="--d:1">Un site statique, jouable hors ligne</h2>
-    <div class="body">
-      <div class="tech">
-        <div class="flow">
-          <div class="flow-row in" style="--d:2"><p class="box"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></svg><b>GitHub</b><span>le code</span></p><span class="arrow"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><p class="box"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><b>Actions</b><span>tests et build</span></p></div>
-          <div class="flow-down in" style="--d:3"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
-          <div class="flow-row in" style="--d:4"><p class="box is-accent"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><b>GitHub Pages</b><span>aucun serveur</span></p><span class="arrow"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><p class="box"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg><b>Téléphone</b><span>ouvert par QR code</span></p></div>
-        </div>
-        <ul class="points">
-          <li class="in" style="--d:3"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/></svg><span>Hors ligne<small>Service worker : tout est mis en cache</small></span></li>
-          <li class="in" style="--d:4"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg><span>QR codes générés dans l’app<small>Pour les sources et pour partager le jeu</small></span></li>
-          <li class="in" style="--d:5"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" x2="22" y1="8" y2="13"/><line x1="22" x2="17" y1="8" y2="13"/></svg><span>Aucun compte<small>Aucune donnée ne quitte l’appareil</small></span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide era-final" aria-label="Progression et sauvegarde">
-    <div class="backdrop"><svg class="dial" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96"/><circle r="78"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(0)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(6)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(12)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(18)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(24)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(30)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(36)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(42)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(48)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(54)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(60)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(66)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(72)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(78)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(84)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(90)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(96)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(102)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(108)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(114)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(120)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(126)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(132)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(138)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(144)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(150)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(156)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(162)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(168)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(174)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(180)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(186)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(192)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(198)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(204)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(210)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(216)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(222)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(228)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(234)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(240)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(246)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(252)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(258)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(264)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(270)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(276)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(282)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(288)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(294)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(300)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(306)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(312)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(318)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(324)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(330)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(336)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(342)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(348)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(354)"/></svg></div>
-    <p class="eyebrow in">Technique · progression</p>
-    <h2 class="in" style="--d:1">Une partie qui ne se perd pas</h2>
-    <div class="body">
-      <div class="tech">
-        <ul class="points">
-          <li class="in" style="--d:2"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="16" r="1"/><rect width="18" height="12" x="3" y="10" rx="2"/><path d="M7 10V7a5 5 0 0 1 9.33-2.5"/></svg><span>Déverrouillage pas à pas<small>Chaque mission ouvre la suivante</small></span></li>
-          <li class="in" style="--d:3"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg><span>Sauvegarde automatique<small>Sur l’appareil, à chaque action</small></span></li>
-          <li class="in" style="--d:4"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg><span>Export et import<small>Un fichier JSON, vérifié avant reprise</small></span></li>
-          <li class="in" style="--d:5"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span>Version incompatible ?<small>Refusée, jamais modifiée en silence</small></span></li>
-        </ul>
-        <pre class="save in" style="--d:4" aria-label="Extrait d’un fichier de sauvegarde">{
-  <span class="k">"campaignId"</span>: <span class="v">"chrono-iie"</span>,
-  <span class="k">"campaignRevision"</span>: <span class="v">2</span>,
-  <span class="k">"siteId"</span>: <span class="v">"evry-2026"</span>,
-  <span class="k">"team"</span>: <span class="v">"Les Archivistes"</span>,
-  <span class="k">"progress"</span>: {
-    <span class="k">"pas-01"</span>: { <span class="k">"status"</span>: <span class="v">"succeeded"</span> },
-    <span class="k">"pas-02"</span>: { <span class="k">"hints"</span>: <span class="v">1</span> }
-  }
-}</pre>
-      </div>
-    </div>
+    <span class="chip in"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.247 7.761a6 6 0 0 1 0 8.478"/><path d="M19.075 4.933a10 10 0 0 1 0 14.134"/><path d="M4.925 19.067a10 10 0 0 1 0-14.134"/><path d="M7.753 16.239a6 6 0 0 1 0-8.478"/><circle cx="12" cy="12" r="2"/></svg> En direct</span>
+    <h2 class="demo-title in" style="--d:1">Démo</h2>
+    <a class="demo-link in" style="--d:2" href="https://danii15321.github.io/ENSIIE-Escape-Game/" target="_blank" rel="noopener">Lancer Chrono·IIE <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+    <p class="url in" style="--d:3"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>danii15321.github.io/ENSIIE-Escape-Game</p>
   </section>
 
   <section class="slide era-present is-centered" aria-label="Merci">
@@ -709,7 +583,7 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
   next.addEventListener('click', () => show(current + 1));
   document.addEventListener('keydown', (event) => {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
-    const onButton = event.target instanceof HTMLButtonElement;
+    const onButton = event.target instanceof Element && event.target.closest('a, button') !== null;
     if (event.key === 'ArrowRight' || event.key === 'PageDown' || (!onButton && (event.key === ' ' || event.key === 'Enter'))) {
       event.preventDefault();
       show(current + 1);

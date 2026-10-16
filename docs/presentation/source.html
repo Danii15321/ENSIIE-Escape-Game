@@ -310,64 +310,27 @@ p { margin: 0; }
 .tile h3 { font-size: 22px; }
 .tile p { color: var(--muted); font-size: 16px; }
 
-/* Technique */
-.tech { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; width: 100%; }
-.points { display: grid; gap: 18px; padding: 0; margin: 0; list-style: none; }
-.points li { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; font-size: 21px; line-height: 1.4; }
-.points .icon { margin-top: 2px; color: var(--accent); }
-.points small { display: block; font-size: 16px; color: var(--faint); }
-
-.flow { display: grid; gap: 12px; }
-.flow-row { display: flex; align-items: center; gap: 10px; }
-.flow-row .box { white-space: nowrap; font-size: 15px; padding: 14px 16px; }
-.box {
-  flex: 1;
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: var(--panel-sunk);
-  border: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 16px;
-  line-height: 1.35;
+/* Démo */
+.demo-title { margin: 0; font-size: 120px; line-height: 1; letter-spacing: -0.04em; }
+.demo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 34px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #0b141b;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 650;
+  text-decoration: none;
+  box-shadow: 0 20px 60px -18px color-mix(in srgb, var(--present) 70%, transparent);
+  transition: translate 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
 }
-.box span { display: block; }
-.box b { display: block; font-family: var(--font-display); font-size: 19px; color: var(--text); }
-.box span { color: var(--faint); }
-.box.is-accent { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 10%, var(--panel-sunk)); }
-.arrow { color: var(--accent); }
-.arrow .icon { width: 22px; height: 22px; }
-.flow-down { display: grid; justify-items: center; color: var(--accent); }
-
-.badges { display: flex; gap: 10px; flex-wrap: wrap; }
-.tag { padding: 6px 14px; border-radius: 999px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.06em; border: 1px solid currentColor; }
-
-.stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.tech-card { display: grid; gap: 6px; padding: 18px 20px; border-radius: 14px; background: var(--panel-sunk); border: 1px solid var(--line); }
-.tech-card b { font-family: var(--font-display); font-size: 22px; }
-.tech-card span { font-size: 15px; color: var(--muted); }
-.layers { display: grid; gap: 10px; }
-.layer { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel-sunk); font-size: 18px; }
-.layer code { font-family: var(--font-mono); font-size: 15px; color: var(--accent); }
-.layer.is-core { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 10%, var(--panel-sunk)); }
-.big-number { display: flex; align-items: baseline; gap: 12px; margin-top: 28px; }
-.big-number b { font-family: var(--font-display); font-size: 56px; line-height: 1; background: var(--brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.big-number span { font-size: 18px; color: var(--muted); }
-
-.save {
-  margin: 0;
-  padding: 18px 22px;
-  border-radius: 12px;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: 15px;
-  line-height: 1.55;
-  white-space: pre;
-  box-shadow: 0 18px 42px -20px rgb(0 0 0 / 0.75);
-  rotate: -1.2deg;
-}
-.save .k { color: #7a4b12; }
-.save .v { color: #1f5f6b; }
+.demo-link:hover { translate: 0 -3px; box-shadow: 0 26px 70px -16px color-mix(in srgb, var(--present) 85%, transparent); }
+.demo-link:focus-visible { outline: 2px solid #fff4d6; outline-offset: 4px; }
+.demo-link .icon { width: 30px; height: 30px; stroke-width: 2.2; }
+.title-slide .url { margin-top: 0; }
 
 /* Merci */
 .thanks { flex: 1; display: grid; grid-template-columns: 1fr auto; gap: 72px; align-items: center; }
@@ -393,7 +356,7 @@ p { margin: 0; }
   gap: 18px;
   z-index: 2;
 }
-.progress { flex: 1; display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px; }
+.progress { flex: 1; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; }
 .progress button { height: 22px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
 .progress button::before { content: ''; position: absolute; left: 0; right: 0; top: 9px; height: 4px; border-radius: 4px; background: var(--line); transition: background 400ms var(--ease-out); }
 .progress button.is-done::before { background: var(--brand); background-size: 1000% 100%; background-position: var(--pos) 0; }
@@ -536,101 +499,12 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
     </div>
   </section>
 
-  <section class="slide era-past" aria-label="Game design">
+  <section class="slide era-present title-slide is-centered" aria-label="Démo">
     <div class="backdrop">{{dial}}</div>
-    <p class="eyebrow in">Technique · game design</p>
-    <h2 class="in" style="--d:1">Chaque mission nourrit la suivante</h2>
-    <div class="body">
-      <div class="tech">
-        <ul class="points">
-          <li class="in" style="--d:2">{{icon:braces}}<span>Un niveau = un fichier JSON<small>Contrat validé, testé, indépendant</small></span></li>
-          <li class="in" style="--d:3">{{icon:git-merge}}<span>Les réponses deviennent des preuves<small>Fragments transmis d’un niveau à l’autre</small></span></li>
-          <li class="in" style="--d:4">{{icon:badge-check}}<span>Vrai et inventé bien séparés<small>Chaque document porte son étiquette</small></span></li>
-        </ul>
-        <div class="flow in" style="--d:3">
-          <div class="flow-row"><p class="box">PAS-01<span>chronologie</span></p><span class="arrow">{{icon:arrow-right}}</span><p class="box">PAS-02<span>nom chiffré</span></p><span class="arrow">{{icon:arrow-right}}</span><p class="box">PAS-03<span>dates</span></p></div>
-          <div class="flow-down">{{icon:arrow-down}}</div>
-          <p class="box is-accent"><b>SYN-01 · machine temporelle</b><span>réunit les trois fragments</span></p>
-          <div class="badges" style="margin-top:14px">
-            <span class="tag c-present">Fait</span>
-            <span class="tag c-past">Reconstitution</span>
-            <span class="tag c-future">Fiction</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide era-present" aria-label="Technologies">
-    <div class="backdrop">{{dial}}</div>
-    <p class="eyebrow in">Technique · technologies</p>
-    <h2 class="in" style="--d:1">Un moteur séparé de l’interface</h2>
-    <div class="body">
-      <div class="tech">
-        <div class="stack">
-          <p class="tech-card in" style="--d:2"><b>TypeScript</b><span>Tout le code</span></p>
-          <p class="tech-card in" style="--d:3"><b>React 19</b><span>Interface</span></p>
-          <p class="tech-card in" style="--d:4"><b>Vite</b><span>Build</span></p>
-          <p class="tech-card in" style="--d:5"><b>Zod</b><span>Contrats</span></p>
-          <p class="tech-card in" style="--d:6"><b>Vitest</b><span>Tests</span></p>
-          <p class="tech-card in" style="--d:7"><b>Web Audio</b><span>Sons générés</span></p>
-        </div>
-        <div class="in" style="--d:4">
-          <div class="layers">
-            <p class="layer"><span>Interface</span><code>presentation/</code></p>
-            <p class="layer"><span>Stockage, hors ligne</span><code>adapters/</code></p>
-            <p class="layer is-core"><span>Moteur et règles</span><code>core/</code></p>
-          </div>
-          <p class="big-number"><b>142</b><span>tests automatiques à chaque push</span></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide era-present" aria-label="Hébergement">
-    <div class="backdrop">{{dial}}</div>
-    <p class="eyebrow in">Technique · hébergement</p>
-    <h2 class="in" style="--d:1">Un site statique, jouable hors ligne</h2>
-    <div class="body">
-      <div class="tech">
-        <div class="flow">
-          <div class="flow-row in" style="--d:2"><p class="box">{{icon:git-branch}}<b>GitHub</b><span>le code</span></p><span class="arrow">{{icon:arrow-right}}</span><p class="box">{{icon:shield-check}}<b>Actions</b><span>tests et build</span></p></div>
-          <div class="flow-down in" style="--d:3">{{icon:arrow-down}}</div>
-          <div class="flow-row in" style="--d:4"><p class="box is-accent">{{icon:globe}}<b>GitHub Pages</b><span>aucun serveur</span></p><span class="arrow">{{icon:arrow-right}}</span><p class="box">{{icon:smartphone}}<b>Téléphone</b><span>ouvert par QR code</span></p></div>
-        </div>
-        <ul class="points">
-          <li class="in" style="--d:3">{{icon:wifi-off}}<span>Hors ligne<small>Service worker : tout est mis en cache</small></span></li>
-          <li class="in" style="--d:4">{{icon:qr-code}}<span>QR codes générés dans l’app<small>Pour les sources et pour partager le jeu</small></span></li>
-          <li class="in" style="--d:5">{{icon:user-x}}<span>Aucun compte<small>Aucune donnée ne quitte l’appareil</small></span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide era-final" aria-label="Progression et sauvegarde">
-    <div class="backdrop">{{dial}}</div>
-    <p class="eyebrow in">Technique · progression</p>
-    <h2 class="in" style="--d:1">Une partie qui ne se perd pas</h2>
-    <div class="body">
-      <div class="tech">
-        <ul class="points">
-          <li class="in" style="--d:2">{{icon:lock-keyhole-open}}<span>Déverrouillage pas à pas<small>Chaque mission ouvre la suivante</small></span></li>
-          <li class="in" style="--d:3">{{icon:save}}<span>Sauvegarde automatique<small>Sur l’appareil, à chaque action</small></span></li>
-          <li class="in" style="--d:4">{{icon:arrow-down-up}}<span>Export et import<small>Un fichier JSON, vérifié avant reprise</small></span></li>
-          <li class="in" style="--d:5">{{icon:shield-alert}}<span>Version incompatible ?<small>Refusée, jamais modifiée en silence</small></span></li>
-        </ul>
-        <pre class="save in" style="--d:4" aria-label="Extrait d’un fichier de sauvegarde">{
-  <span class="k">"campaignId"</span>: <span class="v">"chrono-iie"</span>,
-  <span class="k">"campaignRevision"</span>: <span class="v">2</span>,
-  <span class="k">"siteId"</span>: <span class="v">"evry-2026"</span>,
-  <span class="k">"team"</span>: <span class="v">"Les Archivistes"</span>,
-  <span class="k">"progress"</span>: {
-    <span class="k">"pas-01"</span>: { <span class="k">"status"</span>: <span class="v">"succeeded"</span> },
-    <span class="k">"pas-02"</span>: { <span class="k">"hints"</span>: <span class="v">1</span> }
-  }
-}</pre>
-      </div>
-    </div>
+    <span class="chip in">{{icon:radio}} En direct</span>
+    <h2 class="demo-title in" style="--d:1">Démo</h2>
+    <a class="demo-link in" style="--d:2" href="https://danii15321.github.io/ENSIIE-Escape-Game/" target="_blank" rel="noopener">Lancer Chrono·IIE {{icon:arrow-up-right}}</a>
+    <p class="url in" style="--d:3">{{icon:globe}}danii15321.github.io/ENSIIE-Escape-Game</p>
   </section>
 
   <section class="slide era-present is-centered" aria-label="Merci">
@@ -709,7 +583,7 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
   next.addEventListener('click', () => show(current + 1));
   document.addEventListener('keydown', (event) => {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
-    const onButton = event.target instanceof HTMLButtonElement;
+    const onButton = event.target instanceof Element && event.target.closest('a, button') !== null;
     if (event.key === 'ArrowRight' || event.key === 'PageDown' || (!onButton && (event.key === ' ' || event.key === 'Enter'))) {
       event.preventDefault();
       show(current + 1);
