@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chrono·IIE, présentation</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+@font-face { font-family: 'Inter Variable'; font-weight: 100 900; font-display: swap; src: url({{font:inter}}) format('woff2'); }
+@font-face { font-family: 'Space Grotesk Variable'; font-weight: 300 700; font-display: swap; src: url({{font:grotesk}}) format('woff2'); }
+@font-face { font-family: 'Source Serif 4 Variable'; font-weight: 200 900; font-display: swap; src: url({{font:serif}}) format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 400; font-display: swap; src: url({{font:mono400}}) format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 600; font-display: swap; src: url({{font:mono600}}) format('woff2'); }
+
+/* Scène 16:9 de 1280 x 720 mise à l'échelle ; palette et polices reprises du jeu */
+:root {
+  color-scheme: dark;
+  --bg: #101820;
+  --bg-deep: #0a1118;
+  --panel: #1b2733;
+  --panel-sunk: #131e28;
+  --line: #2d3f50;
+  --text: #f4f1e8;
+  --muted: #c5ced6;
+  --faint: #95a6b5;
+  --past: #e7b56a;
+  --present: #70d6e7;
+  --future: #beaff5;
+  --final: #ffe1a0;
+  --ok: #9bd6b0;
+  --paper: #f3ebdd;
+  --ink: #20272e;
+  --accent: var(--present);
+  --brand: linear-gradient(90deg, var(--past), var(--present) 55%, var(--future));
+  --font-display: 'Space Grotesk Variable', 'Inter Variable', system-ui, sans-serif;
+  --font-body: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  --font-doc: 'Source Serif 4 Variable', Georgia, serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+.viewport {
+  position: fixed;
+  inset: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 16px;
+}
+.stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1280px;
+  height: 720px;
+  flex: none;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--bg-deep);
+  box-shadow: 0 30px 80px -30px rgb(0 0 0 / 0.9), 0 0 0 1px var(--line);
+  transform-origin: center;
+}
+:fullscreen .stage { border-radius: 0; box-shadow: none; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 64px 84px 92px;
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out), visibility 0s linear 600ms;
+}
+.slide.is-active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 600ms var(--ease-out), visibility 0s;
+}
+.era-past { --accent: var(--past); }
+.era-present { --accent: var(--present); }
+.era-future { --accent: var(--future); }
+.era-final { --accent: var(--final); }
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(130% 75% at 50% -12%, color-mix(in srgb, var(--accent) 17%, transparent), transparent 62%),
+    radial-gradient(40% 40% at 88% 86%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%),
+    var(--bg-deep);
+}
+.backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(80% 70% at 50% 30%, #000 25%, transparent 80%);
+}
+.era-past .backdrop::before {
+  background-image: repeating-linear-gradient(0deg, rgb(231 181 106 / 0.05) 0 1px, transparent 1px 30px);
+  background-size: auto;
+}
+.backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dial {
+  position: absolute;
+  right: -260px;
+  top: -260px;
+  width: 760px;
+  height: 760px;
+  color: var(--accent);
+  opacity: 0.1;
+  animation: spin 160s linear infinite;
+}
+.dial circle { fill: none; stroke: currentColor; stroke-width: 0.4; }
+.dial circle + circle { stroke-dasharray: 1 3; }
+.dial line { stroke: currentColor; stroke-width: 0.5; }
+.dial line.major { stroke-width: 1.3; }
+.is-centered .dial { right: auto; left: 50%; top: 50%; translate: -50% -50%; width: 980px; height: 980px; }
+
+.eyebrow {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+h1, h2, h3 { margin: 0; font-family: var(--font-display); text-wrap: balance; }
+h2 { margin-top: 14px; font-size: 54px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 650; }
+h3 { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
+p { margin: 0; }
+.lead { margin-top: 16px; max-width: 34em; font-size: 22px; line-height: 1.45; color: var(--muted); }
+.body { flex: 1; min-height: 0; display: flex; align-items: center; }
+.mono { font-family: var(--font-mono); }
+.icon { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* ARIIE */
+.ariie { color: var(--accent); overflow: visible; flex: none; }
+.ariie-dial { transform-origin: 60px 60px; animation: spin 48s linear infinite reverse; }
+.ariie-ticks { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 1 4.76; opacity: 0.5; }
+.ariie-arcs {
+  fill: none;
+  stroke-width: 7;
+  stroke-linecap: round;
+  transform-origin: 60px 60px;
+  animation: spin 28s linear infinite;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 70%, transparent));
+}
+.ariie-arc { transform-origin: 60px 60px; }
+.ariie-core { fill: #ffffff; }
+.ariie-halo { transform-origin: 60px 60px; animation: breathe 3.4s ease-in-out infinite; }
+.ariie.is-broken .ariie-arcs { animation: spin 28s linear infinite, glitch 5s steps(1) infinite; }
+
+/* 1. Titre */
+.title-slide { align-items: center; justify-content: center; text-align: center; gap: 26px; }
+.wordmark { font-family: var(--font-display); font-weight: 700; font-size: 132px; line-height: 0.95; letter-spacing: -0.04em; }
+.wordmark-dot { margin: 0 0.04em; color: var(--faint); }
+.wordmark-iie { background: var(--brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tagline { font-size: 28px; color: var(--muted); }
+.tagline strong { color: var(--text); font-weight: 600; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel-sunk));
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.ribbon { display: flex; align-items: center; gap: 18px; font-family: var(--font-mono); font-size: 24px; font-weight: 600; }
+.ribbon-line { width: 90px; height: 2px; border-radius: 2px; background: var(--brand); opacity: 0.8; }
+.c-past { color: var(--past); }
+.c-present { color: var(--present); }
+.c-future { color: var(--future); }
+.credit-line { position: absolute; left: 0; right: 0; bottom: 104px; text-align: center; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+
+/* 2. Signal */
+.signal { display: grid; grid-template-columns: 300px 1fr; gap: 64px; align-items: center; width: 100%; }
+.dialogue { display: grid; gap: 18px; }
+.bubble {
+  padding: 18px 24px 20px;
+  border-radius: 4px 22px 22px 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 10%, var(--panel)), var(--panel-sunk));
+  font-size: 24px;
+  line-height: 1.4;
+}
+.bubble.is-system { font-family: var(--font-mono); font-size: 20px; color: var(--muted); }
+.bubble.is-team { --accent: var(--past); margin-left: 80px; border-radius: 22px 4px 22px 22px; }
+.speaker { display: block; margin-bottom: 6px; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+
+/* 3. Époques */
+.eras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
+.era {
+  --accent: var(--tone);
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--tone) 35%, var(--line));
+  background: var(--panel-sunk);
+}
+.era-media { position: relative; height: 230px; overflow: hidden; background: var(--panel); }
+.era-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.era-media.is-sepia img { filter: sepia(0.25) contrast(1.05); }
+.era-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, var(--panel-sunk)); }
+.era-media.is-future {
+  display: grid;
+  place-items: center;
+  background:
+    conic-gradient(from 200deg at 60% 40%, rgb(190 175 245 / 0.28), rgb(112 214 231 / 0.12), transparent 40%, rgb(190 175 245 / 0.18)),
+    var(--panel);
+}
+.era-text { padding: 6px 24px 24px; display: grid; gap: 8px; }
+.era-years { font-family: var(--font-mono); font-size: 16px; font-weight: 600; color: var(--tone); letter-spacing: 0.06em; }
+.era p:last-child { color: var(--muted); font-size: 18px; }
+.photo-credit { margin-top: 18px; font-size: 12px; color: var(--faint); }
+
+/* 4. But */
+.goal { display: grid; grid-template-columns: 1fr 260px; gap: 70px; align-items: center; width: 100%; }
+.meter { display: grid; gap: 16px; }
+.meter-track { position: relative; height: 18px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
+.meter-fill { position: absolute; inset: 0 auto 0 0; width: 100%; border-radius: inherit; background: var(--brand); transform-origin: left; }
+.is-active .meter-fill { animation: fill 2.4s var(--ease-out) 300ms both; }
+.meter-steps { position: relative; height: 70px; font-size: 16px; }
+.meter-step { position: absolute; top: 0; display: grid; gap: 4px; translate: -50% 0; text-align: center; white-space: nowrap; }
+.meter-step:first-child { translate: 0 0; text-align: left; }
+.meter-step:last-child { translate: -100% 0; text-align: right; }
+.meter-step b { font-family: var(--font-mono); font-size: 18px; color: var(--accent); }
+.meter-step span { color: var(--muted); }
+.facts { display: flex; gap: 18px; margin-top: 30px; }
+.fact { display: grid; gap: 4px; padding: 18px 22px; border-radius: 14px; background: var(--panel-sunk); border: 1px solid var(--line); }
+.fact b { font-family: var(--font-display); font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
+.fact span { font-size: 16px; color: var(--muted); }
+
+/* 5. Parcours */
+.route { width: 100%; display: grid; gap: 30px; }
+.chapters { display: grid; grid-template-columns: 0.8fr 1.4fr 1.15fr 1.25fr 0.8fr; gap: 14px; position: relative; }
+.chapter:not(:last-child)::after { content: ''; position: absolute; left: 64px; right: -6px; top: 27px; height: 2px; background: linear-gradient(90deg, var(--tone), color-mix(in srgb, var(--tone) 30%, transparent)); opacity: 0.7; }
+.chapter { --accent: var(--tone); display: grid; gap: 12px; justify-items: start; align-content: start; position: relative; }
+.node {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--tone);
+  background: var(--bg-deep);
+  border: 2px solid var(--tone);
+  box-shadow: 0 0 24px -4px color-mix(in srgb, var(--tone) 60%, transparent);
+}
+.chapter small { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tone); }
+.chapter h3 { font-size: 22px; }
+.dots { display: flex; gap: 6px; flex-wrap: wrap; }
+.dot { width: 12px; height: 12px; border-radius: 50%; background: var(--tone); }
+.dot.is-optional { background: transparent; border: 2px dashed var(--tone); }
+.route-note { display: flex; gap: 28px; font-size: 18px; color: var(--muted); }
+.route-note span { display: inline-flex; align-items: center; gap: 10px; }
+
+/* 6. Gameplay */
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; }
+.tile {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  align-items: center;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--panel), var(--panel-sunk));
+  border: 1px solid var(--line);
+}
+.tile .badge { grid-row: span 2; width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; color: var(--tone); background: color-mix(in srgb, var(--tone) 14%, transparent); }
+.tile h3 { font-size: 22px; }
+.tile p { color: var(--muted); font-size: 16px; }
+
+/* Technique */
+.tech { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; width: 100%; }
+.points { display: grid; gap: 18px; padding: 0; margin: 0; list-style: none; }
+.points li { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; font-size: 21px; line-height: 1.4; }
+.points .icon { margin-top: 2px; color: var(--accent); }
+.points small { display: block; font-size: 16px; color: var(--faint); }
+
+.flow { display: grid; gap: 12px; }
+.flow-row { display: flex; align-items: center; gap: 10px; }
+.flow-row .box { white-space: nowrap; font-size: 15px; padding: 14px 16px; }
+.box {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--panel-sunk);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.35;
+}
+.box span { display: block; }
+.box b { display: block; font-family: var(--font-display); font-size: 19px; color: var(--text); }
+.box span { color: var(--faint); }
+.box.is-accent { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 10%, var(--panel-sunk)); }
+.arrow { color: var(--accent); }
+.arrow .icon { width: 22px; height: 22px; }
+.flow-down { display: grid; justify-items: center; color: var(--accent); }
+
+.badges { display: flex; gap: 10px; flex-wrap: wrap; }
+.tag { padding: 6px 14px; border-radius: 999px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.06em; border: 1px solid currentColor; }
+
+.stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.tech-card { display: grid; gap: 6px; padding: 18px 20px; border-radius: 14px; background: var(--panel-sunk); border: 1px solid var(--line); }
+.tech-card b { font-family: var(--font-display); font-size: 22px; }
+.tech-card span { font-size: 15px; color: var(--muted); }
+.layers { display: grid; gap: 10px; }
+.layer { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel-sunk); font-size: 18px; }
+.layer code { font-family: var(--font-mono); font-size: 15px; color: var(--accent); }
+.layer.is-core { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 10%, var(--panel-sunk)); }
+.big-number { display: flex; align-items: baseline; gap: 12px; margin-top: 28px; }
+.big-number b { font-family: var(--font-display); font-size: 56px; line-height: 1; background: var(--brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.big-number span { font-size: 18px; color: var(--muted); }
+
+.save {
+  margin: 0;
+  padding: 18px 22px;
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 1.55;
+  white-space: pre;
+  box-shadow: 0 18px 42px -20px rgb(0 0 0 / 0.75);
+  rotate: -1.2deg;
+}
+.save .k { color: #7a4b12; }
+.save .v { color: #1f5f6b; }
+
+/* Navigation */
+.chrome {
+  position: absolute;
+  left: 84px;
+  right: 84px;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  z-index: 2;
+}
+.progress { flex: 1; display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
+.progress button { height: 22px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
+.progress button::before { content: ''; position: absolute; left: 0; right: 0; top: 9px; height: 4px; border-radius: 4px; background: var(--line); transition: background 400ms var(--ease-out); }
+.progress button.is-done::before { background: var(--brand); background-size: 1000% 100%; background-position: var(--pos) 0; }
+.counter { font-family: var(--font-mono); font-size: 15px; color: var(--faint); font-variant-numeric: tabular-nums; min-width: 64px; text-align: right; }
+.nav { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: var(--panel-sunk); color: var(--text); cursor: pointer; }
+.nav:hover { border-color: var(--present); }
+.nav:disabled { opacity: 0.35; cursor: default; }
+.nav .icon { width: 20px; height: 20px; }
+button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
+
+/* Entrées animées */
+.is-active .in { animation: rise 700ms var(--ease-out) both; animation-delay: calc(var(--d, 0) * 110ms + 120ms); }
+@keyframes rise { from { opacity: 0; translate: 0 18px; } }
+@keyframes fill { from { transform: scaleX(0); } }
+@keyframes spin { to { rotate: 360deg; } }
+@keyframes breathe { 50% { scale: 1.25; opacity: 0.75; } }
+@keyframes glitch { 0%, 100% { opacity: 1; } 91% { opacity: 0.35; translate: 1px 0; } 93% { opacity: 1; translate: 0 0; } 95% { opacity: 0.6; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="viewport">
+<main class="stage" id="stage" aria-roledescription="présentation">
+
+  <section class="slide era-present title-slide is-centered" aria-label="Chrono·IIE">
+    <div class="backdrop">{{dial}}</div>
+    <span class="chip in">{{icon:lock-keyhole-open}} Escape game</span>
+    <div class="in" style="--d:1">{{ariie:100:150:brand}}</div>
+    <h1 class="wordmark in" style="--d:2">Chrono<span class="wordmark-dot">·</span><span class="wordmark-iie">IIE</span></h1>
+    <p class="tagline in" style="--d:3">Restaurer la mémoire de <strong>l’ENSIIE</strong></p>
+    <p class="ribbon in" style="--d:4" aria-label="De 1968 à 2068"><span class="c-past">1968</span><span class="ribbon-line"></span><span class="c-present">2026</span><span class="ribbon-line"></span><span class="c-future">2068</span></p>
+    <p class="credit-line">Hackathon ENSIIE · 2026</p>
+  </section>
+
+  <section class="slide era-present" aria-label="L’univers">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">L’univers</p>
+    <h2 class="in" style="--d:1">Un signal venu de 2068</h2>
+    <div class="body">
+      <div class="signal">
+        <div class="in" style="--d:2">{{ariie:10:300:broken}}</div>
+        <div class="dialogue">
+          <p class="bubble is-system in" style="--d:3"><span class="speaker">Système</span>Transmission entrante. Origine : 2068.</p>
+          <p class="bubble in" style="--d:4"><span class="speaker">ARIIE</span>Je suis la mémoire de l’école. Mes archives sont en morceaux.</p>
+          <p class="bubble is-team in" style="--d:5"><span class="speaker">Votre équipe · 2026</span>Nous allons tout reconstruire.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide era-past" aria-label="Trois époques">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">L’univers</p>
+    <h2 class="in" style="--d:1">Trois époques, une seule école</h2>
+    <div class="body">
+      <div style="width:100%">
+        <div class="eras">
+          <article class="era in" style="--tone:var(--past);--d:2">
+            <div class="era-media is-sepia"><img src="{{img:cnam-1890}}" alt="Le Conservatoire des Arts-et-Métiers, rue Saint-Martin, vers 1890"></div>
+            <div class="era-text"><span class="era-years">1968 · 2006</span><h3>Les origines</h3><p>L’IIE naît au Cnam.</p></div>
+          </article>
+          <article class="era in" style="--tone:var(--present);--d:3">
+            <div class="era-media"><img src="{{img:ensiie-exterior}}" alt="Le bâtiment de l’ENSIIE à Évry"></div>
+            <div class="era-text"><span class="era-years">2006 · 2026</span><h3>L’école vivante</h3><p>L’ENSIIE à Évry.</p></div>
+          </article>
+          <article class="era in" style="--tone:var(--future);--d:4">
+            <div class="era-media is-future">{{ariie:100:150}}</div>
+            <div class="era-text"><span class="era-years">2026 · 2068</span><h3>La transmission</h3><p>Le futur, une fiction assumée.</p></div>
+          </article>
+        </div>
+        <p class="photo-credit">Photos : Hippolyte Blancard, vers 1890, Paris Musées, CC0 · bâtiment de l’ENSIIE, équipe du projet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide era-present" aria-label="Le but">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">Le but</p>
+    <h2 class="in" style="--d:1">Restaurer la mémoire d’ARIIE</h2>
+    <div class="body">
+      <div class="goal">
+        <div class="in" style="--d:2">
+          <div class="meter">
+            <div class="meter-track"><div class="meter-fill"></div></div>
+            <div class="meter-steps">
+              <p class="meter-step" style="left:0"><b>0 %</b><span>Signal fragmenté</span></p>
+              <p class="meter-step" style="left:40%"><b>40 %</b><span>En reconstruction</span></p>
+              <p class="meter-step" style="left:70%"><b>70 %</b><span>Presque stable</span></p>
+              <p class="meter-step" style="left:100%"><b>100 %</b><span>Mémoire restaurée</span></p>
+            </div>
+          </div>
+          <div class="facts">
+            <p class="fact"><b>+10 %</b><span>par mission réussie</span></p>
+            <p class="fact"><b>10</b><span>missions</span></p>
+            <p class="fact"><b>~1 h</b><span>en équipe</span></p>
+          </div>
+        </div>
+        <div class="in" style="--d:3">{{ariie:100:260:brand}}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide era-present" aria-label="Le parcours">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">Le parcours</p>
+    <h2 class="in" style="--d:1">Une histoire, dans l’ordre</h2>
+    <div class="body">
+      <div class="route">
+        <div class="chapters">
+          <div class="chapter in" style="--tone:var(--present);--d:2"><span class="node">{{icon:radio}}</span><small>Prologue</small><h3>Le signal</h3><div class="dots"><i class="dot"></i></div></div>
+          <div class="chapter in" style="--tone:var(--past);--d:3"><span class="node">{{icon:folder-open}}</span><small>Acte I</small><h3>Les origines</h3><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div></div>
+          <div class="chapter in" style="--tone:var(--present);--d:4"><span class="node">{{icon:network}}</span><small>Acte II</small><h3>L’école vivante</h3><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div></div>
+          <div class="chapter in" style="--tone:var(--future);--d:5"><span class="node">{{icon:sprout}}</span><small>Acte III</small><h3>La transmission</h3><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot is-optional"></i><i class="dot"></i></div></div>
+          <div class="chapter in" style="--tone:var(--final);--d:6"><span class="node">{{icon:archive}}</span><small>Fin</small><h3>La capsule</h3></div>
+        </div>
+        <p class="route-note in" style="--d:7">
+          <span><i class="dot" style="--tone:var(--present);background:var(--muted)"></i>Mission</span>
+          <span><i class="dot is-optional" style="--tone:var(--muted)"></i>Conseil facultatif</span>
+          <span>{{icon:map-pin}}Dossier bonus : Illkirch, 2009 · 2017</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide era-future" aria-label="Le gameplay">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">Le gameplay</p>
+    <h2 class="in" style="--d:1">Enquêter, observer, résoudre</h2>
+    <div class="body">
+      <div class="tiles">
+        <div class="tile in" style="--tone:var(--past);--d:2"><span class="badge">{{icon:file-text}}</span><h3>Enquêter</h3><p>Archives et sources réelles</p></div>
+        <div class="tile in" style="--tone:var(--present);--d:3"><span class="badge">{{icon:eye}}</span><h3>Observer</h3><p>Des repères dans le bâtiment</p></div>
+        <div class="tile in" style="--tone:var(--future);--d:4"><span class="badge">{{icon:key-round}}</span><h3>Déchiffrer</h3><p>Code César, grille de mots</p></div>
+        <div class="tile in" style="--tone:var(--past);--d:5"><span class="badge">{{icon:waypoints}}</span><h3>Relier</h3><p>Circuit, chronologie, programme</p></div>
+        <div class="tile in" style="--tone:var(--present);--d:6"><span class="badge">{{icon:messages-square}}</span><h3>Dialoguer</h3><p>ARIIE, Nora et vos choix</p></div>
+        <div class="tile in" style="--tone:var(--future);--d:7"><span class="badge">{{icon:life-buoy}}</span><h3>S’aider</h3><p>Trois indices, puis ARIIE</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide era-past" aria-label="Game design">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">Technique · game design</p>
+    <h2 class="in" style="--d:1">Chaque mission nourrit la suivante</h2>
+    <div class="body">
+      <div class="tech">
+        <ul class="points">
+          <li class="in" style="--d:2">{{icon:braces}}<span>Un niveau = un fichier JSON<small>Contrat validé, testé, indépendant</small></span></li>
+          <li class="in" style="--d:3">{{icon:git-merge}}<span>Les réponses deviennent des preuves<small>Fragments transmis d’un niveau à l’autre</small></span></li>
+          <li class="in" style="--d:4">{{icon:badge-check}}<span>Vrai et inventé bien séparés<small>Chaque document porte son étiquette</small></span></li>
+        </ul>
+        <div class="flow in" style="--d:3">
+          <div class="flow-row"><p class="box">PAS-01<span>chronologie</span></p><span class="arrow">{{icon:arrow-right}}</span><p class="box">PAS-02<span>nom chiffré</span></p><span class="arrow">{{icon:arrow-right}}</span><p class="box">PAS-03<span>dates</span></p></div>
+          <div class="flow-down">{{icon:arrow-down}}</div>
+          <p class="box is-accent"><b>SYN-01 · machine temporelle</b><span>réunit les trois fragments</span></p>
+          <div class="badges" style="margin-top:14px">
+            <span class="tag c-present">Fait</span>
+            <span class="tag c-past">Reconstitution</span>
+            <span class="tag c-future">Fiction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide era-present" aria-label="Technologies">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">Technique · technologies</p>
+    <h2 class="in" style="--d:1">Un moteur séparé de l’interface</h2>
+    <div class="body">
+      <div class="tech">
+        <div class="stack">
+          <p class="tech-card in" style="--d:2"><b>TypeScript</b><span>Tout le code</span></p>
+          <p class="tech-card in" style="--d:3"><b>React 19</b><span>Interface</span></p>
+          <p class="tech-card in" style="--d:4"><b>Vite</b><span>Build</span></p>
+          <p class="tech-card in" style="--d:5"><b>Zod</b><span>Contrats</span></p>
+          <p class="tech-card in" style="--d:6"><b>Vitest</b><span>Tests</span></p>
+          <p class="tech-card in" style="--d:7"><b>Web Audio</b><span>Sons générés</span></p>
+        </div>
+        <div class="in" style="--d:4">
+          <div class="layers">
+            <p class="layer"><span>Interface</span><code>presentation/</code></p>
+            <p class="layer"><span>Stockage, hors ligne</span><code>adapters/</code></p>
+            <p class="layer is-core"><span>Moteur et règles</span><code>core/</code></p>
+          </div>
+          <p class="big-number"><b>142</b><span>tests automatiques à chaque push</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide era-present" aria-label="Hébergement">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">Technique · hébergement</p>
+    <h2 class="in" style="--d:1">Un site statique, jouable hors ligne</h2>
+    <div class="body">
+      <div class="tech">
+        <div class="flow">
+          <div class="flow-row in" style="--d:2"><p class="box">{{icon:git-branch}}<b>GitHub</b><span>le code</span></p><span class="arrow">{{icon:arrow-right}}</span><p class="box">{{icon:shield-check}}<b>Actions</b><span>tests et build</span></p></div>
+          <div class="flow-down in" style="--d:3">{{icon:arrow-down}}</div>
+          <div class="flow-row in" style="--d:4"><p class="box is-accent">{{icon:globe}}<b>GitHub Pages</b><span>aucun serveur</span></p><span class="arrow">{{icon:arrow-right}}</span><p class="box">{{icon:smartphone}}<b>Téléphone</b><span>ouvert par QR code</span></p></div>
+        </div>
+        <ul class="points">
+          <li class="in" style="--d:3">{{icon:wifi-off}}<span>Hors ligne<small>Service worker : tout est mis en cache</small></span></li>
+          <li class="in" style="--d:4">{{icon:qr-code}}<span>QR codes générés dans l’app<small>Pour les sources et pour partager le jeu</small></span></li>
+          <li class="in" style="--d:5">{{icon:user-x}}<span>Aucun compte<small>Aucune donnée ne quitte l’appareil</small></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide era-final" aria-label="Progression et sauvegarde">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">Technique · progression</p>
+    <h2 class="in" style="--d:1">Une partie qui ne se perd pas</h2>
+    <div class="body">
+      <div class="tech">
+        <ul class="points">
+          <li class="in" style="--d:2">{{icon:lock-keyhole-open}}<span>Déverrouillage pas à pas<small>Chaque mission ouvre la suivante</small></span></li>
+          <li class="in" style="--d:3">{{icon:save}}<span>Sauvegarde automatique<small>Sur l’appareil, à chaque action</small></span></li>
+          <li class="in" style="--d:4">{{icon:arrow-down-up}}<span>Export et import<small>Un fichier JSON, vérifié avant reprise</small></span></li>
+          <li class="in" style="--d:5">{{icon:shield-alert}}<span>Version incompatible ?<small>Refusée, jamais modifiée en silence</small></span></li>
+        </ul>
+        <pre class="save in" style="--d:4" aria-label="Extrait d’un fichier de sauvegarde">{
+  <span class="k">"campaignId"</span>: <span class="v">"chrono-iie"</span>,
+  <span class="k">"campaignRevision"</span>: <span class="v">2</span>,
+  <span class="k">"siteId"</span>: <span class="v">"evry-2026"</span>,
+  <span class="k">"team"</span>: <span class="v">"Les Archivistes"</span>,
+  <span class="k">"progress"</span>: {
+    <span class="k">"pas-01"</span>: { <span class="k">"status"</span>: <span class="v">"succeeded"</span> },
+    <span class="k">"pas-02"</span>: { <span class="k">"hints"</span>: <span class="v">1</span> }
+  }
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <nav class="chrome" aria-label="Navigation">
+    <button class="nav" id="prev" type="button" aria-label="Diapositive précédente">{{icon:chevron-left}}</button>
+    <div class="progress" id="progress"></div>
+    <button class="nav" id="next" type="button" aria-label="Diapositive suivante">{{icon:chevron-right}}</button>
+    <span class="counter" id="counter" aria-live="polite"></span>
+  </nav>
+</main>
+</div>
+<script>
+(() => {
+  const stage = document.getElementById('stage');
+  const slides = [...stage.querySelectorAll('.slide')];
+  const progress = document.getElementById('progress');
+  const counter = document.getElementById('counter');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const pad = (n) => String(n).padStart(2, '0');
+  let current = 0;
+
+  const dots = slides.map((slide, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.setProperty('--pos', `${(index / (slides.length - 1)) * 100}%`);
+    button.setAttribute('aria-label', `Aller à la diapositive ${index + 1} : ${slide.getAttribute('aria-label')}`);
+    button.addEventListener('click', () => show(index));
+    progress.append(button);
+    return button;
+  });
+
+  function show(index) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('is-active', i === current);
+      slide.setAttribute('aria-hidden', String(i !== current));
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-done', i <= current);
+      if (i === current) dot.setAttribute('aria-current', 'step');
+      else dot.removeAttribute('aria-current');
+    });
+    counter.textContent = `${pad(current + 1)} / ${pad(slides.length)}`;
+    prev.disabled = current === 0;
+    next.disabled = current === slides.length - 1;
+    try { history.replaceState(null, '', `#${current + 1}`); } catch {}
+  }
+
+  function fit() {
+    const box = stage.parentElement;
+    const style = getComputedStyle(box);
+    const width = box.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    const height = box.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+    stage.style.transform = `translate(-50%, -50%) scale(${Math.min(width / 1280, height / 720)})`;
+  }
+
+  function fullscreen() {
+    const request = document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
+    request?.catch?.(() => {});
+  }
+
+  prev.addEventListener('click', () => show(current - 1));
+  next.addEventListener('click', () => show(current + 1));
+  document.addEventListener('keydown', (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const onButton = event.target instanceof HTMLButtonElement;
+    if (event.key === 'ArrowRight' || event.key === 'PageDown' || (!onButton && (event.key === ' ' || event.key === 'Enter'))) {
+      event.preventDefault();
+      show(current + 1);
+    }
+    else if (event.key === 'ArrowLeft' || event.key === 'PageUp') show(current - 1);
+    else if (event.key === 'Home') show(0);
+    else if (event.key === 'End') show(slides.length - 1);
+    else if (event.key === 'f' || event.key === 'F') fullscreen();
+  });
+  let touchX = null;
+  stage.addEventListener('touchstart', (event) => { touchX = event.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', (event) => {
+    if (touchX === null) return;
+    const delta = event.changedTouches[0].clientX - touchX;
+    if (Math.abs(delta) > 40) show(current + (delta < 0 ? 1 : -1));
+    touchX = null;
+  });
+  window.addEventListener('resize', fit);
+  fit();
+  const start = parseInt(location.hash.slice(1), 10);
+  show(Number.isFinite(start) ? start - 1 : 0);
+})();
+</script>
+</body>
+</html>
