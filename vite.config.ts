@@ -4,7 +4,7 @@ import { offlinePlugin } from './scripts/offline-plugin.ts';
 
 export default defineConfig({
   plugins: [react(), offlinePlugin()],
-  base: './',
+  base: process.env.PAGES_BASE_PATH ?? './',
   test: {
     include: ['checks/**/*.test.ts', 'checks/**/*.test.tsx'],
     environment: 'node',

@@ -1,5 +1,8 @@
 # Chrono-IIE — La mémoire de demain
 
+
+**Jouer en ligne : [Chrono-IIE sur GitHub Pages](https://Danii15321.github.io/ENSIIE-Escape-Game/).**
+
 **Game design complet, direction artistique, dialogues et architecture du projet.**
 
 Version consolidée du 15 octobre 2026 pour le hackathon ENSIIE. Ce document est la référence commune d’une équipe de réalisation de **deux personnes**. Un premier socle exécutable est maintenant disponible ; les sections de conception décrivent le jeu complet visé, au-delà des prototypes déjà réalisés.
@@ -1604,3 +1607,11 @@ Si le temps du hackathon devient court, réduire l’animation et les vues spéc
 **Campagne terminée :** le graphe est sans blocage, les bindings sont compatibles, les clés ne sautent pas les prérequis, les dix réussites donnent exactement 100 d’intégrité, toutes les fins sont accessibles, le profil réel est vérifié ou la démonstration est clairement étiquetée, et une partie complète a été essayée sur le matériel cible.
 
 **Architecture réussie :** vous pouvez chacun créer un niveau utilisant des briques existantes, le tester avec de faux fragments, puis le raccorder sans modifier le code du niveau de l’autre.
+
+## Déploiement GitHub Pages
+
+Le workflow `.github/workflows/pages.yml` vérifie le contenu, lance les tests et construit le site avec Node 22. Si ces étapes réussissent, il publie `dist/` sur GitHub Pages à chaque push sur `main`. Il peut également être lancé manuellement dans Actions.
+
+La variable de build `PAGES_BASE_PATH=/ENSIIE-Escape-Game/` fixe le chemin du dépôt pour les scripts, styles et médias. Le développement local conserve sa base relative par défaut. Les profils, documents et ressources du jeu sont embarqués dans le build ; le cache hors ligne se prépare explicitement depuis les réglages une fois le site chargé en HTTPS. Les sauvegardes et contributions restent propres au navigateur et à l’adresse du site : celles de localhost ne sont pas déplacées automatiquement.
+
+Les paramètres du dépôt doivent utiliser **Pages → Source : GitHub Actions**. L’état du déploiement et son URL sont visibles dans Actions et dans l’environnement `github-pages`.
