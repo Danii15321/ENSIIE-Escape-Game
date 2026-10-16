@@ -69,7 +69,7 @@ function qr(url) {
 }
 
 let html = readFileSync(join(repo, 'docs/presentation/source.html'), 'utf8');
-const icons = [...new Set([...html.matchAll(/\{\{icon:([a-z-]+)\}\}/g)].map((m) => m[1]))];
+const icons = [...new Set([...html.matchAll(/\{\{icon:([a-z0-9-]+)\}\}/g)].map((m) => m[1]))];
 for (const name of icons) html = html.replaceAll(`{{icon:${name}}}`, await icon(name));
 html = html.replace(/\{\{font:(\w+)\}\}/g, (_, k) => b64(join(nm, fonts[k]), 'font/woff2'));
 html = html.replace(/\{\{img:([\w-]+)\}\}/g, (_, k) =>

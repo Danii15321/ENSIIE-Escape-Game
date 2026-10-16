@@ -310,6 +310,57 @@ p { margin: 0; }
 .tile h3 { font-size: 22px; }
 .tile p { color: var(--muted); font-size: 16px; }
 
+/* Projet */
+.project { width: 100%; display: grid; gap: 34px; }
+.pills { display: flex; flex-wrap: wrap; gap: 12px; }
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel-sunk);
+  font-size: 18px;
+  color: var(--text);
+}
+.pill .icon { width: 20px; height: 20px; color: var(--accent); }
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.pillar {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, var(--line));
+  background: linear-gradient(180deg, var(--panel), var(--panel-sunk));
+}
+.pillar .badge { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; color: var(--tone); background: color-mix(in srgb, var(--tone) 14%, transparent); }
+.pillar p { color: var(--muted); font-size: 17px; }
+
+/* Apprendre */
+.learn { width: 100%; display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: stretch; }
+.side {
+  --accent: var(--tone);
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  padding: 28px 30px;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--tone) 35%, var(--line));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--tone) 8%, var(--panel)), var(--panel-sunk));
+}
+.side h3 { display: flex; align-items: center; gap: 12px; font-size: 28px; color: var(--tone); }
+.side h3 .icon { width: 30px; height: 30px; }
+.checks { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.checks li { display: flex; align-items: center; gap: 12px; font-size: 20px; }
+.checks .icon { width: 20px; height: 20px; color: var(--tone); stroke-width: 2.4; }
+.milestones { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.milestones li { display: grid; gap: 4px; padding: 12px 14px; border-radius: 12px; background: var(--bg-deep); border: 1px solid var(--line); font-size: 15px; color: var(--muted); }
+.milestones b { font-family: var(--font-mono); font-size: 22px; color: var(--tone); }
+.learn-note { position: absolute; left: 84px; bottom: 96px; display: flex; align-items: center; gap: 10px; font-size: 17px; color: var(--muted); }
+.learn-note .icon { width: 20px; height: 20px; color: var(--final); }
+
 /* Démo */
 .demo-title { margin: 0; font-size: 120px; line-height: 1; letter-spacing: -0.04em; }
 .demo-link {
@@ -391,6 +442,27 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
     <p class="tagline in" style="--d:3">Restaurer la mémoire de <strong>l’ENSIIE</strong></p>
     <p class="ribbon in" style="--d:4" aria-label="De 1968 à 2068"><span class="c-past">1968</span><span class="ribbon-line"></span><span class="c-present">2026</span><span class="ribbon-line"></span><span class="c-future">2068</span></p>
     <p class="credit-line">Hackathon ENSIIE · 2026</p>
+  </section>
+
+  <section class="slide era-present" aria-label="Le projet">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">Le projet</p>
+    <h2 class="in" style="--d:1">Découvrir l’ENSIIE en jouant</h2>
+    <p class="lead in" style="--d:2">Un escape game sur téléphone, à vivre en équipe dans l’école.</p>
+    <div class="body">
+      <div class="project">
+        <div class="pills in" style="--d:3">
+          <span class="pill">{{icon:users}}3 à 5 joueurs</span>
+          <span class="pill">{{icon:graduation-cap}}Visiteurs, futurs élèves, élèves</span>
+          <span class="pill">{{icon:sparkles}}Aucun prérequis</span>
+        </div>
+        <div class="pillars">
+          <div class="pillar in" style="--tone:var(--past);--d:4"><span class="badge">{{icon:library}}</span><h3>Des sources réelles</h3><p>Archives, décrets, sites de l’école</p></div>
+          <div class="pillar in" style="--tone:var(--present);--d:5"><span class="badge">{{icon:building-complex}}</span><h3>Le bâtiment en jeu</h3><p>Des indices à observer sur place</p></div>
+          <div class="pillar in" style="--tone:var(--future);--d:6"><span class="badge">{{icon:tag}}</span><h3>Une fiction signalée</h3><p>2068 et ARIIE, clairement inventés</p></div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="slide era-present" aria-label="L’univers">
@@ -497,6 +569,38 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
         <div class="tile in" style="--tone:var(--future);--d:7"><span class="badge">{{icon:life-buoy}}</span><h3>S’aider</h3><p>Trois indices, puis ARIIE</p></div>
       </div>
     </div>
+  </section>
+
+  <section class="slide era-past" aria-label="Apprendre en jouant">
+    <div class="backdrop">{{dial}}</div>
+    <p class="eyebrow in">Apprendre en jouant</p>
+    <h2 class="in" style="--d:1">Ludique et pédagogique</h2>
+    <div class="body">
+      <div class="learn">
+        <div class="side in" style="--tone:var(--future);--d:2">
+          <h3>{{icon:gamepad-2}}On joue</h3>
+          <ul class="checks">
+            <li>{{icon:check}}Des énigmes variées</li>
+            <li>{{icon:check}}Une histoire, des dialogues</li>
+            <li>{{icon:check}}Des choix qui comptent</li>
+            <li>{{icon:check}}Aucune élimination</li>
+          </ul>
+        </div>
+        <div class="side in" style="--tone:var(--past);--d:3">
+          <h3>{{icon:graduation-cap}}On apprend</h3>
+          <ol class="milestones">
+            <li><b>1968</b>L’IIE naît au Cnam</li>
+            <li><b>1984</b>Installation à Évry</li>
+            <li><b>2006</b>L’IIE devient l’ENSIIE</li>
+          </ol>
+          <ul class="checks">
+            <li>{{icon:check}}Les formations et la vie étudiante</li>
+            <li>{{icon:check}}Vérifier une source, séparer fait et fiction</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="learn-note in" style="--d:4">{{icon:lightbulb}}Chaque mission se termine sur ce que l’équipe vient d’apprendre.</p>
   </section>
 
   <section class="slide era-present title-slide is-centered" aria-label="Démo">
