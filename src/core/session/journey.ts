@@ -17,7 +17,7 @@ const chapterSchema = z.object({
   lines: z.array(line).min(1),
   questions: z.array(z.object({ label: text, speaker, text })).default([]),
   closing: line.optional(),
-  image: id.optional(),
+  images: z.array(id).default([]),
   levels: z.array(id).min(1),
 });
 const journeySchema = z.object({

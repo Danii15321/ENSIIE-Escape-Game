@@ -1,5 +1,7 @@
 import { z } from 'zod';
-import { catalog, readJson, levelIds, journey } from './load-content';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { catalog, readJson, levelIds, journey, root } from './load-content';
 import { validateFixture } from '../src/core/content/catalog';
 import { answerSchema } from '../src/core/contracts';
 import { evaluate } from '../src/core/validation/mechanics';
@@ -16,6 +18,11 @@ const sources = z
   .record(z.string(), z.object({ title: z.string(), url: z.url() }))
   .parse(readJson('game/shared/sources/index.json'));
 parseEndingCopy(readJson('game/endings/content.json'), catalog.levels['fut-c']!, sources);
+for (const site of Object.values(catalog.sites))
+  for (const [observation, landmark] of Object.entries(site.landmarks ?? {}))
+    for (const photo of landmark.photos)
+      if (!existsSync(resolve(root, 'game/sites', site.id, 'assets', photo.file)))
+        throw new Error(`${site.id}/${observation} : photo absente ${photo.file}`);
 let executable = 0;
 let drafts = 0;
 const requested = process.argv[2];

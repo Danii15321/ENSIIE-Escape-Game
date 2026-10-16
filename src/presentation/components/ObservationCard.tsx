@@ -1,6 +1,7 @@
 import type { ObservationId, Site } from '../../core/contracts';
 import { caesar } from '../../core/validation/mechanics';
 import { TextBlocks } from './Cards';
+import { useSitePhoto } from './SitePhotos';
 
 export function ObservationCard({
   observation,
@@ -14,6 +15,7 @@ export function ObservationCard({
   onFallback: () => void;
 }) {
   const landmark = site.mode === 'real' ? site.landmarks?.[observation] : undefined;
+  const resolve = useSitePhoto();
   return (
     <section className="observation" aria-label={`Repère ${observation}`}>
       {landmark ? (
@@ -39,6 +41,18 @@ export function ObservationCard({
             <div id={`fallback-${observation}`} className="notice" role="status">
               <strong>Secours textuel {observation} consulté — sans pénalité</strong>
               <TextBlocks text={landmark.fallback} />
+              {landmark.photos.length ? (
+                <div className="site-photos">
+                  {landmark.photos.map((photo) => {
+                    const url = resolve(site.id, photo.file);
+                    return url ? (
+                      <figure key={photo.file}>
+                        <img src={url} alt={photo.alt} loading="lazy" />
+                      </figure>
+                    ) : null;
+                  })}
+                </div>
+              ) : null}
             </div>
           ) : null}
         </>

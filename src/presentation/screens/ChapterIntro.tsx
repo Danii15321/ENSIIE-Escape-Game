@@ -38,12 +38,12 @@ function YearRoll({ from, to }: { from: number; to: number }) {
 
 export function ChapterIntro({
   chapter,
-  image,
+  images,
   missions,
   onBegin,
 }: {
   chapter: Chapter;
-  image?: Media;
+  images: Media[];
   missions: { title: string; optional: boolean }[];
   onBegin: () => void;
 }) {
@@ -59,14 +59,18 @@ export function ChapterIntro({
   const begin = chapter.id === 'prologue' ? 'Recevoir le signal' : 'Commencer l’acte';
   return (
     <section className={`chapter-intro era-${chapter.era}`} aria-labelledby="chapter-title">
-      {image ? (
-        <figure className="chapter-photo">
-          <img src={image.url} alt={image.alt} />
-          <figcaption>
-            {image.caption}
-            <small>{image.credit}</small>
-          </figcaption>
-        </figure>
+      {images.length ? (
+        <div className={`chapter-photos count-${images.length}`}>
+          {images.map((image) => (
+            <figure key={image.url} className="chapter-photo">
+              <img src={image.url} alt={image.alt} />
+              <figcaption>
+                {image.caption}
+                <small>{image.credit}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       ) : null}
       <div className="chapter-titles">
         <p className="chapter-label">

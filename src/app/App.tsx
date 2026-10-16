@@ -51,11 +51,19 @@ import type {
   StopView,
 } from '../presentation/screens/types';
 import { media } from '../presentation/theme/media';
+import { SitePhotosProvider } from '../presentation/components/SitePhotos';
 
 const editorial = parsePresentationCatalog(
   import.meta.glob('../../game/levels/*/presentation.json', { eager: true, import: 'default' }),
 );
 export const journey = parseJourney(rawJourney, catalog);
+const siteAssets = import.meta.glob('../../game/sites/*/assets/*.{jpg,jpeg,png,webp}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
+const sitePhoto = (siteId: string, file: string) =>
+  siteAssets[`../../game/sites/${siteId}/assets/${file}`];
 
 type Screen =
   | 'title'
@@ -334,7 +342,7 @@ export function App() {
       <ChapterIntro
         key={chapter.id}
         chapter={chapter}
-        image={chapter.image ? media[chapter.image] : undefined}
+        images={chapter.images.flatMap((id) => (media[id] ? [media[id]] : []))}
         missions={chapter.levels.map((id) => ({
           title: catalog.levels[id]!.title,
           optional: Boolean(catalog.levels[id]!.narrative),
@@ -413,6 +421,7 @@ export function App() {
         fileError={fileError}
         offline={<OfflinePanel />}
         photos={Object.values(media)}
+        shareUrl={`${location.origin}${location.pathname}`}
         onPause={() => setPaused(true)}
         onExport={() => downloadSave(session)}
         onImport={async (file) => {
@@ -463,27 +472,32 @@ export function App() {
 
   return (
     <EditorialProvider copies={editorial} team={team}>
-      <AmbienceProvider value={ambience}>
-        <Shell
-          scene={scene}
-          vivid={
-            screen === 'title' || screen === 'chapter' || screen === 'reward' || screen === 'ending'
-          }
-          integrity={score}
-          topbar={screen === 'journey' || screen === 'memory' || screen === 'settings'}
-          tabs={withTabs ? tabs : []}
-          current={withTabs ? (screen as Tab) : undefined}
-          onTab={(tab) => {
-            if (tab === 'ending') cue('capsule');
-            go(tab);
-          }}
-          onPause={() => setPaused(true)}
-          notice={notice}
-        >
-          {content}
-        </Shell>
-        {paused ? <PauseOverlay onResume={() => setPaused(false)} /> : null}
-      </AmbienceProvider>
+      <SitePhotosProvider resolve={sitePhoto}>
+        <AmbienceProvider value={ambience}>
+          <Shell
+            scene={scene}
+            vivid={
+              screen === 'title' ||
+              screen === 'chapter' ||
+              screen === 'reward' ||
+              screen === 'ending'
+            }
+            integrity={score}
+            topbar={screen === 'journey' || screen === 'memory' || screen === 'settings'}
+            tabs={withTabs ? tabs : []}
+            current={withTabs ? (screen as Tab) : undefined}
+            onTab={(tab) => {
+              if (tab === 'ending') cue('capsule');
+              go(tab);
+            }}
+            onPause={() => setPaused(true)}
+            notice={notice}
+          >
+            {content}
+          </Shell>
+          {paused ? <PauseOverlay onResume={() => setPaused(false)} /> : null}
+        </AmbienceProvider>
+      </SitePhotosProvider>
     </EditorialProvider>
   );
 }

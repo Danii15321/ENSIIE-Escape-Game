@@ -24,7 +24,9 @@ for (const file of [...walk(resolve(root, 'src')), ...walk(resolve(root, 'game')
       name.startsWith('src/presentation/') &&
       !target.startsWith('src/presentation/') &&
       !target.startsWith('src/core/') &&
-      !['react', 'react/jsx-runtime', 'react-dom', 'lucide-react'].includes(target)
+      !['react', 'react/jsx-runtime', 'react-dom', 'lucide-react', 'qrcode-generator'].includes(
+        target,
+      )
     )
       errors.push(`${name} : dépendance de présentation interdite ${target}`);
     if (

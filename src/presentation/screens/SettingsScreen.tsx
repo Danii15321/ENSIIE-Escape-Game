@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Download, Pause, RotateCcw, Upload, Wrench } from 'lucide-react';
 import { Switch } from '../components/Switch';
+import { QrCode } from '../components/QrCode';
 import type { Media } from '../theme/media';
 import { NewGameForm } from './NewGameForm';
 import type { SiteOption } from './types';
@@ -23,6 +24,7 @@ export function SettingsScreen({
   fileError,
   offline,
   photos,
+  shareUrl,
   onPause,
   onExport,
   onImport,
@@ -38,6 +40,7 @@ export function SettingsScreen({
   fileError: string;
   offline: ReactNode;
   photos: Media[];
+  shareUrl: string;
   onPause: () => void;
   onExport: () => void;
   onImport: (file: File) => void;
@@ -125,6 +128,25 @@ export function SettingsScreen({
           checked={prefs.helpNudges}
           onChange={(value) => onPrefs({ helpNudges: value })}
         />
+      </section>
+      <section className="settings-group" aria-labelledby="settings-share">
+        <h2 id="settings-share">Ouvrir le jeu sur un autre téléphone</h2>
+        <div className="share-qr">
+          <QrCode value={shareUrl} label="adresse du jeu" size={180} />
+          <div>
+            <p>
+              Scannez ce code pour ouvrir le jeu, consulter les sources ou partager l’accueil. La
+              partie reste sur l’appareil principal : rien n’est synchronisé.
+            </p>
+            <p className="share-url">{shareUrl}</p>
+            {/^https?:\/\/(localhost|127\.|\[::1\])/.test(shareUrl) ? (
+              <p className="notice-line">
+                Cette adresse locale ne fonctionne que sur cet ordinateur. Utilisez la version
+                publiée, ou l’adresse réseau affichée par npm run dev.
+              </p>
+            ) : null}
+          </div>
+        </div>
       </section>
       <div className="settings-group">{offline}</div>
       <section className="settings-group" aria-labelledby="settings-help">

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FocusedLevelTitle, NarrativeCard, TextBlocks } from './Cards';
+import { SourceLink } from './QrCode';
 
 export type EndingTheme = 'lucidite' | 'sobriete' | 'partage' | 'horizon-commun';
 type Line = { speaker: string; text: string };
@@ -104,10 +105,7 @@ export function EndingView({
               <ul className="source-list">
                 {entry.sourceIds.map((id) => (
                   <li key={id}>
-                    <a href={sources[id]!.url} target="_blank" rel="noreferrer">
-                      {sources[id]!.title}
-                      <span className="sr-only"> (nouvel onglet)</span> ↗
-                    </a>
+                    <SourceLink title={sources[id]!.title} url={sources[id]!.url} />
                   </li>
                 ))}
               </ul>

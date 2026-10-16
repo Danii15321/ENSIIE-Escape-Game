@@ -20,7 +20,13 @@
       "question": "En 2026, combien de baby-foot se trouvent dans le foyer de l’ENSIIE ?",
       "scope": "Comptez les tables de baby-foot du foyer, pas les joueurs ni les barres.",
       "access": "Le foyer est toujours accessible selon le porteur du projet.",
-      "fallback": "Le relevé communiqué pour 2026 indique deux baby-foot dans le foyer de l’ENSIIE. Saisissez 2 comme valeur d’observation, puis poursuivez le déchiffrement."
+      "fallback": "Le relevé communiqué pour 2026 indique deux baby-foot dans le foyer de l’ENSIIE. Saisissez 2 comme valeur d’observation, puis poursuivez le déchiffrement.",
+      "photos": [
+        {
+          "file": "o1-foyer-baby-foot.jpeg",
+          "alt": "Le foyer de l’ENSIIE : deux tables de baby-foot en bois au centre, des chaises hautes rouges et une banquette rouge autour."
+        }
+      ]
     },
     "O2": {
       "location": "le premier étage de l’ENSIIE",
@@ -28,7 +34,21 @@
       "question": "En 2026, combien de salles de TP se trouvent au premier étage de l’ENSIIE ?",
       "scope": "Comptez les salles de travaux pratiques du premier étage, sans compter les autres types de salles.",
       "access": "Le premier étage est toujours accessible selon le porteur du projet.",
-      "fallback": "Le relevé communiqué pour 2026 indique trois salles de TP au premier étage de l’ENSIIE. Saisissez 3 comme valeur d’observation, puis déterminez si ce nombre est pair ou impair."
+      "fallback": "Le relevé communiqué pour 2026 indique trois salles de TP au premier étage de l’ENSIIE. Saisissez 3 comme valeur d’observation, puis déterminez si ce nombre est pair ou impair.",
+      "photos": [
+        {
+          "file": "o2-etage1-salles-tp-1.jpeg",
+          "alt": "Première salle de TP du premier étage : rangées de postes informatiques et un tableau blanc au fond."
+        },
+        {
+          "file": "o2-etage1-salles-tp-2.jpeg",
+          "alt": "Deuxième salle de TP du premier étage : rangées de postes informatiques et un tableau vert au fond."
+        },
+        {
+          "file": "o2-etage1-salles-tp-3.jpeg",
+          "alt": "Troisième salle de TP du premier étage : rangées de postes informatiques, poteaux gris et grande baie vitrée sur une cour."
+        }
+      ]
     }
   }
 }

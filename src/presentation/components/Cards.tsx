@@ -1,10 +1,11 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { ExternalLink, FileText, Lock, Radio } from 'lucide-react';
+import { FileText, Lock, Radio } from 'lucide-react';
 import type { Level } from '../../core/contracts';
 import { AriieAvatar } from './AriieAvatar';
 import { useAmbience } from './Ambience';
 import { TextBlocks } from './Text';
 import { TypedText } from './TypedText';
+import { SourceLink } from './QrCode';
 
 export { TextBlocks } from './Text';
 
@@ -98,11 +99,7 @@ export function DocumentCard({
             {document.sourceIds.map((id) => (
               <li key={id}>
                 {sources[id] ? (
-                  <a href={sources[id].url} target="_blank" rel="noreferrer">
-                    {sources[id].title}
-                    <span className="sr-only"> (nouvel onglet)</span>
-                    <ExternalLink aria-hidden="true" size={14} />
-                  </a>
+                  <SourceLink title={sources[id].title} url={sources[id].url} />
                 ) : (
                   <span>Source {id} à compléter</span>
                 )}

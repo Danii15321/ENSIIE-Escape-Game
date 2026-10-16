@@ -289,6 +289,9 @@ const landmarkSchema = z.object({
   scope: text,
   access: text,
   fallback: text,
+  photos: z
+    .array(z.object({ file: z.string().regex(/^[\w.-]+\.(jpe?g|png|webp)$/), alt: text }))
+    .default([]),
 });
 export const siteSchema = z
   .object({
