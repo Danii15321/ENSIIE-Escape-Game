@@ -369,6 +369,19 @@ p { margin: 0; }
 .save .k { color: #7a4b12; }
 .save .v { color: #1f5f6b; }
 
+/* Merci */
+.thanks { flex: 1; display: grid; grid-template-columns: 1fr auto; gap: 72px; align-items: center; }
+.thanks h2 { font-size: 76px; }
+.url { display: inline-flex; align-items: center; gap: 12px; margin-top: 30px; font-family: var(--font-mono); font-size: 20px; color: var(--present); }
+.qr {
+  margin: 0;
+  padding: 18px;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--present) 50%, transparent), 0 24px 70px -20px color-mix(in srgb, var(--present) 55%, transparent);
+}
+.qr svg { display: block; width: 340px; height: 340px; }
+
 /* Navigation */
 .chrome {
   position: absolute;
@@ -380,7 +393,7 @@ p { margin: 0; }
   gap: 18px;
   z-index: 2;
 }
-.progress { flex: 1; display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
+.progress { flex: 1; display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px; }
 .progress button { height: 22px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
 .progress button::before { content: ''; position: absolute; left: 0; right: 0; top: 9px; height: 4px; border-radius: 4px; background: var(--line); transition: background 400ms var(--ease-out); }
 .progress button.is-done::before { background: var(--brand); background-size: 1000% 100%; background-position: var(--pos) 0; }
@@ -617,6 +630,19 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
   }
 }</pre>
       </div>
+    </div>
+  </section>
+
+  <section class="slide era-present is-centered" aria-label="Merci">
+    <div class="backdrop">{{dial}}</div>
+    <div class="thanks">
+      <div class="thanks-text">
+        <p class="eyebrow in">Chrono·IIE</p>
+        <h2 class="in" style="--d:1">Merci !</h2>
+        <p class="lead in" style="--d:2">À vous de jouer. Scannez le code pour ouvrir le jeu.</p>
+        <p class="url in" style="--d:3">{{icon:globe}}danii15321.github.io/ENSIIE-Escape-Game</p>
+      </div>
+      <figure class="qr in" style="--d:2">{{qr:https://danii15321.github.io/ENSIIE-Escape-Game/}}</figure>
     </div>
   </section>
 

@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { join } from 'node:path';
+import qrcode from 'qrcode-generator';
 
 const repo = process.cwd();
 const out = join(repo, 'docs/presentation/chrono-iie-presentation.html');
@@ -55,6 +56,18 @@ const ticks = Array.from({ length: 60 }, (_, t) => {
 }).join('');
 const dial = `<svg class="dial" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96"/><circle r="78"/>${ticks}</svg>`;
 
+function qr(url) {
+  const code = qrcode(0, 'M');
+  code.addData(url, 'Byte');
+  code.make();
+  const size = code.getModuleCount();
+  let path = '';
+  for (let row = 0; row < size; row++)
+    for (let col = 0; col < size; col++)
+      if (code.isDark(row, col)) path += `M${col} ${row}h1v1h-1z`;
+  return `<svg viewBox="-2 -2 ${size + 4} ${size + 4}" shape-rendering="crispEdges" role="img" aria-label="Code QR : ${url}"><rect x="-2" y="-2" width="${size + 4}" height="${size + 4}" fill="#ffffff"/><path d="${path}" fill="#0b141b"/></svg>`;
+}
+
 let html = readFileSync(join(repo, 'docs/presentation/source.html'), 'utf8');
 const icons = [...new Set([...html.matchAll(/\{\{icon:([a-z-]+)\}\}/g)].map((m) => m[1]))];
 for (const name of icons) html = html.replaceAll(`{{icon:${name}}}`, await icon(name));
@@ -64,6 +77,7 @@ html = html.replace(/\{\{img:([\w-]+)\}\}/g, (_, k) =>
 );
 html = html.replace(/\{\{ariie:(\d+):(\d+)(?::(\w+))?\}\}/g, (_, i, s, m) => ariie(+i, +s, m));
 html = html.replaceAll('{{dial}}', dial);
+html = html.replace(/\{\{qr:([^}]+)\}\}/g, (_, url) => qr(url));
 const left = html.match(/\{\{[^}]*\}\}/);
 if (left) throw new Error(`Marqueur non remplacé : ${left[0]}`);
 if (html.includes(String.fromCharCode(0x2014))) throw new Error('Tiret cadratin interdit');
