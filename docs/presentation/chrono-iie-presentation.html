@@ -253,23 +253,6 @@ p { margin: 0; }
 .era p:last-child { color: var(--muted); font-size: 18px; }
 .photo-credit { margin-top: 18px; font-size: 12px; color: var(--faint); }
 
-/* 4. But */
-.goal { display: grid; grid-template-columns: 1fr 260px; gap: 70px; align-items: center; width: 100%; }
-.meter { display: grid; gap: 16px; }
-.meter-track { position: relative; height: 18px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
-.meter-fill { position: absolute; inset: 0 auto 0 0; width: 100%; border-radius: inherit; background: var(--brand); transform-origin: left; }
-.is-active .meter-fill { animation: fill 2.4s var(--ease-out) 300ms both; }
-.meter-steps { position: relative; height: 70px; font-size: 16px; }
-.meter-step { position: absolute; top: 0; display: grid; gap: 4px; translate: -50% 0; text-align: center; white-space: nowrap; }
-.meter-step:first-child { translate: 0 0; text-align: left; }
-.meter-step:last-child { translate: -100% 0; text-align: right; }
-.meter-step b { font-family: var(--font-mono); font-size: 18px; color: var(--accent); }
-.meter-step span { color: var(--muted); }
-.facts { display: flex; gap: 18px; margin-top: 30px; }
-.fact { display: grid; gap: 4px; padding: 18px 22px; border-radius: 14px; background: var(--panel-sunk); border: 1px solid var(--line); }
-.fact b { font-family: var(--font-display); font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
-.fact span { font-size: 16px; color: var(--muted); }
-
 /* 5. Parcours */
 .route { width: 100%; display: grid; gap: 30px; }
 .chapters { display: grid; grid-template-columns: 0.8fr 1.4fr 1.15fr 1.25fr 0.8fr; gap: 14px; position: relative; }
@@ -291,8 +274,6 @@ p { margin: 0; }
 .dots { display: flex; gap: 6px; flex-wrap: wrap; }
 .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--tone); }
 .dot.is-optional { background: transparent; border: 2px dashed var(--tone); }
-.route-note { display: flex; gap: 28px; font-size: 18px; color: var(--muted); }
-.route-note span { display: inline-flex; align-items: center; gap: 10px; }
 
 /* 6. Gameplay */
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; }
@@ -337,29 +318,7 @@ p { margin: 0; }
 }
 .pillar .badge { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; color: var(--tone); background: color-mix(in srgb, var(--tone) 14%, transparent); }
 .pillar p { color: var(--muted); font-size: 17px; }
-
-/* Apprendre */
-.learn { width: 100%; display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: stretch; }
-.side {
-  --accent: var(--tone);
-  display: grid;
-  align-content: start;
-  gap: 20px;
-  padding: 28px 30px;
-  border-radius: 18px;
-  border: 1px solid color-mix(in srgb, var(--tone) 35%, var(--line));
-  background: linear-gradient(180deg, color-mix(in srgb, var(--tone) 8%, var(--panel)), var(--panel-sunk));
-}
-.side h3 { display: flex; align-items: center; gap: 12px; font-size: 28px; color: var(--tone); }
-.side h3 .icon { width: 30px; height: 30px; }
-.checks { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
-.checks li { display: flex; align-items: center; gap: 12px; font-size: 20px; }
-.checks .icon { width: 20px; height: 20px; color: var(--tone); stroke-width: 2.4; }
-.milestones { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.milestones li { display: grid; gap: 4px; padding: 12px 14px; border-radius: 12px; background: var(--bg-deep); border: 1px solid var(--line); font-size: 15px; color: var(--muted); }
-.milestones b { font-family: var(--font-mono); font-size: 22px; color: var(--tone); }
-.learn-note { position: absolute; left: 84px; bottom: 96px; display: flex; align-items: center; gap: 10px; font-size: 17px; color: var(--muted); }
-.learn-note .icon { width: 20px; height: 20px; color: var(--final); }
+.pillars.is-four { grid-template-columns: repeat(4, 1fr); }
 
 /* Démo */
 .demo-title { margin: 0; font-size: 120px; line-height: 1; letter-spacing: -0.04em; }
@@ -506,33 +465,6 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
     </div>
   </section>
 
-  <section class="slide era-present" aria-label="Le but">
-    <div class="backdrop"><svg class="dial" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96"/><circle r="78"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(0)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(6)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(12)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(18)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(24)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(30)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(36)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(42)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(48)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(54)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(60)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(66)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(72)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(78)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(84)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(90)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(96)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(102)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(108)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(114)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(120)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(126)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(132)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(138)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(144)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(150)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(156)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(162)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(168)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(174)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(180)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(186)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(192)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(198)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(204)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(210)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(216)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(222)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(228)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(234)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(240)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(246)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(252)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(258)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(264)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(270)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(276)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(282)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(288)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(294)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(300)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(306)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(312)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(318)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(324)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(330)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(336)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(342)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(348)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(354)"/></svg></div>
-    <p class="eyebrow in">Le but</p>
-    <h2 class="in" style="--d:1">Restaurer la mémoire d’ARIIE</h2>
-    <div class="body">
-      <div class="goal">
-        <div class="in" style="--d:2">
-          <div class="meter">
-            <div class="meter-track"><div class="meter-fill"></div></div>
-            <div class="meter-steps">
-              <p class="meter-step" style="left:0"><b>0 %</b><span>Signal fragmenté</span></p>
-              <p class="meter-step" style="left:40%"><b>40 %</b><span>En reconstruction</span></p>
-              <p class="meter-step" style="left:70%"><b>70 %</b><span>Presque stable</span></p>
-              <p class="meter-step" style="left:100%"><b>100 %</b><span>Mémoire restaurée</span></p>
-            </div>
-          </div>
-          <div class="facts">
-            <p class="fact"><b>+10 %</b><span>par mission réussie</span></p>
-            <p class="fact"><b>10</b><span>missions</span></p>
-            <p class="fact"><b>~1 h</b><span>en équipe</span></p>
-          </div>
-        </div>
-        <div class="in" style="--d:3"><svg class="ariie" viewBox="0 0 120 120" width="260" height="260" aria-hidden="true"><defs><linearGradient id="a3g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e7b56a"/><stop offset="55%" stop-color="#70d6e7"/><stop offset="100%" stop-color="#beaff5"/></linearGradient><radialGradient id="a3h"><stop offset="0%" stop-color="#ffffff"/><stop offset="45%" stop-color="currentColor" stop-opacity="0.9"/><stop offset="100%" stop-color="currentColor" stop-opacity="0"/></radialGradient></defs><g class="ariie-dial"><circle cx="60" cy="60" r="55" class="ariie-ticks"/></g><g class="ariie-arcs" stroke="url(#a3g)"><circle class="ariie-arc" cx="60" cy="60" r="38" stroke-dasharray="79.59 238.76" style="transform: translate(0.00px, 0.00px) rotate(-90.00deg)"/><circle class="ariie-arc" cx="60" cy="60" r="38" stroke-dasharray="79.59 238.76" style="transform: translate(0.00px, 0.00px) rotate(30.00deg)"/><circle class="ariie-arc" cx="60" cy="60" r="38" stroke-dasharray="79.59 238.76" style="transform: translate(0.00px, 0.00px) rotate(150.00deg)"/></g><circle class="ariie-halo" cx="60" cy="60" r="20" fill="url(#a3h)"/><circle class="ariie-core" cx="60" cy="60" r="6.5"/></svg></div>
-      </div>
-    </div>
-  </section>
-
   <section class="slide era-present" aria-label="Le parcours">
     <div class="backdrop"><svg class="dial" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96"/><circle r="78"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(0)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(6)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(12)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(18)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(24)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(30)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(36)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(42)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(48)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(54)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(60)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(66)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(72)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(78)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(84)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(90)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(96)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(102)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(108)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(114)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(120)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(126)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(132)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(138)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(144)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(150)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(156)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(162)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(168)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(174)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(180)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(186)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(192)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(198)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(204)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(210)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(216)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(222)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(228)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(234)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(240)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(246)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(252)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(258)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(264)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(270)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(276)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(282)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(288)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(294)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(300)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(306)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(312)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(318)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(324)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(330)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(336)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(342)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(348)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(354)"/></svg></div>
     <p class="eyebrow in">Le parcours</p>
@@ -546,11 +478,6 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
           <div class="chapter in" style="--tone:var(--future);--d:5"><span class="node"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"/><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"/><path d="M5 21h14"/></svg></span><small>Acte III</small><h3>La transmission</h3><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot is-optional"></i><i class="dot"></i></div></div>
           <div class="chapter in" style="--tone:var(--final);--d:6"><span class="node"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg></span><small>Fin</small><h3>La capsule</h3></div>
         </div>
-        <p class="route-note in" style="--d:7">
-          <span><i class="dot" style="--tone:var(--present);background:var(--muted)"></i>Mission</span>
-          <span><i class="dot is-optional" style="--tone:var(--muted)"></i>Conseil facultatif</span>
-          <span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>Dossier bonus : Illkirch, 2009 · 2017</span>
-        </p>
       </div>
     </div>
   </section>
@@ -571,36 +498,24 @@ button:focus-visible { outline: 2px solid #fff4d6; outline-offset: 3px; }
     </div>
   </section>
 
-  <section class="slide era-past" aria-label="Apprendre en jouant">
+  <section class="slide era-present" aria-label="Choix techniques">
     <div class="backdrop"><svg class="dial" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96"/><circle r="78"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(0)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(6)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(12)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(18)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(24)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(30)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(36)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(42)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(48)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(54)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(60)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(66)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(72)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(78)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(84)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(90)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(96)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(102)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(108)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(114)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(120)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(126)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(132)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(138)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(144)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(150)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(156)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(162)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(168)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(174)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(180)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(186)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(192)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(198)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(204)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(210)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(216)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(222)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(228)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(234)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(240)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(246)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(252)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(258)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(264)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(270)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(276)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(282)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(288)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(294)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(300)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(306)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(312)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(318)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(324)"/><line x1="0" y1="-96" x2="0" y2="-88" transform="rotate(330)" class="major"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(336)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(342)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(348)"/><line x1="0" y1="-92" x2="0" y2="-88" transform="rotate(354)"/></svg></div>
-    <p class="eyebrow in">Apprendre en jouant</p>
-    <h2 class="in" style="--d:1">Ludique et pédagogique</h2>
+    <p class="eyebrow in">Choix techniques</p>
+    <h2 class="in" style="--d:1">Simple à lancer, simple à faire évoluer</h2>
     <div class="body">
-      <div class="learn">
-        <div class="side in" style="--tone:var(--future);--d:2">
-          <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>On joue</h3>
-          <ul class="checks">
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Des énigmes variées</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Une histoire, des dialogues</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Des choix qui comptent</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Aucune élimination</li>
-          </ul>
+      <div class="project">
+        <div class="pillars is-four">
+          <div class="pillar in" style="--tone:var(--present);--d:2"><span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span><h3>Une page web</h3><p>Rien à installer : un lien ou un QR code</p></div>
+          <div class="pillar in" style="--tone:var(--past);--d:3"><span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/></svg></span><h3>Hors ligne</h3><p>Une fois chargé, le jeu tourne sans réseau</p></div>
+          <div class="pillar in" style="--tone:var(--future);--d:4"><span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></span><h3>GitHub Pages</h3><p>Hébergement gratuit, sans serveur</p></div>
+          <div class="pillar in" style="--tone:var(--final);--d:5"><span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg></span><h3>Niveaux en JSON</h3><p>Une énigme s’ajoute sans toucher au moteur</p></div>
         </div>
-        <div class="side in" style="--tone:var(--past);--d:3">
-          <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>On apprend</h3>
-          <ol class="milestones">
-            <li><b>1968</b>L’IIE naît au Cnam</li>
-            <li><b>1984</b>Installation à Évry</li>
-            <li><b>2006</b>L’IIE devient l’ENSIIE</li>
-          </ol>
-          <ul class="checks">
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Les formations et la vie étudiante</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Vérifier une source, séparer fait et fiction</li>
-          </ul>
+        <div class="pills in" style="--d:6">
+          <span class="pill"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>React · TypeScript · Vite</span>
+          <span class="pill"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Testé automatiquement à chaque mise à jour</span>
         </div>
       </div>
     </div>
-    <p class="learn-note in" style="--d:4"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>Chaque mission se termine sur ce que l’équipe vient d’apprendre.</p>
   </section>
 
   <section class="slide era-present title-slide is-centered" aria-label="Démo">
